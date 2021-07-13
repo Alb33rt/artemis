@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {theme} from '../colorTheme';
-import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const classes = useStyles;
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
@@ -48,6 +49,9 @@ export default class SignUp extends React.Component {
     }
   }
 
+  afterSubmission(event) {
+    event.preventDefault();
+}
   getUserName(input) {
     this.setState({
       userName: input.target.value
@@ -69,6 +73,7 @@ export default class SignUp extends React.Component {
     })
   }
   postRequest(e) {
+    const { history } = this.props;
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -86,20 +91,17 @@ export default class SignUp extends React.Component {
     console.log("sending POST request");
     
     fetch('http://localhost:8000/api-login/register', requestOptions)
-    .then(json => {
-      localStorage.setItem("login",JSON.stringify({
-        login:true,
-        token:json.token
-      }))
-      console.log("token"+this.state.token)
+    .then(response=>response.json())
+    .then(data => {
+      this.setState({
+        token:data['token']
+      })
+      localStorage.setItem('login',true);
+      localStorage.setItem("Authentication","Token "+data['token']);
+      history.push("/");
     })
     .catch(error => {
-      if(error=TypeError){
-        console.log("arrived here")
-    }
-    else{
       console.log(error);
-    }
   });
   }
 
@@ -114,7 +116,7 @@ export default class SignUp extends React.Component {
           </Typography>
           <Box mt={1}>
         </Box>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={this.afterSubmission.bind(this)}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -126,7 +128,7 @@ export default class SignUp extends React.Component {
                   id="userName"
                   label="User Name"
                   autoFocus
-                  value={this.userName}
+                  value={this.state.userName}
                   onChange={this.getUserName.bind(this)}
                 />
               </Grid>
@@ -139,7 +141,7 @@ export default class SignUp extends React.Component {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  value={this.emailAddress}
+                  value={this.state.emailAddress}
                   onChange={this.getEmail.bind(this)}
                 />
               </Grid>
@@ -153,7 +155,7 @@ export default class SignUp extends React.Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={this.password}
+                  value={this.state.password}
                   onChange={this.getPassword.bind(this)}
                 />
               </Grid>
@@ -167,7 +169,7 @@ export default class SignUp extends React.Component {
                   type="password"
                   id="password2"
                   autoComplete="Confirm Password"
-                  value={this.password2}
+                  value={this.state.password2}
                   onChange={this.getPassword2.bind(this)}
                 />
               </Grid>
@@ -181,6 +183,7 @@ export default class SignUp extends React.Component {
               color="primary"
               className={classes.submit}
               onClick={this.postRequest.bind(this)}
+              onSubmit={this.afterSubmission.bind(this)}
             >
               Sign Up
             </Button>
@@ -200,3 +203,4 @@ export default class SignUp extends React.Component {
     );
   }
 }
+export default withRouter(SignUp);
