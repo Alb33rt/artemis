@@ -27,4 +27,5 @@ class LoginAPI(APIView):
         '''
         The Login API retrives the data from the request and verified through the REST API's authentication system, if not respond with a failed request as passwords are different.
         '''
-        pass
+        serializer = RegisterSerializer(request.data)
+        data = {}
