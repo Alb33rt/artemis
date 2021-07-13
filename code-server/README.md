@@ -9,4 +9,9 @@ This is in the file ``requirements.txt``
 ``pytz==2021.1``
 ``sqlparse==0.4.1``
 
+
+### Admin and SuperUsers
 Admin: Admin
+Password: admin110
+
+email: Admin123@gmail.com
