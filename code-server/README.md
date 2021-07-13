@@ -9,4 +9,9 @@ This is in the file ``requirements.txt``
 ``pytz==2021.1``
 ``sqlparse==0.4.1``
 
-Admin: Admin
+## Admin 
+
+When using the superuser, follow the following credentials
+
+Username: ''Admin''
+Password: ''admin110''
