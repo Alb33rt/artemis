@@ -86,22 +86,21 @@ export default class SignUp extends React.Component {
     console.log("sending POST request");
     
     fetch('http://localhost:8000/api-login/register', requestOptions)
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        console.log(res);
-        throw Error(res.statusText);
-      }
-    })
     .then(json => {
-      this.setState({
-        isLoaded: true,
-        token: json
-      });
+      localStorage.setItem("login",JSON.stringify({
+        login:true,
+        token:json.token
+      }))
       console.log("token"+this.state.token)
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      if(error=TypeError){
+        console.log("arrived here")
+    }
+    else{
+      console.log(error);
+    }
+  });
   }
 
   render() {
