@@ -81,6 +81,29 @@ export default class Dashboard extends React.Component {
     getCarbonEmission(days) {
 
     }
+    sendAPIRequest = () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              "Access-Control-Request-Method": "POST"
+            },
+            body: JSON.stringify({
+              
+            })
+          };
+          console.log("sending POST request");
+      
+          fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              
+            })
+            .catch(error => {
+              console.log(error);
+            });
+    }
 
     render() {
         return <div>

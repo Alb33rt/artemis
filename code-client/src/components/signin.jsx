@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { theme } from '../colorTheme';
+import { Redirect, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,19 +33,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const classes = useStyles;
+
 export default class SignIn extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       emailAddress: "",
+      username: "",
       password: "",
       token: "",
-      login: false
+      isAuthenticated: false,
+      redirect: "/signin",
     }
   }
   afterSubmission(event) {
     event.preventDefault();
+  }
+  getUsername(input) {
+    this.setState({
+      username: input.target.value
+    })
   }
   getEmail(input) {
     this.setState({
@@ -56,6 +65,7 @@ export default class SignIn extends React.Component {
       password: input.target.value
     })
   }
+
   postRequest(e) {
     const requestOptions = {
       method: 'POST',
@@ -66,6 +76,7 @@ export default class SignIn extends React.Component {
       },
       body: JSON.stringify({
         "email": this.state.emailAddress,
+        "username": this.state.username,
         "password": this.state.password,
       })
     };
@@ -77,12 +88,25 @@ export default class SignIn extends React.Component {
         this.setState({
           token: data['token']
         })
-        localStorage.setItem('login', true);
         localStorage.setItem("Authentication", "Token " + data['token']);
+        localStorage.setItem('isAuthenticated', true);
+        this.setState({isAuthenticated:true});
+        this.setRedirect();
+        return this.renderRedirect();
       })
       .catch(error => {
         console.log(error);
       });
+  }
+  renderRedirect() {
+      if (this.state.isAuthenticated && this.state.redirect ) {
+        console.log("Redirecting to Home")
+      }
+  }
+  setRedirect = () => {
+    this.setState({
+      redirect: "/dashboard"
+    })
   }
   render() {
     return (
@@ -99,13 +123,13 @@ export default class SignIn extends React.Component {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
-                value={this.state.emailAddress}
-                onChange={this.getEmail.bind(this)}
+                value={this.state.username}
+                onChange={this.getUsername.bind(this)}
               />
               <TextField
                 variant="outlined"
@@ -132,8 +156,10 @@ export default class SignIn extends React.Component {
                 className={classes.submit}
                 onClick={this.postRequest.bind(this)}
               >
+                <Redirect to={this.state.redirect} />
                 Sign In
               </Button>
+              
               <Grid container>
                 <Grid item>
                   <Link href="/signup" variant="body2">

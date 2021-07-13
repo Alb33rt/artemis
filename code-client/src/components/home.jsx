@@ -25,6 +25,7 @@ export default class Home extends React.Component {
     
     render() {
         return (
+            <Container max-width="lg">
             <HeroSection>
                 <HeroWrapper>
                     <div style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -32,6 +33,7 @@ export default class Home extends React.Component {
                     </div>
                 </HeroWrapper>
             </HeroSection>
+            </Container>
         )
     }
 }
