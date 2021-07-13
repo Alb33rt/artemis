@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {theme} from '../colorTheme';
+import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -64,7 +66,7 @@ export default class SignUp extends React.Component {
       password2: input.target.value
     })
   }
-
+  
   postTokenRequest(e){
     fetch("http://localhost:8000/api-login/register", {
       method: "POST",
