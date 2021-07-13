@@ -38,8 +38,8 @@ function NavBar(props) {
                                 <MenuIcon />
                             </IconButton>
                         </Hidden>
-                        <Button color="secondary" className={classes.title} to="/">
-                            <strong>Artemis</strong>
+                        <Button color="secondary" className={classes.title} to="/" component={Link}>
+                            Artemis
                         </Button>
                         <Hidden mdDown>
                             <Button variant= "contained" color="primary" to="/signin" component={Link} style={{left:'71%'}}>Login</Button>

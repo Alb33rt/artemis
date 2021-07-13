@@ -1,5 +1,6 @@
 import React from "react";
 import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 import {
     Chart,
     BarSeries,
@@ -66,6 +67,7 @@ export default class Dashboard extends React.Component {
 
     render() {
         return <div>
+            <Container>
             <Paper>
                 <Chart
                     data={barPlaceholderData}
@@ -116,6 +118,7 @@ export default class Dashboard extends React.Component {
                 <AddIcon />
                 Add Entry
             </Fab>
+            </Container>
         </div>
     }
 }
