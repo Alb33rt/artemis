@@ -68,9 +68,12 @@ export default class SignUp extends React.Component {
   postTokenRequest(e){
     fetch("http://localhost:8000/api-login/register", {
       method: "POST",
+      credentials: 'include',
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "Access-Control-Request-Method": "POST",
+        "Authentication":null
       },
       body: JSON.stringify({
         "email": this.state.emailAddress,
@@ -83,6 +86,7 @@ export default class SignUp extends React.Component {
         if (res.ok) {
           return res.json();
         } else {
+          console.log(res);
           throw Error(res.statusText);
         }
       })
