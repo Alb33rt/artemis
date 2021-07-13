@@ -1,5 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import reciever
+from rest_framework.authtoken.models import Token
+
 import bcrypt
 
 # Create your models here.
@@ -21,3 +27,11 @@ def check_password(password: bytes, password_hash: bytes) -> bool:
     # This function can compare the hash codes and give off a boolean whether the passwords are the same.
     # This would solve the encryption easily and really convenient
     return bcrypt.checkpw(password, password_hash)
+
+@reciever(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    '''
+    Automatically creates token for every new user created.
+    '''
+    if created:
+        Token.objects.create(user=instance)
