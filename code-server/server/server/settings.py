@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'user_auth.apps.UserAuthConfig',
+    'carbon.apps.CarbonConfig',
+    'stats.apps.StatsConfig',
+    'donation.apps.DonationConfig',
 ]
 
 MIDDLEWARE = [

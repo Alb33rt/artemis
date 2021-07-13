@@ -18,7 +18,8 @@ from django.urls import path, include
 from rest_framework.authtoken import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls'), name="api"),
-    path('api-login/', include('user_auth.urls'), name="user_auth"),
+    path(r'admin/', admin.site.urls),
+    path(r'api/', include('api.urls'), name="api"),
+    path(r'api-login/', include('user_auth.urls'), name="api-login"),
+    path(r'api-carbon/', include('carbon.urls'), name="api-carbon"),
 ]
