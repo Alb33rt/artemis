@@ -13,3 +13,4 @@ def translate_to_trees(entry: CarbonEntry):
             entry.true_emission = ef["true_factor"] * entry.emission
             entry.tree_emission = ef["tree_factor"] * entry.emission
             break
+    return entry
