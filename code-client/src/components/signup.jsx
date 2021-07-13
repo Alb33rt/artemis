@@ -122,7 +122,7 @@ export default class SignUp extends React.Component {
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper} style={{marginTop:"60%"}}>
+        <div className={classes.paper} style={{marginTop:"40%"}}>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
