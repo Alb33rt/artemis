@@ -4,6 +4,7 @@
 3. ``npm i @material-ui/icons``
 4. ``npm i --save @devexpress/dx-react-core @devexpress/dx-react-chart`` then ``npm i --save @devexpress/dx-react-chart-material-ui``
 5. ``npm i @devexpress/dx-react-chart-material-ui`` and ``@devexpress/dx-react-chart``
+6. ``npm install --save styled-components``
 
 # Getting Started with Create React App
 
