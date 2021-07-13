@@ -8,8 +8,9 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {theme} from '../colorTheme';
   
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,6 +36,7 @@ import Container from '@material-ui/core/Container';
 
     render(){
     return (
+      <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper} style={{marginTop:"50%"}}>
@@ -89,5 +91,6 @@ import Container from '@material-ui/core/Container';
         <Box mt={8}>
         </Box>
       </Container>
+      </ThemeProvider>
     );}
   }
