@@ -1,8 +1,8 @@
 import React from "react";
 import Container from '@material-ui/core/Container';
 import styled, { css } from 'styled-components/macro'
-const backgroundImage =
-    "code-client\public\hero_Shot.jpg";
+import backgroundImage from '../images/hero_Shot.jpg';
+
 const HeroSection = styled.section`
     height: 100vh;
     max-height: 1100px;
@@ -27,7 +27,7 @@ export default class Home extends React.Component {
         return (
             <HeroSection>
                 <HeroWrapper>
-                    <div style={{ backgroundImage: "url(/image.png)" }}>
+                    <div style={{ backgroundImage: `url(${backgroundImage})` }}>
                         ENTER SLOGAN GUYS!!!!!
                     </div>
                 </HeroWrapper>
