@@ -1,11 +1,11 @@
 import React from "react";
 
-export class SignUp extends React.Component {
+export default class SignIn extends React.Component {
     sendInfo(){
         
     }
     
     render() {
-        return <p> Sign Up </p>
+        return <p> Sign In </p>
     }
 }
