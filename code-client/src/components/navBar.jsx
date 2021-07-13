@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {theme} from '../colorTheme';
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -37,8 +38,9 @@ function NavBar(props) {
                             Home
                         </Link>
                     </Typography>
-                    <Button variant= "contained" color="primary" to="/signin" component={Link}>Login</Button>
-                    <Button variant= "contained" color="primary" to="/signup" component={Link}>Sign Up</Button>
+                    <Button variant= "contained" color="primary" to="/signin" component={Link} style={{left:'71%'}}>Login</Button>
+                    <Button variant= "contained" color="primary" to="/signup" component={Link} style={{left:'72%'}}>Sign Up</Button>
+                    
                 </Toolbar>
             </AppBar>
         </div>
