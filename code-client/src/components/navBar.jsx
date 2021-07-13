@@ -35,8 +35,8 @@ function NavBar(props) {
                             Home
                         </Link>
                     </Typography>
-                    <Link to="./signin"><Button color="inherit">Login</Button></Link>
-                    <Link to="./signup"><Button color="inherit">Sign Up</Button></Link>
+                    <Button variant= "contained" color="primary" to="/signin" component={Link}>Login</Button>
+                    <Button variant= "contained" color="primary" to="/signup" component={Link}>Sign Up</Button>
                 </Toolbar>
             </AppBar>
         </div>
