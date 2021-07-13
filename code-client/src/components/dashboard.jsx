@@ -29,18 +29,18 @@ const docutData = [
     { region: 'Latin America and the Caribbean', val: 590946440 },
     { region: 'Europe', val: 727082222 },
     { region: 'Oceania', val: 35104756 },
-  ];
+];
 
 const useStyles = makeStyles((theme) => ({
     margin: {
-      margin: theme.spacing(1),
+        margin: theme.spacing(1),
     },
     extendedIcon: {
-      marginRight: theme.spacing(1),
+        marginRight: theme.spacing(1),
     },
-  }));
+}));
 
-  const style = {
+const style = {
     margin: 0,
     top: 'auto',
     right: 20,
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const classes = useStyles;
 export default class Dashboard extends React.Component {
-    
+
 
     constructor(props) {
         super(props);
@@ -60,7 +60,7 @@ export default class Dashboard extends React.Component {
         };
     }
 
-    getCarbonEmission(days){
+    getCarbonEmission(days) {
 
     }
 
@@ -82,22 +82,35 @@ export default class Dashboard extends React.Component {
                 </Chart>
             </Paper>
             <Paper>
-        <Chart
-          data={docutData}
-        >
-          <PieSeries
-            valueField="val"
-            argumentField="region"
-            innerRadius={0.6}
-          />
-          <Title
-            text="The Population of Continents and Regions"
-          />
-          <Animation />
-        </Chart>
-      </Paper>
+                <Chart
+                    data={docutData}
+                >
+                    <PieSeries
+                        valueField="val"
+                        argumentField="region"
+                        innerRadius={0.6}
+                    />
+                    <Title
+                        text="The Population of Continents and Regions"
+                    />
+                    <Animation />
+                </Chart>
+                <Chart
+                    data={docutData}
+                >
+                    <PieSeries
+                        valueField="val"
+                        argumentField="region"
+                        innerRadius={0.6}
+                    />
+                    <Title
+                        text="The Population of Continents and Regions"
+                    />
+                    <Animation />
+                </Chart>
+            </Paper>
             <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style}>
-                <AddIcon/>
+                <AddIcon />
                 Add Entry
             </Fab>
         </div>
