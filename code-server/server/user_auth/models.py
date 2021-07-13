@@ -4,6 +4,7 @@ import bcrypt
 
 # Create your models here.
 class User(AbstractUser):
+    pass
 
 
 # def generate_password_hash(password: str) -> bytes:
