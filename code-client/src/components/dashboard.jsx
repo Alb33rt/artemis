@@ -81,9 +81,10 @@ export default class Dashboard extends React.Component {
                     <Animation />
                 </Chart>
             </Paper>
-            <Paper>
+            <Paper style={{marginTop:"5%"}}>
                 <Chart
                     data={docutData}
+                    style={{width:"50%", float: "right"}}
                 >
                     <PieSeries
                         valueField="val"
@@ -97,6 +98,7 @@ export default class Dashboard extends React.Component {
                 </Chart>
                 <Chart
                     data={docutData}
+                    style={{width:"50%", float: "right"}}
                 >
                     <PieSeries
                         valueField="val"
@@ -109,6 +111,7 @@ export default class Dashboard extends React.Component {
                     <Animation />
                 </Chart>
             </Paper>
+            
             <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style}>
                 <AddIcon />
                 Add Entry
