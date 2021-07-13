@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {theme} from '../colorTheme';
-import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const classes = useStyles;
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
@@ -72,6 +73,7 @@ export default class SignUp extends React.Component {
     })
   }
   postRequest(e) {
+    const { history } = this.props;
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -96,6 +98,7 @@ export default class SignUp extends React.Component {
       })
       localStorage.setItem('login',true);
       localStorage.setItem("Authentication","Token "+data['token']);
+      history.push("/");
     })
     .catch(error => {
       console.log(error);
@@ -200,3 +203,4 @@ export default class SignUp extends React.Component {
     );
   }
 }
+export default withRouter(SignUp);
