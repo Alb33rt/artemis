@@ -1,3 +1,8 @@
+## Packages
+1. ``npm i react-router-dom``
+2. ``npm install @material-ui/core``
+3. ``npm i @material-ui/icons``
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
