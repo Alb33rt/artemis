@@ -42,7 +42,9 @@ export default class SignUp extends React.Component {
       userName: "",
       emailAddress: "",
       password: "",
-      password2: ""
+      password2: "",
+      token:"",
+      isLoaded:false
     }
   }
 
@@ -66,42 +68,6 @@ export default class SignUp extends React.Component {
       password2: input.target.value
     })
   }
-  
-  postTokenRequest(e){
-    fetch("http://localhost:8000/api-login/register", {
-      method: "POST",
-      credentials: 'include',
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Request-Method": "POST",
-        "Authentication": null
-      },
-      body: JSON.stringify({
-        "email": this.state.emailAddress,
-        "username": this.state.userName,
-        "password": this.state.password,
-        "password2": this.state.password2
-      })
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          console.log(res);
-          throw Error(res.statusText);
-        }
-      })
-      .then(json => {
-        this.setState({
-          isLoaded: true,
-          token: json
-        });
-      })
-      .catch(error => console.error(error));
-  }
-  
-
   postRequest(e) {
     const requestOptions = {
       method: 'POST',
@@ -117,10 +83,25 @@ export default class SignUp extends React.Component {
         "password2": this.state.password2
       })
     };
-    e.preventDefault()
     console.log("sending POST request");
     
     fetch('http://localhost:8000/api-login/register', requestOptions)
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        console.log(res);
+        throw Error(res.statusText);
+      }
+    })
+    .then(json => {
+      this.setState({
+        isLoaded: true,
+        token: json
+      });
+      console.log("token"+this.state.token)
+    })
+    .catch(error => console.error(error));
   }
 
   render() {
@@ -132,6 +113,8 @@ export default class SignUp extends React.Component {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          <Box mt={1}>
+        </Box>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
