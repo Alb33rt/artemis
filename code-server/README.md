@@ -8,3 +8,10 @@ This is in the file ``requirements.txt``
 ``djangorestframework==3.12.4``
 ``pytz==2021.1``
 ``sqlparse==0.4.1``
+
+## Admin 
+
+When using the superuser, follow the following credentials
+
+Username: ''Admin''
+Password: ''admin110''
