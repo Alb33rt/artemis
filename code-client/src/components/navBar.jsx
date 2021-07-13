@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container'
+import Hidden from '@material-ui/core/Hidden'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -30,17 +32,20 @@ function NavBar(props) {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        <Link className="nav-link" to="/">
-                            Home
-                        </Link>
-                    </Typography>
-                    <Button variant= "contained" color="primary" to="/signin" component={Link} style={{left:'71%'}}>Login</Button>
-                    <Button variant= "contained" color="primary" to="/signup" component={Link} style={{left:'72%'}}>Sign Up</Button>
-                    
+                    <Container maxWidth="lg">
+                        <Hidden mdUp>
+                            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                                <MenuIcon />
+                            </IconButton>
+                        </Hidden>
+                        <Button color="secondary" className={classes.title} to="/">
+                            <strong>Artemis</strong>
+                        </Button>
+                        <Hidden mdDown>
+                        <Button variant= "contained" color="primary" to="/signin" component={Link} style={{left:'71%'}}>Login</Button>
+                        <Button variant= "contained" color="primary" to="/signup" component={Link} style={{left:'72%'}}>Sign Up</Button>
+                        </Hidden>
+                    </Container>
                 </Toolbar>
             </AppBar>
         </div>
