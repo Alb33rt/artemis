@@ -2,6 +2,7 @@ import React from "react";
 import Container from '@material-ui/core/Container';
 import styled, { css } from 'styled-components/macro'
 import backgroundImage from '../images/hero_Shot.jpg';
+import { withRouter } from "react-router";
 
 const HeroSection = styled.section`
     height: 100vh;
@@ -21,7 +22,20 @@ const HeroWrapper = styled.div`
     position: relative;
 `;
 
-export default class Home extends React.Component {
+class Home extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuthenticated: localStorage.getItem("isAuthenticated")
+        }
+    }
+
+    componentDidMount() {
+        const { history } = this.props;
+        if (this.state.isAuthenticated) {
+            history.push('/dashboard');
+        }
+    }
     
     render() {
         return (
@@ -37,3 +51,5 @@ export default class Home extends React.Component {
         )
     }
 }
+
+export default withRouter(Home);

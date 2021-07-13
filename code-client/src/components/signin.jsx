@@ -12,6 +12,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { theme } from '../colorTheme';
 import { Redirect, useHistory } from "react-router-dom";
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const classes = useStyles;
 
-export default class SignIn extends React.Component {
+class SignIn extends React.Component {
 
   constructor(props) {
     super(props);
@@ -67,6 +68,7 @@ export default class SignIn extends React.Component {
   }
 
   postRequest(e) {
+    const { history } = this.props;
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -91,8 +93,8 @@ export default class SignIn extends React.Component {
         localStorage.setItem("Authentication", "Token " + data['token']);
         localStorage.setItem('isAuthenticated', true);
         this.setState({isAuthenticated:true});
+        history.push("/dashboard");
         this.setRedirect();
-        return this.renderRedirect();
       })
       .catch(error => {
         console.log(error);
@@ -156,7 +158,7 @@ export default class SignIn extends React.Component {
                 className={classes.submit}
                 onClick={this.postRequest.bind(this)}
               >
-                <Redirect to={this.state.redirect} />
+                
                 Sign In
               </Button>
               
@@ -176,3 +178,5 @@ export default class SignIn extends React.Component {
     );
   }
 }
+
+export default withRouter(SignIn);

@@ -10,6 +10,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {theme} from '../colorTheme';
 import { withRouter } from 'react-router-dom';
+import { Redirect } from "react-router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +46,7 @@ class SignUp extends React.Component {
       password: "",
       password2: "",
       token:"",
-      isLoaded:false
+      isLoaded:false,
     }
   }
 
@@ -98,7 +99,7 @@ class SignUp extends React.Component {
       })
       localStorage.setItem('login',true);
       localStorage.setItem("Authentication","Token "+data['token']);
-      history.push("/");
+      history.push("/dashboard");
     })
     .catch(error => {
       console.log(error);
@@ -185,6 +186,7 @@ class SignUp extends React.Component {
               onClick={this.postRequest.bind(this)}
               onSubmit={this.afterSubmission.bind(this)}
             >
+              
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
