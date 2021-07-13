@@ -34,14 +34,9 @@ function NavBar(props) {
                         <Link class="nav-link" to="/">
                             Home
                         </Link>
-                        <Link class="nav-link" to="/signup">
-                            Sign Up
-                        </Link>
-                        <Link class="nav-link" to="/signin">
-                            Sign In
-                        </Link>
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Link to="./signin"><Button color="inherit">Login</Button></Link>
+                    <Link to="./signup"><Button color="inherit">Sign Up</Button></Link>
                 </Toolbar>
             </AppBar>
         </div>
