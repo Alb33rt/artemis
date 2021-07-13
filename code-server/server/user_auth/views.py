@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, LoginSerializer
 
 # Create your views here.
 class RegisterAPI(APIView):
@@ -27,5 +28,19 @@ class LoginAPI(APIView):
         '''
         The Login API retrives the data from the request and verified through the REST API's authentication system, if not respond with a failed request as passwords are different.
         '''
-        serializer = RegisterSerializer(request.data)
+        serializer = LoginSerializer(request.data)
         data = {}
+        user = authenticate(
+            username=serializer.validated_data['username'], 
+            password=serializer.validated_data['password'],
+        )
+        if user is not None:
+            login(request, user)
+            data['response'] = "Successfully Logged In"
+            data['success'] = True
+            data['email'] = user.email
+            data['username'] = user.username
+        else: 
+            data['response'] = "Logged in Failed"
+            data['success']= False
+        return Response(data)
