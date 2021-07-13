@@ -132,6 +132,8 @@ export default class SignUp extends React.Component {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          <Box mt={1}>
+        </Box>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
               <Grid item xs={12}>
