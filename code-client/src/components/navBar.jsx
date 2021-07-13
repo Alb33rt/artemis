@@ -34,7 +34,7 @@ function NavBar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        <Link class="nav-link" to="/">
+                        <Link className="nav-link" to="/">
                             Home
                         </Link>
                     </Typography>
