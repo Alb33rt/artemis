@@ -42,8 +42,8 @@ function NavBar(props) {
                             <strong>Artemis</strong>
                         </Button>
                         <Hidden mdDown>
-                        <Button variant= "contained" color="primary" to="/signin" component={Link} style={{left:'71%'}}>Login</Button>
-                        <Button variant= "contained" color="primary" to="/signup" component={Link} style={{left:'72%'}}>Sign Up</Button>
+                            <Button variant= "contained" color="primary" to="/signin" component={Link} style={{left:'71%'}}>Login</Button>
+                            <Button variant= "contained" color="primary" to="/signup" component={Link} style={{left:'72%'}}>Sign Up</Button>
                         </Hidden>
                     </Container>
                 </Toolbar>

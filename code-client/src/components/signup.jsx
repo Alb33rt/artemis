@@ -75,7 +75,7 @@ export default class SignUp extends React.Component {
         Accept: "application/json",
         "Content-Type": "application/json",
         "Access-Control-Request-Method": "POST",
-        "Authentication":null
+        "Authentication": null
       },
       body: JSON.stringify({
         "email": this.state.emailAddress,
