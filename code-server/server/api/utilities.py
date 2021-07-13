@@ -32,6 +32,10 @@ def get_total_emission():
 def get_total_emission_user(user: User):
     # get the total amount of emission of the user so far in "trees"
     entry = CarbonEntry.object.filter(username=user.username)
+    total = 0
+    for e in entry:
+        total += e.tree_emission
+    return total
 
 
 def get_average_emission_user():
