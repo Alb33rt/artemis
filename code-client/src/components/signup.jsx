@@ -91,7 +91,6 @@ export default class SignUp extends React.Component {
     fetch('http://localhost:8000/api-login/register', requestOptions)
     .then(response=>response.json())
     .then(data => {
-      console.log(data);
       this.setState({
         token:data['token']
       })
@@ -126,7 +125,7 @@ export default class SignUp extends React.Component {
                   id="userName"
                   label="User Name"
                   autoFocus
-                  value={this.userName}
+                  value={this.state.userName}
                   onChange={this.getUserName.bind(this)}
                 />
               </Grid>
@@ -139,7 +138,7 @@ export default class SignUp extends React.Component {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  value={this.emailAddress}
+                  value={this.state.emailAddress}
                   onChange={this.getEmail.bind(this)}
                 />
               </Grid>
@@ -153,7 +152,7 @@ export default class SignUp extends React.Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={this.password}
+                  value={this.state.password}
                   onChange={this.getPassword.bind(this)}
                 />
               </Grid>
@@ -167,7 +166,7 @@ export default class SignUp extends React.Component {
                   type="password"
                   id="password2"
                   autoComplete="Confirm Password"
-                  value={this.password2}
+                  value={this.state.password2}
                   onChange={this.getPassword2.bind(this)}
                 />
               </Grid>
