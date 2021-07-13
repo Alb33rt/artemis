@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const classes = useStyles;
-
 export default class SignUp extends React.Component {
 
   constructor(props){
@@ -62,7 +61,7 @@ export default class SignUp extends React.Component {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className={classes.paper} style={{marginTop:"50%"}}>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>

@@ -55,7 +55,7 @@ export default class SignIn extends React.Component{
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
+        <div className={classes.paper} style={{marginTop:"50%"}}>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
