@@ -48,6 +48,9 @@ export default class SignUp extends React.Component {
     }
   }
 
+  afterSubmission(event) {
+    event.preventDefault();
+}
   getUserName(input) {
     this.setState({
       userName: input.target.value
@@ -86,20 +89,17 @@ export default class SignUp extends React.Component {
     console.log("sending POST request");
     
     fetch('http://localhost:8000/api-login/register', requestOptions)
-    .then(json => {
-      localStorage.setItem("login",JSON.stringify({
-        login:true,
-        token:json.token
-      }))
-      console.log("token"+this.state.token)
+    .then(response=>response.json())
+    .then(data => {
+      console.log(data);
+      this.setState({
+        token:data['token']
+      })
+      localStorage.setItem('login',true);
+      localStorage.setItem("Authentication","Token "+data['token']);
     })
     .catch(error => {
-      if(error=TypeError){
-        console.log("arrived here")
-    }
-    else{
       console.log(error);
-    }
   });
   }
 
@@ -114,7 +114,7 @@ export default class SignUp extends React.Component {
           </Typography>
           <Box mt={1}>
         </Box>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={this.afterSubmission.bind(this)}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -181,6 +181,7 @@ export default class SignUp extends React.Component {
               color="primary"
               className={classes.submit}
               onClick={this.postRequest.bind(this)}
+              onSubmit={this.afterSubmission.bind(this)}
             >
               Sign Up
             </Button>

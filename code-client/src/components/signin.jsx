@@ -34,6 +34,58 @@ import {theme} from '../colorTheme';
   const classes = useStyles;
   export default class SignIn extends React.Component{
 
+    constructor(props){
+      super(props);
+      this.state={
+        emailAddress:"",
+        password:"",
+        token:"",
+        login:false
+      }
+    }
+    afterSubmission(event) {
+      event.preventDefault();
+  }
+    getEmail(input) {
+      this.setState({
+        emailAddress: input.target.value
+      })
+    }
+    getPassword(input) {
+      this.setState({
+        password: input.target.value
+      })
+    }
+    postRequest(e) {
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          "Access-Control-Request-Method": "POST"
+        },
+        body: JSON.stringify({
+          "email": this.state.emailAddress,
+          "username": this.state.userName,
+          "password": this.state.password,
+          "password2": this.state.password2
+        })
+      };
+      console.log("sending POST request");
+      
+      fetch('http://localhost:8000/api-login/register', requestOptions)
+      .then((json) => {
+        console.log(JSON.stringify(json));
+        localStorage.setItem("login",JSON.stringify({
+          login:true,
+          token:json.token
+        }))
+        console.log("token"+this.state.token)
+      })
+      .catch(error => {
+        console.log(error);
+    });
+    }
     render(){
     return (
       <ThemeProvider theme={theme}>
