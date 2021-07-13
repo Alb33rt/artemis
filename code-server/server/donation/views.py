@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Donation
-from .serializers import DonationSerializer
+from .serializers import DonationSerializer, AddDonationSerializer
 
 # Create your views here.
 class DonationAPI(APIView):
@@ -11,7 +11,7 @@ class DonationAPI(APIView):
         pass
 
     def post(self, request, format=None):
-        serializer = DonationSerializer(data=request.data)
+        serializer = AddDonationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
