@@ -22,16 +22,20 @@ def translate_to_trees(entry: CarbonEntry):
 
 def get_total_emission():
     # get the total amount of emission of all users so far in "trees"
-    entry = CarbonEntry.objects.all()
+    queryset = CarbonEntry.objects.all()
     total = 0
-    for e in entry:
+    for e in queryset:
         total += e.tree_emission
     return total
 
 
 def get_total_emission_user(user: User):
     # get the total amount of emission of the user so far in "trees"
-    entry = CarbonEntry.object.filter(username=user.username)
+    queryset = CarbonEntry.object.filter(username=user.username)
+    total = 0
+    for e in queryset:
+        total += e.tree_emission
+    return total
 
 
 def get_average_emission_user():
@@ -46,4 +50,21 @@ def get_average_emission_general():
 
 def get_total_donation():
     # get the total amount of donation so far
+    queryset = Donation.object.all()
+    total = 0
+    for d in queryset:
+        total += d.amount
+    return total
+
+
+def get_total_donation_user(user: User):
+    # get the total donation done so far of the user
+    queryset = Donation.object.filter(username=user.username)
+    total = 0
+    for d in queryset:
+        total += d.amount
+
+
+def get_average_donation():
+    # get average donation done per user
     pass
