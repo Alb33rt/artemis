@@ -1,12 +1,14 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import {theme} from '../colorTheme';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,6 +26,7 @@ function NavBar(props) {
     const classes = useStyles;
 
     return (
+        <ThemeProvider theme={theme}>
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
@@ -35,11 +38,13 @@ function NavBar(props) {
                             Home
                         </Link>
                     </Typography>
-                    <Button variant= "contained" color="primary" to="/signin" component={Link}>Login</Button>
-                    <Button variant= "contained" color="primary" to="/signup" component={Link}>Sign Up</Button>
+                    <Button variant= "contained" color="primary" to="/signin" component={Link} style={{left:'71%'}}>Login</Button>
+                    <Button variant= "contained" color="primary" to="/signup" component={Link} style={{left:'72%'}}>Sign Up</Button>
+                    
                 </Toolbar>
             </AppBar>
         </div>
+        </ThemeProvider>
     );
 }
 
