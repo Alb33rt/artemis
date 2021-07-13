@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import CarbonEntrySerializer, DonationSerializer
-from .models import CarbonEntry, Donation
+from .serializers import CarbonEntrySerializer
+from .models import CarbonEntry
 
 from user_auth.models import User
 from user_auth.serializers import UserSerializer
@@ -24,11 +24,11 @@ class Overview(APIView):
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 class UserOverviewAPI(APIView):
     def get(self, request, format=None):
         queryset = User.objects.all()
         serializer = UserSerializer(queryset, many=True)
+<<<<<<< HEAD
         return Response(serializer.data)
 
 
@@ -42,3 +42,6 @@ class DonationAPI(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+=======
+        return Response(serializer.data)
+>>>>>>> 5bb169fe2b5caaadfc4e1dfea7befde3c24c96fc

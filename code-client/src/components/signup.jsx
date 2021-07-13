@@ -2,6 +2,8 @@ import React from "react";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -33,30 +35,6 @@ const classes = useStyles;
 
 export default class SignUp extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-      userName:"",
-      emailAddress:"",
-      password:""
-    }
-  }
-
-  getUserName(input){
-    this.setState({
-      userName:input.target.value
-    })
-  }
-  getEmail(input){
-    this.setState({
-      emailAddress:input.target.value
-    })
-  }
-  getPassword(input){
-    this.setState({
-      password:input.target.value
-    })
-  }
 
   render(){
   return (
@@ -78,8 +56,6 @@ export default class SignUp extends React.Component {
                 id="userName"
                 label="User Name"
                 autoFocus
-                value={this.userName}
-                onChange={this.getUserName.bind(this)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -91,8 +67,6 @@ export default class SignUp extends React.Component {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                value={this.emailAddress}
-                onChange={this.getEmail.bind(this)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,8 +79,6 @@ export default class SignUp extends React.Component {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value={this.password}
-                onChange={this.getPassword.bind(this)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -132,9 +104,6 @@ export default class SignUp extends React.Component {
       </div>
       <Box mt={5}>
       </Box>
-      <p>{this.state.userName}</p>
-      <p>{this.state.emailAddress}</p>
-      <p>{this.state.password}</p>
     </Container>
   );}
 }
