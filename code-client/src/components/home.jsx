@@ -1,13 +1,35 @@
 import React from "react";
-import Container from '@material-ui/core/Container'
+import Container from '@material-ui/core/Container';
+import styled, { css } from 'styled-components/macro'
+const backgroundImage =
+    "code-client\public\hero_Shot.jpg";
+const HeroSection = styled.section`
+    height: 100vh;
+    max-height: 1100px;
+    position: relative;
+    overflow: hidden;
+
+`;
+
+const HeroWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+`;
 
 export default class Home extends React.Component {
     
     render() {
         return (
-        <Container max_width="md">
-            <p>Home</p>
-        </Container>
+            <HeroSection>
+                <HeroWrapper>
+                    <h1>Heroo</h1>
+                </HeroWrapper>
+            </HeroSection>
         )
     }
 }
