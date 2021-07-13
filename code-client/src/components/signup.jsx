@@ -192,7 +192,7 @@ export default class SignUp extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={this.postTokenRequest.bind(this)}
+              onClick={this.postRequest.bind(this)}
             >
               Sign Up
             </Button>

@@ -20,6 +20,7 @@ class RegisterAPI(APIView):
             data['response'] = "Successfully Registered"
             data['email'] = user.email
             data['username'] = user.username
+            login(request, user)
             token = Token.objects.get(user=user).key 
             data['token'] = token
         else:
