@@ -32,7 +32,7 @@ class UserOverviewAPI(APIView):
         return Response(serializer.data)
 
 
-class DonationOverviewAPI(APIView):
+class DonationAPI(APIView):
     def get(self, request, format=None):
         pass
 
