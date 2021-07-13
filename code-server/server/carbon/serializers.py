@@ -2,7 +2,7 @@ from re import X
 import datetime
 from rest_framework import serializers
 
-from .models import CarbonEntry
+from .models import CarbonEntry, Item 
 
 class CarbonEntrySerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +24,8 @@ class AddEntrySerializer(serializers.ModelSerializer):
         instance.time_created = datetime.datetime.now()
         instance.save()
         return instance   
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
