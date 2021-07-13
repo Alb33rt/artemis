@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from .models import CarbonEntry
-from .models import Donation
+from .models import CarbonEntry, Donation
 
 
 class CarbonEntrySerializer(serializers.ModelSerializer):

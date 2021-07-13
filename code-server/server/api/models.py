@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 class CarbonEntry(models.Model):
-    username = models.TextField()
     name = models.TextField(max_length=256)
     emission = models.IntegerField(null=False)
     true_emission = models.IntegerField(null=False)
@@ -10,5 +9,5 @@ class CarbonEntry(models.Model):
 
 
 class Donation(models.Model):
-    username = models.TextField
+    username = models.TextField(max_length=256)
     amount = models.IntegerField(null=False)

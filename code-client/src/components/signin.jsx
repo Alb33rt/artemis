@@ -30,27 +30,9 @@ import Container from '@material-ui/core/Container';
       margin: theme.spacing(3, 0, 2),
     },
   }));
+  const classes = useStyles;
+  export default class SignIn extends React.Component{
 
-const classes = useStyles;
-export default class SignIn extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            emailAddress:"",
-            password:""
-        }
-    }
-
-    getEmail(input){
-        this.setState({
-            emailAddress:input.target.value
-        })
-    }
-    getPassword(input){
-        this.setState({
-            password:input.target.value
-        })
-    }
     render(){
     return (
       <Container component="main" maxWidth="xs">
@@ -60,38 +42,28 @@ export default class SignIn extends React.Component{
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        value={this.emailAddress}
-                        onChange={this.getEmail.bind(this)}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            value={this.password}
-                            onChange={this.getPassword.bind(this)}
-                        />
-                </Grid>
-            </Grid>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -105,7 +77,7 @@ export default class SignIn extends React.Component{
             >
               Sign In
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container>
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
@@ -116,8 +88,6 @@ export default class SignIn extends React.Component{
         </div>
         <Box mt={8}>
         </Box>
-        <p>{this.state.emailAddress}</p>
-        <p>{this.state.password}</p>
       </Container>
     );}
   }
