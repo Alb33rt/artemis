@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function navBar(props) {
+function NavBar(props) {
     const classes = useStyles;
 
     return (
@@ -48,6 +48,4 @@ function navBar(props) {
     );
 }
 
-
-
-export default withRouter(navBar);
+export default withRouter(NavBar);
