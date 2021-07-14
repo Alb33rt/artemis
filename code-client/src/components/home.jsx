@@ -104,13 +104,13 @@ class Home extends React.Component {
                 <Container maxWidth="lg">
                     <div className={classes.overlay} />
                         <Grid container justify="center" alignItems="center">
-                            <Grid item md={6} alignItems="center">
+                            <Grid item md={12} alignItems="center">
                                 <div className={classes.mainFeaturedPostContent}>
                                     <WhiteTextTypography component="h2" variant="h2" color="textSecondary" gutterBottom align="center">
 
                                         <br></br>
                                         <br></br>
-                                        Plant a tree, save the world.
+                                        Plant a tree, Save the world.
                                         <br></br>
                                         <br></br>
 
@@ -122,34 +122,36 @@ class Home extends React.Component {
                   
                 
                     <Grid container style={{backgroundColor: "white", padding: "20px"}}>
-                        <Grid item xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                        <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             Introduction
                         </Typography>
                             <Typography>
                                 As we are here in 2021. There are more and more volume in discussing climate change around the whole world. It is very distinct, but obvious that people focus the cause of this matter with carbon emission. Last year along, the world have emitted 36.44 billion metric tons of that. It is ultimately relatable and understandable, since carbon dioxide is reasoning to our current situation. But, looking back to these emission, really none of these emission are done naturally. Nearly all emission are done through human measure. Domestication, Deforestation, Industrialization, Power Generation, Habitual Emission. We are facing factors that are not removable from current society, except for one.
                             </Typography></Grid>
-                        <Grid item xs={12}></Grid>
-                        <Grid item xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                        <Grid item xs={6}></Grid>
+                        <Grid item xs={6}></Grid>
+                        <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             <br></br>
                             Collectivist in Deforestation
                         </Typography>
                             <Typography>
                                 Deforestation is a one of the few carbon emitting factor humans us can deal with. But are we really making enough effort collectively? Ultimately, no. Which is sad. So, we here by to promote you to join us with our goal of contributing to climate change “Collectively”. By planting trees all around the world, we would be able to erase our carbon footprint step by step collectively as a whole. But this process cannot be achieved without the effort of everybody. We want you to join us to make a change.                            </Typography></Grid>
-                        <Grid item xs={12}></Grid>
-                        <Grid item xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                        
+                        <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             <br></br>
                             Our Goal
                         </Typography>
                             <Typography>
                                 We are a collective group of being wishes you to make an effort for our response/support to the depressing scenario of climate change. We would like to you to be aware of you own carbon emission. If possible, we wish you to fund us to plant trees around the world.                             </Typography></Grid>
-                        <Grid item xs={12}></Grid>
-                        <Grid item xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                        <Grid item xs={6}></Grid>
+                        <Grid item xs={6}></Grid>
+                        <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             <br></br>
                             Methodology
                         </Typography>
                             <Typography>
                                 Sign up today for yourself and the environment. Log your carbon emission day-by-day. Check if you are making more emission that the people around you. Aim to emit less and less for this world. To make contributions, you are able to donate for plant trees funded by your own hands!                            </Typography></Grid>
-                        <Grid item xs={12}></Grid>
+                        
                     </Grid>
                 </Container>
                 </Paper>
