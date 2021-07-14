@@ -45,13 +45,8 @@ class AddEntriesAPI(APIView):
             data["message"] = "Failed, Please Try Again"
         return Response(data)
 
-<<<<<<< HEAD
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-=======
 
 @api_view(["GET"])
->>>>>>> 039cf6627447c763e167ff70ba88cff3e81f0ac5
 def recentDataAPI(request, days):
     try:
         print("request recieved")
@@ -72,11 +67,6 @@ def recentDataAPI(request, days):
                 date_str = q.time_created.strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
 
-<<<<<<< HEAD
-            data.append({"days": i, "emissions": sum_of_day})
-
-=======
->>>>>>> 039cf6627447c763e167ff70ba88cff3e81f0ac5
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == "GET":
