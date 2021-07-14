@@ -73,10 +73,11 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 export default function CarbonEntryPage() {
     const [itemListFinal,setItemListFinal]=useState(itemList);
+    const [unitListFinal,setUnitListFinal]=useState(unitList);
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [quantity, setQuantity] = React.useState("");
+    const [quantity, setQuantity] = React.useState(0);
     const [detail, setDetail] = React.useState("");
     const [unit, setUnit] = React.useState("");
     const [chosedItem, setChosedItem] = React.useState("");
@@ -106,12 +107,14 @@ export default function CarbonEntryPage() {
             mode: "cors",
             credentials: "include",
             body:{
-                
+                "quantity":quantity,
+                "details":detail,
+                "item_involved":chosedItem['name']
             }
         };
         console.log("post carbon entry");
 
-        fetch('http://localhost:8000/api-carbon/create-item', requestOptions)
+        fetch('http://localhost:8000/api-carbon/create-carbon', requestOptions)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -119,6 +122,10 @@ export default function CarbonEntryPage() {
             .catch(error => {
                 console.log(error);
             });
+        setOpen(false);
+        setQuantity(0);
+        setDetail("");
+        setChosedItem("");
     }
     function getItems() {
         const requestOptions = {
@@ -147,6 +154,7 @@ export default function CarbonEntryPage() {
                     id.push(item[i]['id']);
                     unitList.push(item[i]['unit']);
                 }
+                setUnitListFinal(unitList);
                 nameList=names
                 var result=[]
                 for (let i = 0; i < item.length; i++) {
@@ -166,7 +174,6 @@ export default function CarbonEntryPage() {
     useEffect(() => {
         getItems();
     }, []);
-
     return (
         <ThemeProvider theme={Theme}>
             <Box mt={7}>
@@ -203,14 +210,14 @@ export default function CarbonEntryPage() {
                             style={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Item Type" variant="outlined" />}
                             value={chosedItem}
-                            onChange={(e)=>{setChosedItem(e.target.value); setUnit(unitList[e.target.value-1])}}
+                            onChange={(event,newValue)=>{setChosedItem(newValue); setUnit("Quantity ("+unitListFinal[itemListFinal.indexOf(newValue)]+")")}}
                         />
                         <TextField
                             autoFocus
                             margin="normal"
                             value={quantity}
                             onChange={(e) => setQuantity(e.target.value)}
-                            label={String("Quantity ("+unit+")")}
+                            label={unit}
                             fullWidth
                         />
                         <TextField
@@ -226,7 +233,7 @@ export default function CarbonEntryPage() {
                         <Button onClick={handleClose} variant="contained" color="secondary">
                             Cancel
                         </Button>
-                        <Button onClick={handleClose} variant="contained" color="primary">
+                        <Button onClick={postEntry} variant="contained" color="primary">
                             Create
                         </Button>
                     </DialogActions>
