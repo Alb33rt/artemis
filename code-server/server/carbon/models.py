@@ -11,6 +11,9 @@ class Item(models.Model):
     unit = models.TextField(max_length=256, null = True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class CarbonEntry(models.Model):
     item_involved = models.ForeignKey(
@@ -22,6 +25,9 @@ class CarbonEntry(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     quantity = models.FloatField(default=1)
     details = models.TextField(max_length=256)
+
+    def __str__(self):
+        return self.owner
 
     def get_emissions(self):
         total = self.item_involved["emission"] * self.quantity

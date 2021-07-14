@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage
  } from "./components";
 import AuthContext from "./auth-context.js";
+import { withRouter } from "react-router";
 
 function getCookie(name) {
   let cookieValue = null;
@@ -43,7 +44,10 @@ function checkLogin() {
           console.log(data);
           localStorage.setItem('isLoggedIn', true)
           localStorage.setItem('isAuthenticated', true)
-          console.log(localStorage.getItem('isLoggedIn'))
+          const status = localStorage.getItem('isLoggedIn')
+          console.log(status)
+          if (!status) {
+          }
       })
       .catch(error => {
           console.log(error);

@@ -1,5 +1,7 @@
 from .models import Donation
 
+from rest_framework import serializers
+
 
 class DonationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,6 +24,7 @@ class AddDonationSerializer(serializers.ModelSerializer):
 
 
 class getDonationSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Donation
         fields = [
@@ -29,4 +32,5 @@ class getDonationSerializer(serializers.ModelSerializer):
             "lastname",
             "quantity",
             "time",
+            'owner',
         ]

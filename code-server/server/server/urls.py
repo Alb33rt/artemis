@@ -22,4 +22,5 @@ urlpatterns = [
     path(r'api/', include('api.urls'), name="api"),
     path(r'api-login/', include('user_auth.urls'), name="api-login"),
     path(r'api-carbon/', include('carbon.urls'), name="api-carbon"),
+    path(r'api-donation/', include('donation.urls'), name="api-donation"),
 ]
