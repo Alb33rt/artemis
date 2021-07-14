@@ -126,12 +126,13 @@ export default function Checkout() {
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography component="h1" variant="h4" align="center">
-                            Checkout
+                            Donation
+                            <br></br>
                         </Typography>
                         <React.Fragment>
                             <React.Fragment>
-                                <Typography variant="h6" gutterBottom>
-                                    Donation details
+                                <Typography variant="h8" gutterBottom>
+                                    Make your “Donation” towards helping this planet! Believing that you have glance through the data we provided, you are convinced to make donation to helps us planting more trees. This is a good start of making contributions. Imaging everybody are making donations to contribute, it would be utopian but the ultimate goal. Promote the call to action to the people around you. Collectivist (sounds alike to communism but is not) towards contributing to save the planet starts here!
                                 </Typography>
                                 <Grid container spacing={3}>
                                     <Grid item xs={12} sm={6}>

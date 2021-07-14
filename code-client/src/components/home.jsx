@@ -120,10 +120,9 @@ class Home extends React.Component {
                         </Grid>
                         
                   
-                    <Paper elevation={0} />
+                
                     <Grid container style={{backgroundColor: "white"}}>
                         <Grid item xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
-                            <br></br>
                             Introduction
                         </Typography>
                             <Typography>
@@ -152,7 +151,6 @@ class Home extends React.Component {
                                 Sign up today for yourself and the environment. Log your carbon emission day-by-day. Check if you are making more emission that the people around you. Aim to emit less and less for this world. To make contributions, you are able to donate for plant trees funded by your own hands!                            </Typography></Grid>
                         <Grid item xs={12}></Grid>
                     </Grid>
-                    <Paper />
                 </Container>
                 </Paper>
             </ThemeProvider>
