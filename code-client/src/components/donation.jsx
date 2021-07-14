@@ -22,6 +22,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Frog from '../images/frog.jpg'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -69,6 +70,17 @@ const useStyles = makeStyles((theme) => ({
     },
     selectEmpty: {
         marginTop: theme.spacing.unit * 2,
+    },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        fontSize: 14,
+    },
+    pos: {
+        marginBottom: 12,
     },
 }));
 function getCookie(name) {
@@ -191,13 +203,15 @@ export default function Checkout() {
                         </Container>
                     </Toolbar>
                 </AppBar>
-                <Container maxWidth="sm"> 
-                <paper elevation={3}>
-                    <Typography variant="h7" gutterBottom>
-                        <br></br>
-                        <br></br>
+                <Container>
+                    <img style={{width:'100%', height:'auto', opacity:'0.6'}} src={Frog}></img>
+                    <Typography variant="h6" gutterBottom>
                         Make your “Donation” towards helping this planet! Believing that you have glance through the data we provided, you are convinced to make donation to helps us planting more trees. This is a good start of making contributions. Imaging everybody are making donations to contribute, it would be utopian but the ultimate goal. Promote the call to action to the people around you. Collectivist (sounds alike to communism but is not) towards contributing to save the planet starts here!
                     </Typography>
+                </Container>
+                <Container maxWidth="sm"> 
+                <paper elevation={3}>
+                   
                 </paper>
                 </Container>
                 <main className={classes.layout}>
