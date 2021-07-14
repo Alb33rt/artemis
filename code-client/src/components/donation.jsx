@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { useState } from "react";
 import { Container } from '@material-ui/core';
 
 
@@ -66,8 +67,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Checkout() {
-    const classes = useStyles();
+    function afterSubmission(event) {
+        event.preventDefault();
+    }
 
+    function postRequest(event) {
+        event.preventDefault();
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST"
+            },
+            body: JSON.stringify({
+                "firstname":firstName,
+                "lastname":lastName,
+                "credit_card_number":creditNum,
+                "expiration_year":expireYear,
+                "expiration_month":expireMonth,
+                "confirm_code":confirmCode,
+                "quantity":donation
+            })
+        };
+        console.log("sending POST request");
+
+        fetch('http://localhost:8000/api-login/register', requestOptions)
+          .then(response=>response.json())
+          .then(data => {console.log(data)
+          })
+          .catch(error => {
+            console.log(error);
+        });
+    }
+
+    const [firstName, getFirstName] = useState("");
+    const [lastName, getLastName] = useState("");
+    const [creditNum, getCreditNum] = useState("");
+    const [expireYear, getExpireYear] = useState("");
+    const [expireMonth, getExpireMonth] = useState("");
+    const [confirmCode, getConfirmCode] = useState("");
+    const [donation, getDonation] = useState("");
+
+    const classes = useStyles();
     return (
         <ThemeProvider theme={Theme}>
             <React.Fragment>
@@ -100,6 +142,8 @@ export default function Checkout() {
                                             label="First name"
                                             fullWidth
                                             autoComplete="given-name"
+                                            value={firstName}
+                                            onChange={(e) => getFirstName(e.target.value)}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -110,6 +154,8 @@ export default function Checkout() {
                                             label="Last name"
                                             fullWidth
                                             autoComplete="family-name"
+                                            value={lastName}
+                                            onChange={(e) => getLastName(e.target.value)}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
@@ -121,6 +167,8 @@ export default function Checkout() {
                                             fullWidth
                                             autoComplete="off"
                                             type="number"
+                                            value={creditNum}
+                                            onChange={(e) => getCreditNum(e.target.value)}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -128,12 +176,14 @@ export default function Checkout() {
                                             required
                                             id="expireYear"
                                             name="expireYear"
-                                            label="Expiration Year"
+                                            label="Expiration Year and Month"
                                             fullWidth
                                             autoComplete="off"
                                             type="number"
-                                            step="1" 
+                                            step="1"
                                             InputProps={{ inputProps: { min: 1900, max: 2099 } }}
+                                            value={expireYear}
+                                            onChange={(e) => getExpireYear(e.target.value)}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -143,8 +193,10 @@ export default function Checkout() {
                                             name="expireMonth"
                                             className={classes.selectEmpty}
                                             label="Expiration Month"
+                                            value={expireMonth}
+                                            onChange={(e) => getExpireMonth(e.target.value)}
                                         >
-                                            <MenuItem value="">
+                                            <MenuItem value={0}>
                                                 <em>Select Month</em>
                                             </MenuItem>
                                             <MenuItem value={1}>January</MenuItem>
@@ -163,20 +215,24 @@ export default function Checkout() {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                        required 
-                                        id="confirmCode" 
-                                        name="confirmCode" 
-                                        label="Confirmation Code" 
-                                        fullWidth />
+                                            required
+                                            id="confirmCode"
+                                            name="confirmCode"
+                                            label="Confirmation Code"
+                                            value={confirmCode}
+                                            onChange={(e) => getConfirmCode(e.target.value)}
+                                            fullWidth />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
                                             required
                                             id="donation"
                                             name="donation"
-                                            label="Donation Amount"
+                                            label="Donation Amount (NTD)"
                                             fullWidth
                                             type="number"
+                                            value={donation}
+                                            onChange={(e) => getDonation(e.target.value)}
                                         />
                                     </Grid>
                                 </Grid>
