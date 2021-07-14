@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Theme} from '../colorTheme';
+import { Theme } from '../colorTheme';
 import { withRouter } from 'react-router-dom';
 import { Redirect } from "react-router";
 
@@ -45,14 +45,14 @@ class SignUp extends React.Component {
       emailAddress: "",
       password: "",
       password2: "",
-      token:"",
-      isLoaded:false,
+      token: "",
+      isLoaded: false,
     }
   }
 
   afterSubmission(event) {
     event.preventDefault();
-}
+  }
   getUserName(input) {
     this.setState({
       userName: input.target.value
@@ -73,6 +73,14 @@ class SignUp extends React.Component {
       password2: input.target.value
     })
   }
+  setWithExpiry(key, value) {
+    const now = new Date()
+    const item = {
+      value: value,
+      expiry: now.getTime() + (60*60*1000),
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  }
   postRequest(e) {
     const { history } = this.props;
     const requestOptions = {
@@ -90,118 +98,118 @@ class SignUp extends React.Component {
       })
     };
     console.log("sending POST request");
-    
+
     fetch('http://localhost:8000/api-login/register', requestOptions)
-    .then(response=>response.json())
-    .then(data => {
-      this.setState({
-        token:data['token']
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          token: data['token']
+        })
+        this.setWithExpiry("Authentication", "Token " + data['token']);
+        this.setWithExpiry('isAuthenticated', true);
+        this.setWithExpiry('isLoggedIn', true);
+        history.push("/dashboard");
       })
-      localStorage.setItem("Authentication","Token "+data['token']);
-      localStorage.setItem('isAuthenticated', true);
-      localStorage.setItem("isLoggedIn", true);
-      history.push("/dashboard");
-    })
-    .catch(error => {
-      console.log(error);
-  });
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
     return (
       <ThemeProvider theme={Theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper} style={{marginTop:"40%"}}>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box mt={1}>
-        </Box>
-          <form className={classes.form} noValidate onSubmit={this.afterSubmission.bind(this)}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="username"
-                  name="userName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="userName"
-                  label="User Name"
-                  autoFocus
-                  value={this.state.userName}
-                  onChange={this.getUserName.bind(this)}
-                />
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper} style={{ marginTop: "40%" }}>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <Box mt={1}>
+            </Box>
+            <form className={classes.form} noValidate onSubmit={this.afterSubmission.bind(this)}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete="username"
+                    name="userName"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userName"
+                    label="User Name"
+                    autoFocus
+                    value={this.state.userName}
+                    onChange={this.getUserName.bind(this)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={this.state.emailAddress}
+                    onChange={this.getEmail.bind(this)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={this.state.password}
+                    onChange={this.getPassword.bind(this)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password2"
+                    label="Confirm Password"
+                    type="password"
+                    id="password2"
+                    autoComplete="Confirm Password"
+                    value={this.state.password2}
+                    onChange={this.getPassword2.bind(this)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={this.state.emailAddress}
-                  onChange={this.getEmail.bind(this)}
-                />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={this.postRequest.bind(this)}
+                onSubmit={this.afterSubmission.bind(this)}
+              >
+
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="/signin" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={this.state.password}
-                  onChange={this.getPassword.bind(this)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password2"
-                  label="Confirm Password"
-                  type="password"
-                  id="password2"
-                  autoComplete="Confirm Password"
-                  value={this.state.password2}
-                  onChange={this.getPassword2.bind(this)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={this.postRequest.bind(this)}
-              onSubmit={this.afterSubmission.bind(this)}
-            >
-              
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={5}>
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Box mt={5}>
+          </Box>
+        </Container>
       </ThemeProvider>
     );
   }
