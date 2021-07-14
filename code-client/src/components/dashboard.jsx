@@ -57,16 +57,32 @@ const style = {
     position: 'fixed',
 };
 
-const rows =[
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+const rows = [
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+    createData('Eclair', 262, 16.0, 24, 6.0),
+    createData('Cupcake', 305, 3.7, 67, 4.3),
+    createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
 const classes = useStyles;
 export default class Dashboard extends React.Component {
@@ -75,120 +91,121 @@ export default class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            entries:null
+            entries: null
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getCarbonEntry();
 
     }
 
     getCarbonEntry() {
-        console.log(localStorage.getItem("Authentication"));
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              "Access-Control-Request-Method": "GET",
-              "Origin":"http://localhost:3000",
-              "Access-Control-Request-Headers":"Content-Type, Accept, Access-Control-Request-Method, Origin,Access-Control-Request-Headers,Token",
-              "Token": localStorage.getItem("Authentication")
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
             },
-          };
-          console.log("sending GET request");
-      
-          fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("sending POST request");
+
+        fetch('http://localhost:8000/api-carbon/logs', requestOptions)
             .then(response => response.json())
             .then(data => {
-              console.log(data);
+                console.log(data);
             })
             .catch(error => {
-              console.log(error);
+                console.log(error);
             });
     }
 
     render() {
         return <div>
             <Container>
-            <Paper>
-                <Chart
-                    data={barPlaceholderData}
-                >
-                    <ArgumentAxis />
-                    <ValueAxis max={7} />
+                <Paper>
+                    <Chart
+                        data={barPlaceholderData}
+                    >
+                        <ArgumentAxis />
+                        <ValueAxis max={7} />
 
-                    <BarSeries
-                        valueField="population"
-                        argumentField="year"
-                    />
-                    <Title text="World population" />
-                    <Animation />
-                </Chart>
-            </Paper>
-            <Paper style={{marginTop:"5%"}}>
-                <Chart
-                    data={docutData}
-                    style={{width:"50%", float: "right"}}
-                >
-                    <PieSeries
-                        valueField="val"
-                        argumentField="region"
-                        innerRadius={0.6}
-                    />
-                    <Title
-                        text="The Population of Continents and Regions"
-                    />
-                    <Animation />
-                </Chart>
-                <Chart
-                    data={docutData}
-                    style={{width:"50%", float: "right"}}
-                >
-                    <PieSeries
-                        valueField="val"
-                        argumentField="region"
-                        innerRadius={0.6}
-                    />
-                    <Title
-                        text="The Population of Continents and Regions"
-                    />
-                    <Animation />
-                </Chart>
-            </Paper>
-            <div>
-             <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="simple table" style={{marginTop:"5%"}}>
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name}>
-                        <TableCell component="th" scope="row">
-                            {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-               </TableContainer>
-            </div>
-            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style}>
-                <AddIcon />
-                Add Entry
-            </Fab>
+                        <BarSeries
+                            valueField="population"
+                            argumentField="year"
+                        />
+                        <Title text="World population" />
+                        <Animation />
+                    </Chart>
+                </Paper>
+                <Paper style={{ marginTop: "5%" }}>
+                    <Chart
+                        data={docutData}
+                        style={{ width: "50%", float: "right" }}
+                    >
+                        <PieSeries
+                            valueField="val"
+                            argumentField="region"
+                            innerRadius={0.6}
+                        />
+                        <Title
+                            text="The Population of Continents and Regions"
+                        />
+                        <Animation />
+                    </Chart>
+                    <Chart
+                        data={docutData}
+                        style={{ width: "50%", float: "right" }}
+                    >
+                        <PieSeries
+                            valueField="val"
+                            argumentField="region"
+                            innerRadius={0.6}
+                        />
+                        <Title
+                            text="The Population of Continents and Regions"
+                        />
+                        <Animation />
+                    </Chart>
+                </Paper>
+                <div>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Dessert (100g serving)</TableCell>
+                                    <TableCell align="right">Calories</TableCell>
+                                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row) => (
+                                    <TableRow key={row.name}>
+                                        <TableCell component="th" scope="row">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="right">{row.calories}</TableCell>
+                                        <TableCell align="right">{row.fat}</TableCell>
+                                        <TableCell align="right">{row.carbs}</TableCell>
+                                        <TableCell align="right">{row.protein}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+                <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style}>
+                    <AddIcon />
+                    Add Entry
+                </Fab>
             </Container>
         </div>
     }
