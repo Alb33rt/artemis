@@ -244,6 +244,7 @@ export default function Checkout() {
                                         variant="contained"
                                         color="primary"
                                         className={classes.button}
+                                        onClick={postRequest}
                                     >
                                         Send
                                     </Button>
