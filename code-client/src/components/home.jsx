@@ -132,8 +132,8 @@ class Home extends React.Component {
                             <Typography>
                                 As we are here in 2021. There are more and more volume in discussing climate change around the whole world. It is very distinct, but obvious that people focus the cause of this matter with carbon emission. Last year along, the world have emitted 36.44 billion metric tons of that. It is ultimately relatable and understandable, since carbon dioxide is reasoning to our current situation. But, looking back to these emission, really none of these emission are done naturally. Nearly all emission are done through human measure. Domestication, Deforestation, Industrialization, Power Generation, Habitual Emission. We are facing factors that are not removable from current society, except for one.
                             </Typography></Grid>
-                        <Grid item xs={6}><img src={intro}></img></Grid>
-                        <Grid item xs={6}><img src={deforestation}></img></Grid>
+                        <Grid item xs={6}><img style={{width:'80%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={intro}></img></Grid>
+                        <Grid item xs={6}><img style={{width:'80%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={deforestation}></img></Grid>
                         <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             <br></br>
                             Collectivist in Deforestation
@@ -147,8 +147,8 @@ class Home extends React.Component {
                         </Typography>
                             <Typography>
                                 We are a collective group of being wishes you to make an effort for our response/support to the depressing scenario of climate change. We would like to you to be aware of you own carbon emission. If possible, we wish you to fund us to plant trees around the world.                             </Typography></Grid>
-                        <Grid item xs={6}><img src={goals}></img></Grid>
-                        <Grid item xs={6}><img src={method}></img></Grid>
+                        <Grid item xs={6}><img style={{borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}}src={goals}></img></Grid>
+                        <Grid item xs={6}><img style={{width:'80%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={method}></img></Grid>
                         <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             <br></br>
                             Methodology
