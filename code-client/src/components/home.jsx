@@ -1,7 +1,7 @@
 import React from "react";
 import Container from '@material-ui/core/Container';
 import styled, { css } from 'styled-components/macro'
-import backgroundImage from '../images/545792.jpg';
+import backgroundImage from '../images/forest.png';
 import { withRouter } from "react-router";
 import PropTypes from 'prop-types';
 import { makeStyles, ThemeProvider, withStyles } from '@material-ui/core/styles';
@@ -97,11 +97,11 @@ class Home extends React.Component {
     render() {
         return (
             <ThemeProvider theme={Theme}>
-                <Container maxWidth="lg">
-                    <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: `round` }}>
+                <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: `round` }}>
                         {/* Increase the priority of the hero background image */}
                         {<img style={{ display: 'none' }} src={backgroundImage} />}
-                        <div className={classes.overlay} />
+                <Container maxWidth="lg">
+                    <div className={classes.overlay} />
                         <Grid container justify="center" alignItems="center">
                             <Grid item md={6} alignItems="center">
                                 <div className={classes.mainFeaturedPostContent}>
@@ -117,7 +117,8 @@ class Home extends React.Component {
                                 </div>
                             </Grid>
                         </Grid>
-                    </Paper>
+                        
+                  
                     <Paper elevation={0} />
                     <Grid container>
                         <Grid item xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
@@ -152,6 +153,7 @@ class Home extends React.Component {
                     </Grid>
                     <Paper />
                 </Container>
+                </Paper>
             </ThemeProvider>
         )
     }
