@@ -1,10 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-<<<<<<< HEAD
-import { Home, NavBar, SignIn, SignUp, Dashboard, carbonEntryPage, Logout } from "./components";
-=======
-import { Home, NavBar, SignIn, SignUp,Dashboard,carbonEntryPage, donation } from "./components";
->>>>>>> 1bf70d07971c79bcabd6fbac4df2e6a7d062f046
+import { Home, NavBar, SignIn, SignUp, Dashboard, carbonEntryPage, Logout, donation } from "./components";
 
 function App() {
   return (
