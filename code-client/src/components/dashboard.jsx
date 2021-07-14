@@ -20,6 +20,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Link } from "@material-ui/core";
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -68,7 +69,7 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 const classes = useStyles;
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
 
 
     constructor(props) {
@@ -87,6 +88,11 @@ export default class Dashboard extends React.Component {
         this.get3DayEmission();
         this.getMonthEmission();
         this.getWeekEmission();
+    }
+
+    redirectToEntry(){
+        const { history } = this.props;
+        history.push('/carbonEntryPage')
     }
 
     getMonthEmission() {
@@ -277,7 +283,7 @@ export default class Dashboard extends React.Component {
                         </Table>
                     </TableContainer>
                 </div>
-                <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style} to="/CarbonEntryPage" component={Link}>
+                <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style} onClick={this.redirectToEntry.bind(this)}>
                     <AddIcon />
                     Add Entry
                 </Fab>
@@ -286,3 +292,4 @@ export default class Dashboard extends React.Component {
     }
 }
 
+export default withRouter(Dashboard);
