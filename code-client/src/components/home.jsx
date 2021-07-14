@@ -14,6 +14,11 @@ import intro from '../images/Introduction.jpg'
 import deforestation from '../images/deforestation.jpg'
 import goals from '../images/15.b.png'
 import method from '../images/Method.jpg'
+import { Box } from "@material-ui/core";
+import Icon from '@material-ui/core/Icon';
+import SDG_imageA from '../images/icons/GOAL_15_TARGET_15.6.svg';
+import SDG_imageB from '../images/icons/GOAL_15_TARGET_15.B.svg';
+import SDG_imageC from '../images/icons/GOAL_15_TARGET_15.C.svg';
 
 
 /*
@@ -40,6 +45,9 @@ const HeroWrapper = styled.div`
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
         marginTop: theme.spacing(3),
+    },
+    mainTitle: {
+        marginTop: '',
     },
 
     mainFeaturedPost: {
@@ -73,6 +81,12 @@ const useStyles = makeStyles((theme) => ({
     mainSection: {
         backgroundImage: "url(../images/forest.png)",
         backgroundSize: 'cover',
+    },
+    imageIcon: {
+        height: '100%'
+    },
+    iconRoot: {
+    textAlign: 'center'
     }
 }));
 
@@ -108,63 +122,73 @@ class Home extends React.Component {
                 <Paper className={classes.mainFeaturedPost} >
                     {/* Increase the priority of the hero background image */}
                     {<img style={{ display: 'none' }} src={Image} />}
-                    <section className={classes.mainSection}>
-                    <Container maxWidth="lg" className={classes.mainSection}>
+                    <Box m={18} mx="auto" className={classes.mainSection}>
+                    <Container maxWidth="lg">
                         <div className={classes.overlay} />
-                        <Grid container >
-                            <Grid container justify="center" alignItems="center" style={{ backgroundImage: "url(../images/forest.png)"}}>
-                                <Grid item md={12} alignItems="center">
+                        <Grid container spacing={20} justify="center" alignItems="center" style={{ backgroundImage: "url(../images/forest.png)"}}>
+                                <Grid item md={12} alignItems="center" spacing={20}>
                                     <div className={classes.mainFeaturedPostContent}>
-                                        <WhiteTextTypography component="h2" variant="h2" color="textSecondary" gutterBottom align="center">
+                                        <Typography component="h3" variant="h3" color="textPrimary" gutterBottom align="center">
 
-                                            <br></br>
-                                            <br></br>
                                             Plant a tree, Save the world.
-                                            <br></br>
-                                            <br></br>
-
-                                        </WhiteTextTypography>
+            
+                                        </Typography>
                                     </div>
                                 </Grid>
-                            </Grid>
-                            
                         </Grid>
                     </Container>
-                    </section>
+                    </Box>
                     <Container>
-                        <Grid container>
-                        <Grid container style={{backgroundColor: "white", opacity: '0.9', padding: "20px"}}>
-                                <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                        <Grid container style={{backgroundColor: "white", opacity: '1', padding: "20px"}} spacing={3} alignItems="center">
+                                <Grid item md={6} xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                                     Introduction
                                 </Typography>
                                     <Typography>
                                         As we are here in 2021. There are more and more volume in discussing climate change around the whole world. It is very distinct, but obvious that people focus the cause of this matter with carbon emission. Last year along, the world have emitted 36.44 billion metric tons of that. It is ultimately relatable and understandable, since carbon dioxide is reasoning to our current situation. But, looking back to these emission, really none of these emission are done naturally. Nearly all emission are done through human measure. Domestication, Deforestation, Industrialization, Power Generation, Habitual Emission. We are facing factors that are not removable from current society, except for one.
                                     </Typography></Grid>
-                                <Grid item xs={6}><img style={{width:'80%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={intro}></img></Grid>
-                                <Grid item xs={6}><img style={{width:'80%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={deforestation}></img></Grid>
-                                <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                                <Grid item md={6} xs={12}><img style={{width:'90%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={intro}></img></Grid>
+                                <Grid item md={6} xs={12}><img style={{width:'90%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={deforestation}></img></Grid>
+                                <Grid item md={6} xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                                     <br></br>
                                     Collectivist in Deforestation
                                 </Typography>
                                     <Typography>
                                         Deforestation is a one of the few carbon emitting factor humans us can deal with. But are we really making enough effort collectively? Ultimately, no. Which is sad. So, we here by to promote you to join us with our goal of contributing to climate change “Collectively”. By planting trees all around the world, we would be able to erase our carbon footprint step by step collectively as a whole. But this process cannot be achieved without the effort of everybody. We want you to join us to make a change.                            </Typography></Grid>
                                 
-                                <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                                <Grid item md={6} xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                                     <br></br>
                                     Our Goal
                                 </Typography>
                                     <Typography>
                                         We are a collective group of being wishes you to make an effort for our response/support to the depressing scenario of climate change. We would like to you to be aware of you own carbon emission. If possible, we wish you to fund us to plant trees around the world.                             </Typography></Grid>
-                                <Grid item xs={6}><img style={{borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}}src={goals}></img></Grid>
-                                <Grid item xs={6}><img style={{width:'80%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={method}></img></Grid>
-                                <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
+                                <Grid item md={2} sm={6}>
+                                    <Icon classes={{root: classes.iconRoot}}>
+                                    <img 
+                                        src={SDG_imageA}>
+                                    </img>
+                                    </Icon>
+                                </Grid>
+                                <Grid item md={2} sm={6}>
+                                    <Icon classes={{root: classes.iconRoot}}>
+                                    <img 
+                                        src={SDG_imageB}>
+                                    </img>
+                                    </Icon>
+                                </Grid>
+                                <Grid item md={2} sm={6}>
+                                    {/* <Icon classes={{root: classes.iconRoot}}> */}
+                                    <img 
+                                        src={SDG_imageC} />
+                                    {/* </Icon> */}
+                                </Grid>
+                                <Grid item md={6} xs={12}><img style={{width:'90%', height:'auto', borderTopRightRadius: 20, borderTopLeftRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20}} src={method}></img></Grid>
+                                <Grid item md={6} xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                                     <br></br>
                                     Methodology
                                 </Typography>
                                     <Typography>
                                         Sign up today for yourself and the environment. Log your carbon emission day-by-day. Check if you are making more emission that the people around you. Aim to emit less and less for this world. To make contributions, you are able to donate for plant trees funded by your own hands!                            </Typography></Grid>
                                 
-                            </Grid>
                             </Grid>
                     </Container>
                 </Paper>
