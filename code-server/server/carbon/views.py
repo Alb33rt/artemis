@@ -43,7 +43,6 @@ class AddEntriesAPI(APIView):
 
 
 class recentDataAPI(viewsets.ViewSet):
-<<<<<<< HEAD
     def list(self, request, *args, **kwargs):
         return get_sum(request, self.kwargs.get("days", None))
 
@@ -65,15 +64,6 @@ def get_sum(request, time_period):
         data[str(i)] = sum_of_day
     return Response(data, status=status.HTTP_202_ACCEPTED)
 
-=======
-    permission_classes = [ IsAuthenticated ]
-    def list(self, request, pk=None):
-        items = []
-        today = datetime.date.today()
-        queryset = CarbonEntry.objects.filter(time_created_lte = datetime.date.today(), time_created__gt=datetime.date.today()-datetime.timedelta(days=7), owner=request.user)
-        serializer = CarbonEntrySerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
->>>>>>> f7ba27c8a3f07e5c8582fb7be1c66133abe41a2d
 
 class myItemsAPI(APIView):
 

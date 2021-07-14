@@ -1,6 +1,6 @@
 from django.urls import path
 
-import views
+from . import views
 
 """
 The Router for the Carbon App is written here 
