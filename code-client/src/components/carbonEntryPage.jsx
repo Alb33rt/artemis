@@ -59,14 +59,16 @@ const WhiteTextTypography = withStyles({
     root: {
         color: "#eaedd5",
         textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-        fontFamily: "Garamond, serif"
+        fontFamily: "Garamond, serif",
+        justifyContent:"center",
+        alignItems:"center"
     }
 })(Typography);
 
 
 
 export default function CarbonEntryPage() {
-    const classes = useStyles;
+    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [values, setValues] = React.useState([]);
     const [text, setText] = React.useState("");
@@ -110,18 +112,18 @@ export default function CarbonEntryPage() {
                 </Grid>
                 <Paper />
             </Container>
-            <div>
+            <Grid fullWidth classes={{root:classes.root}}>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Create
+                    Create New Entry
                 </Button>
                 <Dialog
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">New Dialog</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Create New Entry</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>Sample Text.</DialogContentText>
+                        <DialogContentText>Enter details about your entry</DialogContentText>
                         <TextField
                             autoFocus
                             margin="dense"
@@ -130,36 +132,7 @@ export default function CarbonEntryPage() {
                             label="Text"
                             fullWidth
                         />
-                        {values.map((jump, index) => (
-                            <Box key={"jump" + index}>
-                                <Grid container spacing={1} alignItems="flex-end">
-                                    <Grid item xs={10}>
-                                        <TextField
-                                            autoFocus
-                                            margin="dense"
-                                            label="Value"
-                                            value={jump || ""}
-                                            onChange={(e) => handleValueChange(index, e)}
-                                            fullWidth
-                                        />
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <div
-                                            className="font-icon-wrapper"
-                                            onClick={() => deleteValue(jump)}
-                                        >
-                                            <IconButton aria-label="delete">
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </div>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        ))}
                     </DialogContent>
-                    <Button onClick={addValue} color="primary">
-                        Add
-                    </Button>
                     <DialogActions>
                         <Button onClick={handleClose} variant="contained" color="secondary">
                             Cancel
@@ -169,7 +142,7 @@ export default function CarbonEntryPage() {
                         </Button>
                     </DialogActions>
                 </Dialog>
-            </div>
+            </Grid>
         </ThemeProvider>
     );
 }

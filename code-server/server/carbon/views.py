@@ -57,7 +57,7 @@ def recentDataAPI(request, days):
             )
             sum_of_day = 0
             for q in queryset:
-                sum_of_day += q.emission
+                sum_of_day += q["quantity"]
 
             data.append({"days": i, "emissions": sum_of_day})
             
