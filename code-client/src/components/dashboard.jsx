@@ -268,33 +268,33 @@ class Dashboard extends React.Component {
                             </Chart>
                         </Paper>
                     </Grid>
-                    <Grid item>
-                        {/* <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Item</TableCell>
-                                    <TableCell align="right">Quantity</TableCell>
-                                    <TableCell align="right">Unit</TableCell>
-                                    <TableCell align="right">Details</TableCell>
-                                    <TableCell align="right">Date Created</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow key={row.itemName}>
-                                        <TableCell component="th" scope="row">
-                                            {row.itemName}
-                                        </TableCell>
-                                        <TableCell align="right">{row.quantity}</TableCell>
-                                        <TableCell align="right">{row.unit}</TableCell>
-                                        <TableCell align="right">{row.details}</TableCell>
-                                        <TableCell align="right">{row.timeCreated}</TableCell>
+                    <Grid item xs={12}>
+                        <TableContainer component={Paper}>
+                            <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Item</TableCell>
+                                        <TableCell align="right">Quantity</TableCell>
+                                        <TableCell align="right">Unit</TableCell>
+                                        <TableCell align="right">Details</TableCell>
+                                        <TableCell align="right">Date Created</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer> */}
+                                </TableHead>
+                                <TableBody>
+                                    {rows.map((row) => (
+                                        <TableRow key={row.itemName}>
+                                            <TableCell component="th" scope="row">
+                                                {row.itemName}
+                                            </TableCell>
+                                            <TableCell align="right">{row.quantity}</TableCell>
+                                            <TableCell align="right">{row.unit}</TableCell>
+                                            <TableCell align="right">{row.details}</TableCell>
+                                            <TableCell align="right">{row.timeCreated}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Grid>
                 </Grid>
                 <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style} onClick={this.redirectToEntry.bind(this)}>

@@ -23,6 +23,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Frog from '../images/frog.jpg'
+import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -179,6 +181,7 @@ const SubmitDonation = (props) => {
   }
 
 export default function Checkout() {
+    const { history } = useHistory();
 
     const [firstName, getFirstName] = useState("");
     const [lastName, getLastName] = useState("");
@@ -188,6 +191,11 @@ export default function Checkout() {
     const [confirmCode, getConfirmCode] = useState("");
     const [donation, getDonation] = useState("");
 
+    useEffect(() => {
+        if(!localStorage.getItem('isLoggedIn')) { 
+            history.push('/');
+        }
+    })
 
     const classes = useStyles();
     return (
@@ -220,7 +228,7 @@ export default function Checkout() {
                     <Grid item xs={4}>
                     <main className={classes.layout}>
                     <Paper className={classes.paper}>
-                        <Box m={4}>
+                        <Box m={3}>
                         <Typography component="h1" variant="h4" align="center">
                             Donation
                             <br></br>
