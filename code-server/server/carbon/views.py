@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 import datetime
+import json
 
 from rest_framework import serializers, status
 from rest_framework import viewsets
@@ -49,18 +50,14 @@ class AddCarbonEntriesAPI(APIView):
     """
 
     def post(self, request, format=None):
+        print("IN the API")
+        print(request.data)
         serializer = PostCarbonEntrySerializer(data=request.data)
         data = {}
-        print(serializer.data)
         if serializer.is_valid():
-            print(request.data)
-            carbon_entry = serializer.save(user=request.user)
-            data["message"] = "Success! Thank you for caring for the Earth!"
-            data["quantity"] = carbon_entry.validated_data["quantity"]
-            data["Carbonitem"] = carbon_entry.validated_data["item_envolved"]
-        else:
-            data["message"] = "Failed, Please Try Again"
-        return Response(data)
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddGreenEntriesAPI(APIView):
@@ -146,9 +143,10 @@ def recentGreenDataAPI(request, days):
 
 
 class allCarbonItemsAPI(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         user = request.user
-        my_items = CarbonItem.objects.filter(owner=user)
+        my_items = CarbonItem.objects.all()
         serializer = CarbonItemSerializer(my_items, many=True)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 

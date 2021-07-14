@@ -74,6 +74,7 @@ const csrftoken = getCookie('csrftoken');
 export default function CarbonEntryPage() {
     const [itemListFinal,setItemListFinal]=useState(itemList);
     const [unitListFinal,setUnitListFinal]=useState(unitList);
+    const [itemObjectList, setItemObjectList] = useState(item);
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -106,13 +107,13 @@ export default function CarbonEntryPage() {
             },
             mode: "cors",
             credentials: "include",
-            body:{
+            body: JSON.stringify({
                 "quantity":quantity,
                 "details":detail,
-                "item_involved":chosedItem['name']
-            }
+                "item_involved": chosedItem['name'],
+            })
         };
-        console.log("post carbon entry");
+        console.log("Sending POST request to create-carbon");
 
         fetch('http://localhost:8000/api-carbon/create-carbon', requestOptions)
             .then(response => response.json())
@@ -142,13 +143,16 @@ export default function CarbonEntryPage() {
             credentials: "include"
         };
         console.log("get items");
+        console.log(itemObjectList)
 
         fetch('http://localhost:8000/api-carbon/all-carbon-item', requestOptions)
             .then(response => response.json())
             .then(data => {
                 item = data
-                var names = [];
-                var id = [];
+                console.log("bla")
+                console.log(item)
+                let names = [];
+                let id = [];
                 for (let i = 0; i < item.length; i++) {
                     names.push(item[i]['name']);
                     id.push(item[i]['id']);
@@ -156,7 +160,7 @@ export default function CarbonEntryPage() {
                 }
                 setUnitListFinal(unitList);
                 nameList=names
-                var result=[]
+                let result=[]
                 for (let i = 0; i < item.length; i++) {
                     var dict={}
                     dict['name']=names[i];
@@ -165,7 +169,11 @@ export default function CarbonEntryPage() {
                 }
                 itemList=result
                 setItemListFinal(itemList);
+<<<<<<< HEAD
                 console.log(item);
+=======
+                setItemObjectList(data)
+>>>>>>> 9a44929 (fuck aaron)
             })
             .catch(error => {
                 console.log(error);
