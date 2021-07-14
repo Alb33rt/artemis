@@ -106,8 +106,8 @@ class SignUp extends React.Component {
           token: data['token']
         })
         this.setWithExpiry("Authentication", "Token " + data['token']);
-        this.setWithExpiry('isAuthenticated', true);
-        this.setWithExpiry('isLoggedIn', true);
+        localStorage.localStorage('isAuthenticated', true);
+        localStorage.localStorage('isLoggedIn', true);
         history.push("/dashboard");
       })
       .catch(error => {

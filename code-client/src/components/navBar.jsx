@@ -184,7 +184,7 @@ function NavBar() {
                     </List>
                     <Divider />
                     <List>
-                    <ListItem button key="Settings" component={Link} to="/">
+                    <ListItem button key="Profile" component={Link} to="/profile">
                             <ListItemIcon>
                                 <SettingsIcon />
                             </ListItemIcon>

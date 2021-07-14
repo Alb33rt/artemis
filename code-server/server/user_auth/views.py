@@ -50,8 +50,9 @@ class AuthCheckAPI(APIView):
 class EditProfileAPI(APIView):
     permission_classes = [ IsAuthenticated ]
     def get(self, request, format=None):
+        print("Loading User Data for Edit Profile Page")
         user = request.user
-        serializer = EditProfileSerializer(user, many=True)
+        serializer = EditProfileSerializer(user)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
     def post(self, request, format=None):

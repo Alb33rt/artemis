@@ -8,3 +8,4 @@ export { default as Donation } from "./donation";
 export { default as CarbonEntryPage} from "./carbonEntryPage";
 export { default as GreenEntryPage} from "./greenEntryPage";
 export { default as Contactus} from "./contactus";
+export { default as EditProfilePage } from "./editProfile";

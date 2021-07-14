@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
             weekEmissions: Array(7),
             threeDayEmission: Array(3),
             monthEmission: Array(30),
-            carbonEntries: []
+            carbonEntries: [],
         };
     }
 
@@ -83,6 +83,11 @@ class Dashboard extends React.Component {
         this.get3DayEmission();
         this.getMonthEmission();
         this.getWeekEmission();
+    }
+
+    redirectToHome() {
+        const { history } = this.props;
+        history.push('/');
     }
 
     redirectToEntry() {
