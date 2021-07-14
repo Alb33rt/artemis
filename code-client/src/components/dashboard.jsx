@@ -20,25 +20,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-
-const barPlaceholderData = [
-    { year: '1950', population: 2.525 },
-    { year: '1960', population: 3.018 },
-    { year: '1970', population: 3.682 },
-    { year: '1980', population: 4.440 },
-    { year: '1990', population: 5.310 },
-    { year: '2000', population: 6.127 },
-    { year: '2010', population: 6.930 },
-];
-const docutData = [
-    { region: 'Asia', val: 4119626293 },
-    { region: 'Africa', val: 1012956064 },
-    { region: 'Northern America', val: 344124520 },
-    { region: 'Latin America and the Caribbean', val: 590946440 },
-    { region: 'Europe', val: 727082222 },
-    { region: 'Oceania', val: 35104756 },
-];
-
 const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
@@ -93,6 +74,9 @@ export default class Dashboard extends React.Component {
         this.state = {
             entries: null,
             weekEmissions: Array(7),
+            threeDayEmission: Array(3),
+            monthEmission: Array(30),
+            carbonEntries:[]
         };
     }
 
@@ -122,8 +106,9 @@ export default class Dashboard extends React.Component {
         fetch('http://localhost:8000/api-carbon/recent-entries/30/', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log("month emission");
-                console.log(data);
+                this.setState({
+                    monthEmission:data
+                })
             })
             .catch(error => {
                 console.log(error);
@@ -149,13 +134,9 @@ export default class Dashboard extends React.Component {
         fetch('http://localhost:8000/api-carbon/recent-entries/7/', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log("week emission");
-                console.log(data);
                 this.setState(
                 { weekEmissions: data }
                 )
-                console.log(this.state.weekEmissions)
-                console.log(data);
             })
             .catch(error => {
                 console.log(error);
@@ -181,8 +162,9 @@ export default class Dashboard extends React.Component {
         fetch('http://localhost:8000/api-carbon/recent-entries/3/', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log("3 days emission");
-                console.log(data);
+                this.setState({
+                    threeDayEmission:data
+                })
             })
             .catch(error => {
                 console.log(error);
@@ -191,11 +173,11 @@ export default class Dashboard extends React.Component {
 
     getCarbonEntry() {
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Method": "GET",
                 "Origin": "https://127.0.0.1:3000",
                 "Authorization": localStorage.getItem("Authentication"),
                 'x-csrftoken': csrftoken
@@ -208,7 +190,9 @@ export default class Dashboard extends React.Component {
         fetch('http://localhost:8000/api-carbon/logs', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                this.setState({
+                    carbonEntries:data
+                })
             })
             .catch(error => {
                 console.log(error);
@@ -233,33 +217,33 @@ export default class Dashboard extends React.Component {
                         <Animation />
                     </Chart>
                 </Paper>
-                <Paper style={{ marginTop: "5%" }}>
+                <Paper>
                     <Chart
-                        data={docutData}
-                        style={{ width: "50%", float: "right" }}
+                        data={this.state.threeDayEmission}
                     >
-                        <PieSeries
-                            valueField="val"
-                            argumentField="region"
-                            innerRadius={0.6}
+                        <ArgumentAxis />
+                        <ValueAxis />
+
+                        <BarSeries
+                            valueField="emissions"
+                            argumentField="days"
                         />
-                        <Title
-                            text="The Population of Continents and Regions"
-                        />
+                        <Title text="The Last 3 Days' Overview" />
                         <Animation />
                     </Chart>
+                </Paper>
+                <Paper>
                     <Chart
-                        data={docutData}
-                        style={{ width: "50%", float: "right" }}
+                        data={this.state.monthEmission}
                     >
-                        <PieSeries
-                            valueField="val"
-                            argumentField="region"
-                            innerRadius={0.6}
+                        <ArgumentAxis />
+                        <ValueAxis />
+
+                        <BarSeries
+                            valueField="emissions"
+                            argumentField="days"
                         />
-                        <Title
-                            text="The Population of Continents and Regions"
-                        />
+                        <Title text="This Month's Overview" />
                         <Animation />
                     </Chart>
                 </Paper>
