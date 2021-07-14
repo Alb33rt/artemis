@@ -60,10 +60,11 @@ def recentDataAPI(request, days):
                 owner=request.user,
             )
             sum_of_day = 0
+            date_str = ""
             for q in queryset:
-                sum_of_day += q.emission
-
-            data.append({"days": i, "emissions": sum_of_day})
+                sum_of_day += q.quantity
+                date_str = q.time_created.strftime("%m%d")
+            data.append({"days": date_str, "emissions": sum_of_day})
 
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -72,19 +73,8 @@ def recentDataAPI(request, days):
         return Response(data, status=status.HTTP_202_ACCEPTED)
 
 
-<<<<<<< HEAD
-
-class myItemsAPI(APIView):
-
-    """
-    Used to get the items that a user created personally
-    """
-
-    def post(self, request, format=None):
-=======
 class allItemsAPI(APIView):
     def get(self, request, format=None):
->>>>>>> 2ae8ffd35766379489045d6341d128ea2b9da9d5
         user = request.user
         my_items = Item.objects.filter(owner=user)
         serializer = ItemSerializer(my_items, many=True)
