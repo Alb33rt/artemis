@@ -5,8 +5,7 @@ import backgroundImage from '../images/hero_Shot.jpg';
 import { withRouter } from "react-router";
 
 const HeroSection = styled.section`
-    height: 100vh;
-    max-height: 1100px;
+    
     position: relative;
     overflow: hidden;
 
@@ -14,11 +13,8 @@ const HeroSection = styled.section`
 
 const HeroWrapper = styled.div`
     width: 100%;
-    height: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     position: relative;
 `;
 
@@ -39,11 +35,11 @@ class Home extends React.Component {
     
     render() {
         return (
-            <Container max-width="lg">
+            <Container>
             <HeroSection>
                 <HeroWrapper>
                     <div style={{ backgroundImage: `url(${backgroundImage})` }}>
-                        ENTER SLOGAN GUYS!!!!!
+                        but something here
                     </div>
                 </HeroWrapper>
             </HeroSection>
