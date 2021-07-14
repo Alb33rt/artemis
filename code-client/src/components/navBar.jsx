@@ -43,6 +43,9 @@ class NavBar extends React.Component {
                                 <Button color="secondary" className={classes.title} to="/" component={Link}>
                                     Artemis
                                 </Button>
+                                <Button color="secondary" className={classes.title} to="/carbonEntryPage" component={Link}>
+                                    Carbon Entry 
+                                </Button>
                                 <Hidden mdDown>
                                     <Button variant="contained" color="primary" to="/signin" component={Link} style={{ left: '66%' }}>Login</Button>
                                     <Button variant="contained" color="primary" to="/signup" component={Link} style={{ left: '67%' }}>Sign Up</Button>
