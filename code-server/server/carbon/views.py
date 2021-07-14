@@ -46,8 +46,8 @@ class AddEntriesAPI(APIView):
 def recentDataAPI(request, days):
     try:
         today = datetime.date.today()
-        data = {}
-        for i in range(days):
+        data = []
+        for i in range(1, days+1):
             timedelta_front = datetime.timedelta(days=i)
             timedelta_rear = datetime.timedelta(days=(i + 1))
             queryset = CarbonEntry.objects.filter(
@@ -58,7 +58,9 @@ def recentDataAPI(request, days):
             sum_of_day = 0
             for q in queryset:
                 sum_of_day += q.emission
-            data[str(i)] = sum_of_day
+
+            data.append({"days": i, "emissions": sum_of_day})
+            
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == "GET":

@@ -91,7 +91,8 @@ export default class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            entries: null
+            entries: null,
+            weekEmissions: null,
         };
     }
 
@@ -150,6 +151,10 @@ export default class Dashboard extends React.Component {
             .then(data => {
                 console.log("week emission");
                 console.log(data);
+                this.setState(
+                { weekEmissions: data }
+                )
+                console.log(this.state.weekEmissions)
             })
             .catch(error => {
                 console.log(error);
@@ -214,16 +219,16 @@ export default class Dashboard extends React.Component {
             <Container>
                 <Paper>
                     <Chart
-                        data={barPlaceholderData}
+                        data={this.state.weekEmissions}
                     >
                         <ArgumentAxis />
-                        <ValueAxis max={7} />
+                        <ValueAxis />
 
                         <BarSeries
-                            valueField="population"
-                            argumentField="year"
+                            valueField="emissions"
+                            argumentField="days"
                         />
-                        <Title text="World population" />
+                        <Title text="This Week's Overview" />
                         <Animation />
                     </Chart>
                 </Paper>
