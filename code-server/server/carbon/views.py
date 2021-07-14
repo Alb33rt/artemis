@@ -72,6 +72,7 @@ def recentDataAPI(request, days):
         return Response(data, status=status.HTTP_202_ACCEPTED)
 
 
+<<<<<<< HEAD
 
 class myItemsAPI(APIView):
 
@@ -80,10 +81,13 @@ class myItemsAPI(APIView):
     """
 
     def post(self, request, format=None):
+=======
+class allItemsAPI(APIView):
+    def get(self, request, format=None):
+>>>>>>> 2ae8ffd35766379489045d6341d128ea2b9da9d5
         user = request.user
         my_items = Item.objects.filter(owner=user)
         serializer = ItemSerializer(my_items, many=True)
-
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
