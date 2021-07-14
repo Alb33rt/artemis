@@ -122,9 +122,9 @@ class Home extends React.Component {
                     {/* Increase the priority of the hero background image */}
                     {<img style={{ display: 'none' }} src={Image} />}
                     <Box mx="auto" className={classes.mainSection}>
-                        <img style = {{width:'100%', height:'auto', opacity:'0.85', filter: 'brightness(70%)', zIndex:'1'}} src={forestImage}></img>
+                        <img style = {{width:'100%', height:'auto', opacity:'0.9', filter: 'brightness(80%)', zIndex:'1'}} src={forestImage}></img>
                         <Container maxWidth="lg">
-                            <Box mt={-60} mb={50}>
+                            <Box mt={5} mb={5}>
                           
                             <Grid container spacing={20} justify="center" alignItems="center">
                             
