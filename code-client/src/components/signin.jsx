@@ -12,7 +12,6 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Theme } from '../colorTheme';
 import { withRouter } from "react-router";
-import AuthContext from "../auth-context";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -98,7 +97,12 @@ class SignIn extends React.Component {
         if(data['token']){
           history.push('/dashboard')
         } else {
-          console.log("Password is wrong")
+          console.log("Login Failed, please double check your Username or Password.")
+          this.setState(
+            {
+
+            }
+          )
         }
       })
       .catch(error => {

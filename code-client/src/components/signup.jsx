@@ -11,7 +11,6 @@ import Container from '@material-ui/core/Container';
 import {Theme} from '../colorTheme';
 import { withRouter } from 'react-router-dom';
 import { Redirect } from "react-router";
-import AuthContext from "../auth-context";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -110,7 +109,6 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <AuthContext.Provider value={this.state.loggedIn}>
       <ThemeProvider theme={Theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -205,7 +203,6 @@ class SignUp extends React.Component {
         </Box>
       </Container>
       </ThemeProvider>
-      </AuthContext.Provider>
     );
   }
 }

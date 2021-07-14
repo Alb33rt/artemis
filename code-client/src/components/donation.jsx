@@ -210,9 +210,11 @@ export default function Checkout() {
                     <Grid item xs={4}>
                         <Container>
                             <img style={{width:'100%', height:'auto', opacity:'0.8'}} src={Frog}></img>
+                            <Box m={3}>
                             <Typography variant="h6" gutterBottom>
                                 Make your “Donation” towards helping this planet! Believing that you have glance through the data we provided, you are convinced to make donation to helps us planting more trees. This is a good start of making contributions. Imaging everybody are making donations to contribute, it would be utopian but the ultimate goal. Promote the call to action to the people around you. Collectivist (sounds alike to communism but is not) towards contributing to save the planet starts here!
                             </Typography>
+                            </Box>
                         </Container>
                     </Grid>
                     <Grid item xs={4}>

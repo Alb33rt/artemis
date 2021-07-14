@@ -21,6 +21,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Link } from "@material-ui/core";
 import { withRouter } from "react-router";
+import { Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -210,55 +212,62 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        return <div>
+        return (<div><Box m={10}>
             <Container>
-                <Paper>
-                    <Chart
-                        data={this.state.weekEmissions}
-                    >
-                        <ArgumentAxis />
-                        <ValueAxis />
+                <Grid container>
+                    <Grid item md={6} sm={6} xs={12}>
+                        <Paper>
+                            <Chart
+                                data={this.state.weekEmissions}
+                            >
+                                <ArgumentAxis />
+                                <ValueAxis />
 
-                        <BarSeries
-                            valueField="emissions"
-                            argumentField="days"
-                        />
-                        <Title text="This Week's Overview" />
-                        <Animation />
-                    </Chart>
-                </Paper>
-                <Paper>
-                    <Chart
-                        data={this.state.threeDayEmission}
-                    >
-                        <ArgumentAxis />
-                        <ValueAxis />
+                                <BarSeries
+                                    valueField="emissions"
+                                    argumentField="days"
+                                />
+                                <Title text="This Week's Overview" />
+                                <Animation />
+                            </Chart>
+                        </Paper>
+                    </Grid>
+                    <Grid item md={6} sm={6} xs={12}>
+                        <Paper>
+                            <Chart
+                                data={this.state.threeDayEmission}
+                            >
+                                <ArgumentAxis />
+                                <ValueAxis />
 
-                        <BarSeries
-                            valueField="emissions"
-                            argumentField="days"
-                        />
-                        <Title text="The Last 3 Days' Overview" />
-                        <Animation />
-                    </Chart>
-                </Paper>
-                <Paper>
-                    <Chart
-                        data={this.state.monthEmission}
-                    >
-                        <ArgumentAxis />
-                        <ValueAxis />
+                                <BarSeries
+                                    valueField="emissions"
+                                    argumentField="days"
+                                />
+                                <Title text="The Last 3 Days' Overview" />
+                                <Animation />
+                            </Chart>
+                        </Paper>
+                    </Grid>
+                    <Grid item sm={6} xs={12}>
+                        <Paper>
+                            <Chart
+                                data={this.state.monthEmission}
+                            >
+                                <ArgumentAxis />
+                                <ValueAxis />
 
-                        <BarSeries
-                            valueField="emissions"
-                            argumentField="days"
-                        />
-                        <Title text="This Month's Overview" />
-                        <Animation />
-                    </Chart>
-                </Paper>
-                <div>
-                    <TableContainer component={Paper}>
+                                <BarSeries
+                                    valueField="emissions"
+                                    argumentField="days"
+                                />
+                                <Title text="This Month's Overview" />
+                                <Animation />
+                            </Chart>
+                        </Paper>
+                    </Grid>
+                    <Grid item>
+                    {/* <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
                             <TableHead>
                                 <TableRow>
@@ -283,14 +292,16 @@ class Dashboard extends React.Component {
                                 ))}
                             </TableBody>
                         </Table>
-                    </TableContainer>
-                </div>
+                    </TableContainer> */}
+                    </Grid>
+                </Grid>
                 <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style} onClick={this.redirectToEntry.bind(this)}>
                     <AddIcon />
                     Add Entry
                 </Fab>
             </Container>
-        </div>
+            </Box>
+            </div> );
     }
 }
 

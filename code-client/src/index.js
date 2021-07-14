@@ -3,14 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AuthContext from "./auth-context.js"
 
 function AppWrapper() {
-  const loggedIn = false;
   return (
-    <AuthContext.Provider value={ loggedIn }>
       <App />
-    </AuthContext.Provider>
   );
 }
 
