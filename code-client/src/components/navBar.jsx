@@ -49,7 +49,6 @@ function LogoutInterface(props) {
 
 function NavInterface(props) {
     const isLoggedIn = props.isLoggedIn;
-    console.log("in nav")
     if (isLoggedIn) {
         return <LogoutInterface />
     }
@@ -67,7 +66,7 @@ class NavBar extends React.Component {
 
     componentDidMount() {
         const isAuthenticated = this.state.isAuthenticated;
-        const loggedIn = this.state.loggedIn;
+
         if (isAuthenticated) {
             this.setState(
                 {loggedIn: true}
@@ -90,13 +89,7 @@ class NavBar extends React.Component {
                                 <Button color="secondary" className={classes.title} to="/" component={Link}>
                                     Artemis
                                 </Button>
-                                <Button color="secondary" className={classes.title} to="/carbonEntryPage" component={Link}>
-                                    Carbon Entry 
-                                </Button>
-                                <Hidden mdDown>
-                                    <Button variant="contained" color="primary" to="/signin" component={Link} style={{ left: '66%' }}>Login</Button>
-                                    <Button variant="contained" color="primary" to="/signup" component={Link} style={{ left: '67%' }}>Sign Up</Button>
-                                </Hidden>
+                                
                                 <NavInterface isLoggedIn={this.state.loggedIn} />
                             </Container>
                         </Toolbar>
