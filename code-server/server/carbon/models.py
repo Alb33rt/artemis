@@ -40,3 +40,7 @@ class CarbonEntry(models.Model):
     @property
     def item_name(self):
         return self.item_involved.name
+
+    @property 
+    def unit_name(self):
+        return self.item_involved.unit

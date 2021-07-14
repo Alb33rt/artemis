@@ -33,7 +33,6 @@ class PersonalEntriesAPI(APIView):
         #     data["time_created"] = carbon_entry.validated_data["time_created"].strftime(
         #         "%m%d"
         #     )
-        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
