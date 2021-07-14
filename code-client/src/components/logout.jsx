@@ -16,8 +16,13 @@ class Logout extends React.Component {
     componentDidMount() {
         this._isMounted = true;
         const isAuthenticated = this.state.isAuthenticated;
-        if (isAuthenticated) {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn) {
             const { history } = this.props;
+            let logoutConfirm = window.confirm("Are you sure you want to log out?");
+            if (!logoutConfirm) {
+                history.push('/dashboard')
+            } else {
             const requestOptions = {
             method: 'POST',
             headers: {
@@ -50,6 +55,7 @@ class Logout extends React.Component {
                         error: false
                     })
         });
+            }   
         }
     }
 

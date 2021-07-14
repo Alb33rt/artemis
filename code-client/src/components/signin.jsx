@@ -10,7 +10,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { theme } from '../colorTheme';
+import { Theme } from '../colorTheme';
 import { withRouter } from "react-router";
 import AuthContext from "../auth-context";
 
@@ -118,7 +118,7 @@ class SignIn extends React.Component {
   render() {
     console.log("rendering...")
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper} style={{ marginTop: "50%" }}>

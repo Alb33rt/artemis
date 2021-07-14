@@ -9,7 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { theme } from '../colorTheme';
+import MenuItem from '@material-ui/core/MenuItem';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import {Theme} from "../colorTheme";
 import AuthContext from "../auth-context";
 
 
@@ -44,6 +46,15 @@ function LogoutInterface(props) {
     return (
             <Hidden smDown>
                 <Button variant="contained" color="primary" component={Link} to="/logout" style={{ left: '78%' }}>Log Out</Button>
+                <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+                style={{ left: '80%' }}
+                >
+                <AccountCircle />
+                </IconButton>
             </Hidden>
     )
 }
@@ -71,7 +82,7 @@ class NavBar extends React.Component {
     render() {
     //    this.Authentication()
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={Theme}>
                 <div className={classes.root}>
                     <AppBar position="static">
                         <Toolbar>
