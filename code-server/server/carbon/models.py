@@ -6,7 +6,7 @@ from user_auth.models import User
 # Create your models here.
 class Item(models.Model):
     name = models.TextField(max_length=256)
-    emission = models.IntegerField(null=False)
+    emission = models.DecimalField(null=False, decimal_places=2, max_digits=6)
     tree_emission = models.IntegerField(null=False, default=0)
     unit = models.TextField(max_length=256, null = True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

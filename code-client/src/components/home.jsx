@@ -99,10 +99,10 @@ class Home extends React.Component {
         return (
             <ThemeProvider theme={Theme}>
                 <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: `round` }}>
-                        {/* Increase the priority of the hero background image */}
-                        {<img style={{ display: 'none' }} src={backgroundImage} />}
-                <Container maxWidth="lg">
-                    <div className={classes.overlay} />
+                    {/* Increase the priority of the hero background image */}
+                    {<img style={{ display: 'none' }} src={backgroundImage} />}
+                    <Container maxWidth="lg">
+                        <div className={classes.overlay} />
                         <Grid container justify="center" alignItems="center">
                             <Grid item md={12} alignItems="center">
                                 <div className={classes.mainFeaturedPostContent}>
