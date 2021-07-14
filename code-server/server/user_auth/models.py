@@ -10,7 +10,18 @@ import bcrypt
 
 # Create your models here.
 class User(AbstractUser):
-    pass
+    default_emissions = models.IntegerField(default = 50)
+
+    LIFESTYLE_CHOICES = (
+        ('ACT', 'Active'),
+        ('ITD', 'Indoors'),
+        ('SOC', 'Social'),
+        ('INT', 'High Brain-Usage'),
+        ('RET', 'Retired'),
+        ('VAC', 'Very Active')
+    )
+    type_of_lifestyle = models.CharField(max_length=3, choices=LIFESTYLE_CHOICES)
+    favorite_entries = models.ManyToManyField()
 
 # def generate_password_hash(password: str) -> bytes:
 #     # This function adds a salt(random string) to the original password and turn it into bytes

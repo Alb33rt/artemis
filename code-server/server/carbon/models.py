@@ -40,12 +40,13 @@ class CarbonEntry(models.Model):
     def __str__(self):
         return self.owner.username + "'s " + self.item_involved.name + " Entry"
 
+    @property
     def get_emissions(self):
-        total = self.item_involved["emission"] * self.quantity
+        total = self.item_involved.emission
         return total
 
     def get_trees(self):
-        trees = self.item_involved["tree_emission"] * self.quantity
+        trees = self.item_involved.tree_emission
         return trees
 
     @property
