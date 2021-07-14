@@ -19,6 +19,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -36,6 +37,7 @@ const style = {
     bottom: 20,
     left: 'auto',
     position: 'fixed',
+    zIndex:1000
 };
 
 const rows = [
@@ -173,11 +175,11 @@ export default class Dashboard extends React.Component {
 
     getCarbonEntry() {
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                "Access-Control-Request-Method": "GET",
+                "Access-Control-Request-Method": "POST",
                 "Origin": "https://127.0.0.1:3000",
                 "Authorization": localStorage.getItem("Authentication"),
                 'x-csrftoken': csrftoken
@@ -275,7 +277,7 @@ export default class Dashboard extends React.Component {
                         </Table>
                     </TableContainer>
                 </div>
-                <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style}>
+                <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style} to="/CarbonEntryPage" component={Link}>
                     <AddIcon />
                     Add Entry
                 </Fab>
