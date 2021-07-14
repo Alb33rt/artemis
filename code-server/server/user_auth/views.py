@@ -31,8 +31,9 @@ class RegisterAPI(APIView):
 Basic Authentication Login Method as Below, for backup.
 '''
 class LogoutAPI(APIView):
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         logout(request)
+        print(request)
         data = {}
         data['logout'] = "Success"
         return Response(data)

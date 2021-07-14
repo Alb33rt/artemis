@@ -11,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { theme } from '../colorTheme';
-import { Redirect, useHistory } from "react-router-dom";
 import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({

@@ -4,6 +4,7 @@ import datetime
 
 from rest_framework import serializers, status
 from rest_framework import viewsets
+from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
@@ -14,7 +15,7 @@ from .serializers import CarbonEntrySerializer, ItemSerializer
 
 # Create your views here.
 class PersonalEntriesAPI(APIView):
-
+    authentication_classes = [ TokenAuthentication ]
     def post(self, request, format=None):
         logs = CarbonEntry.objects.filter(owner=request.user)
         serializer = CarbonEntrySerializer(logs, many=True)

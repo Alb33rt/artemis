@@ -42,7 +42,7 @@ function LoginInterface(props) {
 function LogoutInterface(props) {
     return (
             <Hidden smDown>
-                <Button variant="contained" color="primary" component={Link} style={{ left: '78%' }}>Log Out</Button>
+                <Button variant="contained" color="primary" component={Link} to="/logout" style={{ left: '78%' }}>Log Out</Button>
             </Hidden>
     )
 }
