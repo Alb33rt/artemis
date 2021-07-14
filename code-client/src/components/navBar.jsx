@@ -49,6 +49,7 @@ function LogoutInterface(props) {
 
 function NavInterface(props) {
     const isLoggedIn = props.isLoggedIn;
+    console.log(isLoggedIn);
     if (isLoggedIn) {
         return <LogoutInterface />
     }
@@ -66,12 +67,15 @@ class NavBar extends React.Component {
 
     componentDidMount() {
         const isAuthenticated = this.state.isAuthenticated;
-
-        if (isAuthenticated) {
+        console.log(isAuthenticated)
+        if (isAuthenticated == false) {
             this.setState(
                 {loggedIn: true}
             )
-        }
+        } else
+            this.setState(
+                {loggedIn: false}
+            )
     }  
 
     render() {
