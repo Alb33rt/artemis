@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
 const style = {
     margin: 0,
     top: 'auto',
-    right: 20,
-    bottom: 20,
+    right: 40,
+    bottom: 40,
     left: 'auto',
     position: 'fixed',
     zIndex:1000
@@ -206,7 +206,7 @@ class Dashboard extends React.Component {
     render() {
         var tempRows=[];
         for(let i=0;i<this.state.carbonEntries.length;i++){
-            tempRows.push(createData(this.state.carbonEntries[i]['item_name'],this.state.carbonEntries[i]['quantity'],this.state.carbonEntries[i]['id'],this.state.carbonEntries[i]['details'],this.state.carbonEntries[i]['time_created']))
+            tempRows.push(createData(this.state.carbonEntries[i]['item_name'],this.state.carbonEntries[i]['quantity'],this.state.carbonEntries[i]['unit_name'],this.state.carbonEntries[i]['details'],this.state.carbonEntries[i]['time_created'].substring(0,10)))
         }
         const rows=tempRows
         return <div>
