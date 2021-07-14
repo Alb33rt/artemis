@@ -15,18 +15,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -76,12 +64,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
-
 export default function Checkout() {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
-
 
     return (
         <ThemeProvider theme={Theme}>
@@ -207,7 +191,6 @@ export default function Checkout() {
                             </React.Fragment>
                         </React.Fragment>
                     </Paper>
-                    <Copyright />
                 </main>
             </React.Fragment>
         </ThemeProvider>
