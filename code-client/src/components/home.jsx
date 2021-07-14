@@ -125,7 +125,7 @@ class Home extends React.Component {
                         
                   
                 
-                    <Grid container style={{backgroundColor: "white", padding: "20px"}}>
+                    <Grid container style={{backgroundColor: "white", opacity: '0.9', padding: "20px"}}>
                         <Grid item xs={6}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             Introduction
                         </Typography>
