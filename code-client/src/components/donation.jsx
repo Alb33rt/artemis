@@ -16,6 +16,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useState } from "react";
 import { Container } from '@material-ui/core';
+import NatureTwoToneIcon from '@material-ui/icons/NatureTwoTone';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -118,11 +119,21 @@ export default function Checkout() {
                     <Toolbar>
                         <Container max-width="lg">
                         <Typography variant="h6" color="inherit" noWrap>
+                            <NatureTwoToneIcon></NatureTwoToneIcon>
                             Donate to Plant a Tree
                         </Typography>
                         </Container>
                     </Toolbar>
                 </AppBar>
+                <Container maxWidth="sm"> 
+                <paper elevation={3}>
+                    <Typography variant="h7" gutterBottom>
+                        <br></br>
+                        <br></br>
+                        Make your “Donation” towards helping this planet! Believing that you have glance through the data we provided, you are convinced to make donation to helps us planting more trees. This is a good start of making contributions. Imaging everybody are making donations to contribute, it would be utopian but the ultimate goal. Promote the call to action to the people around you. Collectivist (sounds alike to communism but is not) towards contributing to save the planet starts here!
+                    </Typography>
+                </paper>
+                </Container>
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography component="h1" variant="h4" align="center">
@@ -131,9 +142,6 @@ export default function Checkout() {
                         </Typography>
                         <React.Fragment>
                             <React.Fragment>
-                                <Typography variant="h8" gutterBottom>
-                                    Make your “Donation” towards helping this planet! Believing that you have glance through the data we provided, you are convinced to make donation to helps us planting more trees. This is a good start of making contributions. Imaging everybody are making donations to contribute, it would be utopian but the ultimate goal. Promote the call to action to the people around you. Collectivist (sounds alike to communism but is not) towards contributing to save the planet starts here!
-                                </Typography>
                                 <Grid container spacing={3}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
