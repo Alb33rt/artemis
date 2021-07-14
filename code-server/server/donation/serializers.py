@@ -11,10 +11,11 @@ class AddDonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
         fields = [
-            "username",
-            "quantity",
+            "firstname",
+            "lastname",
             "credit_card_number",
             "expiration_year",
             "expiration_month",
             "confirm_code",
+            "quantity",
         ]
