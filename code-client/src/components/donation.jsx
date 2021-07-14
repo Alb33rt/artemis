@@ -17,6 +17,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useState } from "react";
 import { Container } from '@material-ui/core';
 import NatureTwoToneIcon from '@material-ui/icons/NatureTwoTone';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,41 +71,101 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing.unit * 2,
     },
 }));
-
-export default function Checkout() {
-    function afterSubmission(event) {
-        event.preventDefault();
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
-    function postRequest(event) {
-        event.preventDefault();
+const SubmitDonation = (props) => {
+    const properties = props
+    const [open, setOpen] = React.useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    function handleAgree(props) {
+        setOpen(false);
+        console.log(properties.firstname)
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                "Access-Control-Request-Method": "POST"
+                "Access-Control-Request-Method": "POST",
+                "Origin": "http://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
             },
             body: JSON.stringify({
-                "firstname":firstName,
-                "lastname":lastName,
-                "credit_card_number":creditNum,
-                "expiration_year":expireYear,
-                "expiration_month":expireMonth,
-                "confirm_code":confirmCode,
-                "quantity":donation
+                "firstname": properties.firstname,
+                "lastname": properties.lastname,
+                "credit_card_number": properties.creditNum,
+                "expiration_year": properties.expiration_year,
+                "expiration_month": properties.expiration_month,
+                "confirm_code": properties.confirm_code,
+                "quantity": properties.quantity,
             })
         };
         console.log("sending POST request");
 
-        fetch('http://localhost:8000/api-login/register', requestOptions)
+        fetch('http://localhost:8000/api-donation/donate', requestOptions)
           .then(response=>response.json())
-          .then(data => {console.log(data)
+          .then(data => {
+              console.log(data)
           })
           .catch(error => {
             console.log(error);
         });
-    }
+    };
+    
+    return (
+      <div>
+        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Confirm Donate
+        </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Confirm Donation to Artemis?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure about donating to Peko?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={handleAgree} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+
+export default function Checkout() {
 
     const [firstName, getFirstName] = useState("");
     const [lastName, getLastName] = useState("");
@@ -109,6 +174,7 @@ export default function Checkout() {
     const [expireMonth, getExpireMonth] = useState("");
     const [confirmCode, getConfirmCode] = useState("");
     const [donation, getDonation] = useState("");
+
 
     const classes = useStyles();
     return (
@@ -248,14 +314,23 @@ export default function Checkout() {
                             </React.Fragment>
                             <React.Fragment>
                                 <div className={classes.buttons}>
-                                    <Button
+                                    {/* <Button
                                         variant="contained"
                                         color="primary"
                                         className={classes.button}
                                         onClick={postRequest}
                                     >
                                         Send
-                                    </Button>
+                                    </Button> */}
+                                    <SubmitDonation 
+                                    firstname={firstName}
+                                    lastname={lastName}
+                                    creditNum={creditNum}
+                                    expiration_year={expireYear}
+                                    expiration_month={expireMonth}
+                                    confirm_code={confirmCode}
+                                    quantity={donation}
+                                      />
                                 </div>
                             </React.Fragment>
                         </React.Fragment>

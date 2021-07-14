@@ -32,3 +32,6 @@ class Donation(models.Model):
     time = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.owner.username + "'s Donation"

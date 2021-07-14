@@ -20,6 +20,7 @@ class AddDonationSerializer(serializers.ModelSerializer):
             "expiration_month",
             "confirm_code",
             "quantity",
+            "owner"
         ]
 
 

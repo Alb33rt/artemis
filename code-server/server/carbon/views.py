@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 
 from .models import CarbonEntry, Item
 from .serializers import CarbonEntrySerializer, ItemSerializer
@@ -25,6 +25,7 @@ class PersonalEntriesAPI(APIView):
 
 
 class AddEntriesAPI(APIView):
+    permission_classes = [ IsAuthenticated ]
 
     """
     During the Post sequence, we create an entry of a carbon log using sent data through the form, this includes the item (which is a dropdown menu), quantity and details, the user is the current user sending the api request.
@@ -33,7 +34,9 @@ class AddEntriesAPI(APIView):
     def post(self, request, format=None):
         serializer = CarbonEntrySerializer(data=request.data)
         data = {}
+        print(serializer.data)
         if serializer.is_valid():
+            print(request.data)
             carbon_entry = serializer.save(owner=request.user)
             data["message"] = "Success! Thank you for caring for the Earth!"
             data["quantity"] = carbon_entry.validated_data["quantity"]
@@ -43,6 +46,7 @@ class AddEntriesAPI(APIView):
         return Response(data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def recentDataAPI(request, days):
     try:
         today = datetime.date.today()
@@ -60,7 +64,7 @@ def recentDataAPI(request, days):
                 sum_of_day += q.emission
 
             data.append({"days": i, "emissions": sum_of_day})
-            
+
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == "GET":
