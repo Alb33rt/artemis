@@ -4,3 +4,5 @@ export { default as SignUp } from "./signup";
 export { default as Logout } from "./logout";
 export { default as Home } from "./home"; 
 export { default as Dashboard } from "./dashboard";
+export { default as Donation } from "./donation";
+export { default as CarbonEntryPage} from "./carbonEntryPage";
