@@ -45,7 +45,7 @@ class SignIn extends React.Component {
       token: "",
       isAuthenticated: false,
       redirect: "/signin",
-      rememberMe:false
+      rememberMe: false
     }
   }
   afterSubmission(event) {
@@ -68,11 +68,18 @@ class SignIn extends React.Component {
   }
   getRememberMe(input) {
     this.setState({
-      rememberMe:input.target.checked
+      rememberMe: input.target.checked
     })
     console.log(this.state.rememberMe)
   }
-
+  setWithExpiry(key, value) {
+    const now = new Date()
+    const item = {
+      value: value,
+      expiry: now.getTime() + (60*60*1000),
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  }
   postRequest(e) {
     const { history } = this.props;
     const requestOptions = {
@@ -96,12 +103,20 @@ class SignIn extends React.Component {
         this.setState({
           token: data['token']
         })
-        localStorage.setItem("Authentication", "Token " + data['token']);
-        localStorage.setItem('isAuthenticated', true);
-        localStorage.setItem('isLoggedIn', true);
+        if (this.state.rememberMe) {
+          localStorage.setItem("Authentication", "Token " + data['token']);
+          localStorage.setItem('isAuthenticated', true);
+          localStorage.setItem('isLoggedIn', true);
+        }
+        else{
+          this.setWithExpiry("Authentication", "Token " + data['token']);
+          this.setWithExpiry('isAuthenticated', true);
+          this.setWithExpiry('isLoggedIn', true);
+        }
+
 
         console.log(data['token'])
-        if(data['token']){
+        if (data['token']) {
           history.push('/dashboard')
         } else {
           console.log("Login Failed, please double check your Username or Password.")
@@ -117,9 +132,9 @@ class SignIn extends React.Component {
       });
   }
   renderRedirect() {
-      if (this.state.isAuthenticated && this.state.redirect ) {
-        console.log("Redirecting to Home")
-      }
+    if (this.state.isAuthenticated && this.state.redirect) {
+      console.log("Redirecting to Home")
+    }
   }
   setRedirect = () => {
     this.setState({
@@ -176,10 +191,10 @@ class SignIn extends React.Component {
                 className={classes.submit}
                 onClick={this.postRequest.bind(this)}
               >
-                
+
                 Sign In
               </Button>
-              
+
               <Grid container>
                 <Grid item>
                   <Link href="/signup" variant="body2">
