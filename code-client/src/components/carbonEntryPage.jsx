@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
-import { theme } from "../colorTheme";
+import { Theme } from "../colorTheme";
 import ReactDOM from "react-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -66,7 +66,7 @@ class CarbonEntryPage extends React.Component{
 
     render(){
         return(
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={Theme}>
                 <Container maxWidth="1g">
                 <Paper elevation={0} />
                     <Grid container>

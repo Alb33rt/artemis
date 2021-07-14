@@ -96,8 +96,88 @@ export default class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.getCarbonEntry();
+        this.getCarbonEntry();  
+        this.get3DayEmission();
+        this.getMonthEmission();
+        this.getWeekEmission();
+    }
 
+    getMonthEmission() {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get month emission data");
+
+        fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    getWeekEmission() {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get week emission data ");
+
+        fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    get3DayEmission(){
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get 3 day emission data");
+
+        fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     getCarbonEntry() {
@@ -114,7 +194,7 @@ export default class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("sending POST request");
+        console.log("get carbon entries");
 
         fetch('http://localhost:8000/api-carbon/logs', requestOptions)
             .then(response => response.json())

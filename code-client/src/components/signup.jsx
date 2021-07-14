@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {theme} from '../colorTheme';
+import {Theme} from '../colorTheme';
 import { withRouter } from 'react-router-dom';
 import { Redirect } from "react-router";
 import AuthContext from "../auth-context";
@@ -111,7 +111,7 @@ class SignUp extends React.Component {
   render() {
     return (
       <AuthContext.Provider value={this.state.loggedIn}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper} style={{marginTop:"40%"}}>

@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { theme } from '../colorTheme';
+import {Theme} from "../colorTheme";
 import AuthContext from "../auth-context";
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
