@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, NavBar, SignIn, SignUp, Dashboard, carbonEntryPage, Logout, donation } from "./components";
+import AuthContext from "./auth-context.js";
+
+const UserContext = React.createContext('logged_out')
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false)
   return (
     <div className="App">
       <Router>

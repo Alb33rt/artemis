@@ -93,7 +93,6 @@ class SignIn extends React.Component {
         localStorage.setItem('isAuthenticated', true);
         this.setState({isAuthenticated:true});
         history.push("/dashboard");
-        this.setRedirect();
       })
       .catch(error => {
         console.log(error);

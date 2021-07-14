@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { theme } from '../colorTheme';
+import AuthContext from "../auth-context";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,38 +48,43 @@ function LogoutInterface(props) {
     )
 }
 
-function NavInterface(props) {
-    const isLoggedIn = props.isLoggedIn;
-    console.log(isLoggedIn);
-    if (isLoggedIn) {
-        return <LogoutInterface />
+// function NavInterface(props) {
+//     const isLoggedIn = props.isLoggedIn;
+//     console.log(isLoggedIn)
+//     if (props.isLoggedIn == "true") {
+//         return <LogoutInterface />
+//     }
+//     return <LoginInterface />
+// }
+
+function NavInterface() {
+    return (
+    (<AuthContext.Consumer>
+    { 
+        ({ loggedIn, setLoggedIn }) => {
+            { loggedIn ? <LoginInterface /> : <LogoutInterface /> }
+     
+        }
     }
-    return <LoginInterface />
-}
+    </AuthContext.Consumer>)
+    );
+} 
 
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAuthenticated: localStorage.getItem('isAuthenticated'),
-            loggedIn: false
+            isLoggedIn: localStorage.getItem('isAuthenticated')
         }
     }
 
     componentDidMount() {
-        const isAuthenticated = this.state.isAuthenticated;
-        console.log(isAuthenticated)
-        if (isAuthenticated == false) {
-            this.setState(
-                {loggedIn: true}
-            )
-        } else
-            this.setState(
-                {loggedIn: false}
-            )
+        const loggedIn = this.state.isLoggedIn
+        console.log(loggedIn)
     }  
 
     render() {
+    //    this.Authentication()
         return (
             <ThemeProvider theme={theme}>
                 <div className={classes.root}>
@@ -94,7 +100,7 @@ class NavBar extends React.Component {
                                     Artemis
                                 </Button>
                                 
-                                <NavInterface isLoggedIn={this.state.loggedIn} />
+                                <NavInterface />
                             </Container>
                         </Toolbar>
                     </AppBar>

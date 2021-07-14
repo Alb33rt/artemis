@@ -29,21 +29,17 @@ class Logout extends React.Component {
             })
             };
             console.log("Sending GET Request to Server....");
-            console.log(localStorage.getItem("Authentication"))
-            console.log(localStorage.getItem("isAuthenticated"))
 
             fetch('http://localhost:8000/api-login/logout', requestOptions)
             .then(res => res.json())
             .then( (result) => {
-                console.log(result)
+    
                 localStorage.removeItem("Authentication");
                 localStorage.setItem('isAuthenticated', false);
                 this.setState({
                     isAuthenticated: false,
                     loading: false,
                 });
-                console.log(localStorage.getItem("Authentication"))
-                console.log(localStorage.getItem("isAuthenticated"))
                 history.push("/home");
             })
             .catch(error => {
