@@ -36,22 +36,15 @@ const useStyles = makeStyles((theme) => ({
 const style = {
     margin: 0,
     top: 'auto',
-    right: 20,
-    bottom: 20,
+    right: 40,
+    bottom: 40,
     left: 'auto',
     position: 'fixed',
     zIndex:1000
 };
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+function createData(itemName, quantity, unit, details, timeCreated) {
+    return { itemName, quantity, unit, details, timeCreated };
 }
 function getCookie(name) {
     let cookieValue = null;
@@ -209,9 +202,15 @@ class Dashboard extends React.Component {
             .catch(error => {
                 console.log(error);
             });
-    }
 
+    }
+    
     render() {
+        var tempRows=[];
+        for(let i=0;i<this.state.carbonEntries.length;i++){
+            tempRows.push(createData(this.state.carbonEntries[i]['item_name'],this.state.carbonEntries[i]['quantity'],this.state.carbonEntries[i]['unit_name'],this.state.carbonEntries[i]['details'],this.state.carbonEntries[i]['time_created'].substring(0,10)))
+        }
+        const rows=tempRows
         return (<div><Box m={10}>
             <Container>
                 <Grid container>
@@ -271,23 +270,23 @@ class Dashboard extends React.Component {
                         <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Dessert (100g serving)</TableCell>
-                                    <TableCell align="right">Calories</TableCell>
-                                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                    <TableCell>Item</TableCell>
+                                    <TableCell align="right">Quantity</TableCell>
+                                    <TableCell align="right">Unit</TableCell>
+                                    <TableCell align="right">Details</TableCell>
+                                    <TableCell align="right">Date Created</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {rows.map((row) => (
-                                    <TableRow key={row.name}>
+                                    <TableRow key={row.itemName}>
                                         <TableCell component="th" scope="row">
-                                            {row.name}
+                                            {row.itemName}
                                         </TableCell>
-                                        <TableCell align="right">{row.calories}</TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.carbs}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
+                                        <TableCell align="right">{row.quantity}</TableCell>
+                                        <TableCell align="right">{row.unit}</TableCell>
+                                        <TableCell align="right">{row.details}</TableCell>
+                                        <TableCell align="right">{row.timeCreated}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -301,7 +300,7 @@ class Dashboard extends React.Component {
                 </Fab>
             </Container>
             </Box>
-            </div> );
+        </div> );
     }
 }
 
