@@ -10,4 +10,5 @@ urlpatterns = [
     path(r'login', obtain_auth_token, name="login"),
     path(r'logout', views.LogoutAPI.as_view(), name="logout"),
     path(r'auth-check', views.AuthCheckAPI.as_view(), name="auth-check"),
+    path(r'edit-profile', views.EditProfileAPI.as_view(), name="edit-profile"),
 ]

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -44,14 +45,18 @@ class AuthCheckAPI(APIView):
     def post(self, request, format=None):
         data = {}
         data['response'] = "Authentication Success"
-        return Response(data)
+        return Response(data, status=status.HTTP_202_ACCEPTED)
 
 class EditProfileAPI(APIView):
     permission_classes = [ IsAuthenticated ]
     def get(self, request, format=None):
         user = request.user
-        pass
+        serializer = EditProfileSerializer(user, many=True)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
+    def post(self, request, format=None):
+        user = request.user
+        pass
 
 # class LoginAPI(APIView):
 #     def post(self, request, format=None):
