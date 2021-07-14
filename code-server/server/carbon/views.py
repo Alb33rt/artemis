@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+import datetime
+
 from rest_framework import serializers, status
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -13,16 +15,14 @@ from .serializers import CarbonEntrySerializer, ItemSerializer
 # Create your views here.
 class PersonalEntriesAPI(APIView):
     authentication_classes=[ TokenAuthentication ]
-    permission_classes = [ IsAuthenticated ]
 
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         logs = CarbonEntry.objects.filter(owner=request.user)
         serializer = CarbonEntrySerializer(logs, many=True)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 class AddEntriesAPI(APIView):
     authentication_classes = [ TokenAuthentication ]
-    permission_classes = [ IsAuthenticated ]
 
     '''
     During the Post sequence, we create an entry of a carbon log using sent data through the form, this includes the item (which is a dropdown menu), quantity and details, the user is the current user sending the api request. 
@@ -40,13 +40,22 @@ class AddEntriesAPI(APIView):
             data['message'] = "Failed, Please Try Again"
         return Response(data)
 
+class recentDataAPI(viewsets.ViewSet):
+    authentication_classes = [ TokenAuthentication ]
+    def list(self, request, pk=None):
+        items = []
+        today = datetime.date.today()
+        queryset = CarbonEntry.objects.filter(time_created_lte = datetime.date.today(), time_created__gt=datetime.date.today()-datetime.timedelta(days=7), owner=request.user)
+        serializer = CarbonEntrySerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
 class myItemsAPI(APIView):
     authentication_classes = [ TokenAuthentication ]
-    permission_classes = [ IsAuthenticated ]
+
     '''
     Used to get the items that a user created personally
     '''
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         user = request.user
         my_items = Item.objects.filter(owner=user)
         serializer = ItemSerializer(my_items, many=True)
@@ -75,7 +84,7 @@ class relatedItemsAPI(viewsets.ViewSet):
 
 class postItemsAPI(APIView):
     authentication_classes = [ TokenAuthentication ]
-    permission_classes = [ IsAuthenticated ]
+    # permission_classes = [ IsAuthenticated ]
     '''
     Used to post items online to contribute to the growing database
     '''
