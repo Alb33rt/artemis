@@ -17,6 +17,7 @@ from .serializers import (
     GreenEntrySerializer,
     CarbonItemSerializer,
     GreenItemSerializer,
+    PostCarbonEntrySerializer
 )
 
 # Create your views here.
@@ -48,12 +49,12 @@ class AddCarbonEntriesAPI(APIView):
     """
 
     def post(self, request, format=None):
-        serializer = CarbonEntrySerializer(data=request.data)
+        serializer = PostCarbonEntrySerializer(data=request.data)
         data = {}
         print(serializer.data)
         if serializer.is_valid():
             print(request.data)
-            carbon_entry = serializer.save(owner=request.user)
+            carbon_entry = serializer.save(user=request.user)
             data["message"] = "Success! Thank you for caring for the Earth!"
             data["quantity"] = carbon_entry.validated_data["quantity"]
             data["Carbonitem"] = carbon_entry.validated_data["item_envolved"]

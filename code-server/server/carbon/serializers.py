@@ -13,6 +13,26 @@ class CarbonEntrySerializer(serializers.ModelSerializer):
         model = CarbonEntry
         fields = "__all__"
 
+class PostCarbonEntrySerializer(serializers.ModelSerializer):
+    item_name = serializers.ReadOnlyField()
+    unit_name = serializers.ReadOnlyField()
+    class Meta:
+        model = CarbonEntry
+        fields = ['quantity', 'details', 'item_involved']
+
+    def save(self, user):
+        item = CarbonItem.objects.filter(name__icontains=self.validated_data['item_involved'])
+        if not item:
+            raise serializers.ValidationError({"message": "No such item"})
+        Entry = CarbonEntry(
+            quantity=self.validated_data['quantity'],
+            details=self.validated_data['details'],
+            item_involved=item,
+            owner=user
+        )
+        Entry.save()
+        return Entry
+
 
 class GreenEntrySerializer(serializers.ModelSerializer):
     item_name = serializers.ReadOnlyField()
