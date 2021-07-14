@@ -107,9 +107,11 @@ class Home extends React.Component {
                         <Grid container justify="center" alignItems="center">
                             <Grid item md={6} alignItems="center">
                                 <div className={classes.mainFeaturedPostContent}>
-                                    <WhiteTextTypography component="h1" variant="h1" color="textSecondary" gutterBottom align="center">
+                                    <WhiteTextTypography component="h2" variant="h2" color="textSecondary" gutterBottom align="center">
+                                        <br></br>
                                         <br></br>
                                         Plant a tree, save the world.
+                                        <br></br>
                                         <br></br>
                                     </WhiteTextTypography>
                                 </div>

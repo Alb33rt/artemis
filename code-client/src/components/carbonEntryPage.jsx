@@ -10,13 +10,25 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import { theme } from "../colorTheme";
+import ReactDOM from "react-dom";
 
 
-export default class CarbonEntryPage extends React.Component{
-    
+class CarbonEntryPage extends React.Component{
+    componentDidMount(){
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://tnc-coolclimate-calculator-ui.firebaseapp.com/assets/widget.min.js";
+        this.div.appendChild(script);
+    }
 
     render(){
-        return <p>Carbon Entry Page</p>
+        return(
+            <div className="App" ref={el => (this.div = el)}>
+        <h1>Hello react</h1>
+        {/* Script is inserted here */}
+      </div>
+        );
     }
 }
 
+export default CarbonEntryPage;
