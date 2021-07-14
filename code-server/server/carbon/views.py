@@ -42,12 +42,14 @@ class AddEntriesAPI(APIView):
             data["message"] = "Failed, Please Try Again"
         return Response(data)
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 def recentDataAPI(request, days):
     try:
-        today = datetime.date.today()
+        print("request recieved")
+        today = datetime.date.today() + datetime.timedelta(2)
         data = []
-        for i in range(1, days+1):
+        for i in range(days):
             timedelta_front = datetime.timedelta(days=i)
             timedelta_rear = datetime.timedelta(days=(i + 1))
             queryset = CarbonEntry.objects.filter(
@@ -56,27 +58,22 @@ def recentDataAPI(request, days):
                 owner=request.user,
             )
             sum_of_day = 0
+            date_str = ""
             for q in queryset:
-                sum_of_day += q["quantity"]
+                sum_of_day += q.quantity
+                date_str = q.time_created.strftime("%m%d")
+            data.append({"days": date_str, "emissions": sum_of_day})
 
-            data.append({"days": i, "emissions": sum_of_day})
-            
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == "GET":
         return Response(data, status=status.HTTP_202_ACCEPTED)
 
 
-
-class myItemsAPI(APIView):
-
-    """
-    Used to get the items that a user created personally
-    """
-
+class allItemsAPI(APIView):
     def post(self, request, format=None):
         user = request.user
-        my_items = Item.objects.filter(owner=user)
+        my_items = Item.objects.all()
         serializer = ItemSerializer(my_items, many=True)
 
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
