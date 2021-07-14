@@ -220,6 +220,7 @@ export default function Checkout() {
                     <Grid item xs={4}>
                     <main className={classes.layout}>
                     <Paper className={classes.paper}>
+                        <Box m={4}>
                         <Typography component="h1" variant="h4" align="center">
                             Donation
                             <br></br>
@@ -352,6 +353,7 @@ export default function Checkout() {
                                 </div>
                             </React.Fragment>
                         </React.Fragment>
+                        </Box>
                     </Paper>
                 </main>
                     </Grid>
