@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage
+import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage, Contactus
  } from "./components";
 import { withRouter } from "react-router";
 
@@ -73,6 +73,7 @@ function App() {
           <Route path="/logout" exact component={() => <Logout/>} />
           <Route path="/carbonEntryPage" exact component={() => <CarbonEntryPage/>} />
           <Route path="/donation" exact component={() => <Donation/>} />
+          <Route path="/contactus" exact component={() => <Contactus/>} />
         </Switch>
       </Router>
     </div>
