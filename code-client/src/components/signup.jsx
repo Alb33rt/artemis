@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +11,7 @@ import Container from '@material-ui/core/Container';
 import {theme} from '../colorTheme';
 import { withRouter } from 'react-router-dom';
 import { Redirect } from "react-router";
+import AuthContext from "../auth-context";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,6 +48,7 @@ class SignUp extends React.Component {
       password2: "",
       token:"",
       isLoaded:false,
+      loggedIn: null,
     }
   }
 
@@ -99,6 +101,11 @@ class SignUp extends React.Component {
       })
       localStorage.setItem('login',true);
       localStorage.setItem("Authentication","Token "+data['token']);
+      const [isLoggedIn, setIsLoggedIn] = useState(false)
+      setIsLoggedIn(true)
+      this.setState(
+        {loggedIn: isLoggedIn}
+      )
       history.push("/dashboard");
     })
     .catch(error => {
@@ -108,6 +115,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
+      <AuthContext.Provider value={this.state.loggedIn}>
       <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -202,6 +210,7 @@ class SignUp extends React.Component {
         </Box>
       </Container>
       </ThemeProvider>
+      </AuthContext.Provider>
     );
   }
 }

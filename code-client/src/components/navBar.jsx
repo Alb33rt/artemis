@@ -56,31 +56,24 @@ function LogoutInterface(props) {
 //     }
 //     return <LoginInterface />
 // }
-
-function NavInterface() {
-    return (
-    (<AuthContext.Consumer>
+const NavInterface = () => (
+    <AuthContext.Consumer>
     { 
-        ({ loggedIn, setLoggedIn }) => {
-            { loggedIn ? <LoginInterface /> : <LogoutInterface /> }
-     
+        (loggedIn) => {
+        return (loggedIn ? <LoginInterface /> : <LogoutInterface />);
         }
     }
-    </AuthContext.Consumer>)
-    );
-} 
+    </AuthContext.Consumer>
+)
 
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn: localStorage.getItem('isAuthenticated')
         }
     }
 
     componentDidMount() {
-        const loggedIn = this.state.isLoggedIn
-        console.log(loggedIn)
     }  
 
     render() {

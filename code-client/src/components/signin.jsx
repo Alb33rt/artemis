@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -12,6 +12,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { theme } from '../colorTheme';
 import { withRouter } from "react-router";
+import AuthContext from "../auth-context";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,6 +46,7 @@ class SignIn extends React.Component {
       token: "",
       isAuthenticated: false,
       redirect: "/signin",
+      loggedIn: null,
     }
   }
   afterSubmission(event) {
@@ -92,7 +94,12 @@ class SignIn extends React.Component {
         localStorage.setItem("Authentication", "Token " + data['token']);
         localStorage.setItem('isAuthenticated', true);
         this.setState({isAuthenticated:true});
+        const isLoggedIn= true;
+        this.setState(
+          {loggedIn: isLoggedIn}
+        )
         history.push("/dashboard");
+
       })
       .catch(error => {
         console.log(error);
@@ -110,6 +117,7 @@ class SignIn extends React.Component {
   }
   render() {
     return (
+      <AuthContext.Provider value={this.state.loggedIn}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -173,6 +181,7 @@ class SignIn extends React.Component {
           </Box>
         </Container>
       </ThemeProvider>
+      </AuthContext.Provider>
     );
   }
 }

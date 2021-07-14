@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router";
+import AuthContext from "../auth-context";
 
 class Logout extends React.Component {
     _isMounted = false;
@@ -9,6 +10,7 @@ class Logout extends React.Component {
             isAuthenticated: localStorage.getItem('isAuthenticated'),
             loading: true,
             error: false,
+            loggedIn: null,
         }
     }
 
@@ -33,18 +35,25 @@ class Logout extends React.Component {
             fetch('http://localhost:8000/api-login/logout', requestOptions)
             .then(res => res.json())
             .then( (result) => {
-    
-                localStorage.removeItem("Authentication");
+                console.log(result)
+
                 localStorage.setItem('isAuthenticated', false);
                 this.setState({
                     isAuthenticated: false,
                     loading: false,
                 });
+                const isLoggedIn = false;
+                console.log(isLoggedIn)
+                this.setState(
+                    {loggedIn: isLoggedIn}
+                )
+                
                 history.push("/home");
             })
             .catch(error => {
+                console.log(error)
                 this.setState({
-                        error: true
+                        error: false
                     })
         });
         }
@@ -57,7 +66,11 @@ class Logout extends React.Component {
     render() {
         const { isAuthenticated, loading, error } = this.state;
         if (loading) {
-            return <p>Loading...</p>
+            return (
+            <AuthContext.Provider value={this.state.loggedIn}>
+                <p>Loading...</p>
+            </AuthContext.Provider>
+            );
         }
 
         if (error) {

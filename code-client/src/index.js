@@ -6,9 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import AuthContext from "./auth-context.js"
 
 function AppWrapper() {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const loggedIn = false;
   return (
-    <AuthContext.Provider value={{ loggedIn, setLoggedIn }}>
+    <AuthContext.Provider value={ loggedIn }>
       <App />
     </AuthContext.Provider>
   );
