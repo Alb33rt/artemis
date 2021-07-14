@@ -122,12 +122,15 @@ class Home extends React.Component {
                 <Paper className={classes.mainFeaturedPost} >
                     {/* Increase the priority of the hero background image */}
                     {<img style={{ display: 'none' }} src={Image} />}
-                    <Box m={18} mx="auto" className={classes.mainSection}>
+                    <Box  mx="auto" className={classes.mainSection}>
+                    <img style = {{width:'100%', height:'auto', opacity:'0.9'}} src={forestImage}></img>
                     <Container maxWidth="lg">
                         <div className={classes.overlay} />
-                        <Grid container spacing={20} justify="center" alignItems="center" style={{ backgroundImage: "url(../images/forest.png)"}}>
+                        <Grid container spacing={20} justify="center" alignItems="center">
+                        
                                 <Grid item md={12} alignItems="center" spacing={20}>
                                     <div className={classes.mainFeaturedPostContent}>
+                                        
                                         <Typography component="h3" variant="h3" color="textPrimary" gutterBottom align="center">
 
                                             Plant a tree, Save the world.
