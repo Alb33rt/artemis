@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, donation, CarbonEntryPage
+import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage
  } from "./components";
 import AuthContext from "./auth-context.js";
 
@@ -66,8 +66,8 @@ function App() {
           <Route path="/signup" exact component={() => <SignUp />} />
           <Route path="/dashboard" exact component={() => <Dashboard/>} />
           <Route path="/logout" exact component={() => <Logout/>} />
-          <Route path="/carbonEntryPage" exact component={() => <carbonEntryPage/>} />
-          <Route path="/donation" exact component={() => <donation/>} />
+          <Route path="/carbonEntryPage" exact component={() => <CarbonEntryPage/>} />
+          <Route path="/donation" exact component={() => <Donation/>} />
         </Switch>
       </Router>
     </div>
