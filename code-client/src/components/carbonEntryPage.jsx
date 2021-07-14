@@ -88,11 +88,11 @@ export default function CarbonEntryPage() {
 
     function getItems() {
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Method": "GET",
                 "Origin": "https://127.0.0.1:3000",
                 "Authorization": localStorage.getItem("Authentication"),
                 'x-csrftoken': csrftoken
@@ -106,8 +106,8 @@ export default function CarbonEntryPage() {
             .then(response => response.json())
             .then(data => {
                 item = data
-                var names = Array();
-                var id = Array();
+                var names = [];
+                var id = [];
                 for (let i = 0; i < item.length; i++) {
                     names.push(item[i]['name']);
                     id.push(item[i]['id']);
@@ -120,6 +120,7 @@ export default function CarbonEntryPage() {
                     result.push(dict)
                 }
                 itemList=result
+                console.log(typeof itemList);
                 console.log(itemList);
             })
             .catch(error => {
@@ -164,7 +165,9 @@ export default function CarbonEntryPage() {
                         <Autocomplete
                             id="item"
                             options={itemList}
+                            autoHighlight
                             getOptionLabel={(option) => option.name}
+                            /*getOptionLabel={(option) => option}*/
                             style={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Item Type" variant="outlined" />}
                         />

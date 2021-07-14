@@ -49,7 +49,7 @@ class AddEntriesAPI(APIView):
 @permission_classes([IsAuthenticated])
 def recentDataAPI(request, days):
     try:
-        today = datetime.date.today()
+        today = datetime.date.today()+datetime.timedelta(2)
         data = []
         for i in range(1, days+1):
             timedelta_front = datetime.timedelta(days=i)

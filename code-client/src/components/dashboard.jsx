@@ -220,7 +220,7 @@ export default class Dashboard extends React.Component {
             <Container>
                 <Paper>
                     <Chart
-                        data={barPlaceholderData}
+                        data={this.state.weekEmissions}
                     >
                         <ArgumentAxis />
                         <ValueAxis />
