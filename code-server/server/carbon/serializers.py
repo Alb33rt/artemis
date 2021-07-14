@@ -6,6 +6,7 @@ from .models import CarbonEntry, Item
 
 
 class CarbonEntrySerializer(serializers.ModelSerializer):
+    item_name = serializers.ReadOnlyField()
     class Meta:
         model = CarbonEntry
         fields = "__all__"

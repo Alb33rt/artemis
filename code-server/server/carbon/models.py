@@ -36,3 +36,7 @@ class CarbonEntry(models.Model):
     def get_trees(self):
         trees = self.item_involved["tree_emission"] * self.quantity
         return trees
+
+    @property
+    def item_name(self):
+        return self.item_involved.name

@@ -173,11 +173,11 @@ export default class Dashboard extends React.Component {
 
     getCarbonEntry() {
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                "Access-Control-Request-Method": "GET",
+                "Access-Control-Request-Method": "POST",
                 "Origin": "https://127.0.0.1:3000",
                 "Authorization": localStorage.getItem("Authentication"),
                 'x-csrftoken': csrftoken
@@ -193,6 +193,8 @@ export default class Dashboard extends React.Component {
                 this.setState({
                     carbonEntries:data
                 })
+                console.log("Recieved Recent Carbon Entries.")
+                console.log(this.state.carbonEntries)
             })
             .catch(error => {
                 console.log(error);

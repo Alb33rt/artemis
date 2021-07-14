@@ -138,6 +138,7 @@ class Home extends React.Component {
                         </Grid>
                     </Container>
                     </Box>
+                    <Box fontSize={16}>
                     <Container>
                         <Grid container style={{backgroundColor: "white", opacity: '1', padding: "20px"}} spacing={3} alignItems="center">
                                 <Grid item md={6} xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
@@ -191,6 +192,7 @@ class Home extends React.Component {
                                 
                             </Grid>
                     </Container>
+                    </Box>
                 </Paper>
             </ThemeProvider>
         )

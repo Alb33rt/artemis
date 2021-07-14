@@ -17,22 +17,24 @@ from .serializers import CarbonEntrySerializer, ItemSerializer
 # Create your views here.
 class PersonalEntriesAPI(APIView):
     authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
         logs = CarbonEntry.objects.filter(owner=request.user)
         serializer = CarbonEntrySerializer(logs, many=True)
-        data = {}
+        # data = {}
+        # if serializer.is_valid():
+        #     print(request.data)
+        #     carbon_entry = serializer.save(owner=request.user)
+        #     data["item_involved"] = carbon_entry.validated_data["item_envolved"].name
+        #     print(data["item_involved"])
+        #     data["quantity"] = carbon_entry.validated_data["quantity"]
+        #     data["details"] = carbon_entry.validated_data["details"]
+        #     data["time_created"] = carbon_entry.validated_data["time_created"].strftime(
+        #         "%m%d"
+        #     )
         print(serializer.data)
-        if serializer.is_valid():
-            print(request.data)
-            carbon_entry = serializer.save(owner=request.user)
-            data["item_involved"] = carbon_entry.validated_data["item_envolved"].name
-            data["quantity"] = carbon_entry.validated_data["quantity"]
-            data["details"] = carbon_entry.validated_data["details"]
-            data["time_created"] = carbon_entry.validated_data["time_created"].strftime(
-                "%m%d"
-            )
-        return Response(data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
 class AddEntriesAPI(APIView):
