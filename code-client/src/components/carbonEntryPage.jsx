@@ -21,6 +21,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import log from '../images/logging.jpg'
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -137,13 +138,14 @@ export default function CarbonEntryPage() {
 
     return (
         <ThemeProvider theme={Theme}>
+            <Box mt={7}>
             <Container maxWidth="1g">
                 
-                <Grid container>
-                    <Grid item xs={6}>
+                <Grid container spacing={10}>
+                    <Grid item md={6} xs={12}>
                         <img style={{width:'100%', height:'auto', opacity:'0.9'}} src={log}></img>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item md={6} xs={12}>
                         <Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
                             Carbon Entry
                         </Typography>
@@ -203,7 +205,7 @@ export default function CarbonEntryPage() {
                 </Grid>
                 
             </Container>
-            
+            </Box>
         </ThemeProvider>
     );
 }

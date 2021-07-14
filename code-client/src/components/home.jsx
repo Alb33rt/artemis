@@ -90,11 +90,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const WhiteTextTypography = withStyles({
+const WhiteTypography = withStyles({
     root: {
-        color: "#eaedd5",
-        textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-        fontFamily: "Garamond, serif"
     }
 })(Typography);
 
@@ -122,27 +119,34 @@ class Home extends React.Component {
                 <Paper className={classes.mainFeaturedPost} >
                     {/* Increase the priority of the hero background image */}
                     {<img style={{ display: 'none' }} src={Image} />}
-                    <Box  mx="auto" className={classes.mainSection}>
-                    <img style = {{width:'100%', height:'auto', opacity:'0.9'}} src={forestImage}></img>
-                    <Container maxWidth="lg">
-                        <div className={classes.overlay} />
-                        <Grid container spacing={20} justify="center" alignItems="center">
-                        
-                                <Grid item md={12} alignItems="center" spacing={20}>
-                                    <div className={classes.mainFeaturedPostContent}>
-                                        
-                                        <Typography component="h3" variant="h3" color="secondaryColor" gutterBottom align="center" style={{position: 'absolute', top:'30%', left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-
-                                            Plant a tree, Save the world.
-            
-                                        </Typography>
-                                    </div>
-                                </Grid>
-                        </Grid>
-                    </Container>
+                    <Box mx="auto" className={classes.mainSection}>
+                        <img style = {{width:'100%', height:'auto', opacity:'0.9', filter: 'brightness(75%)'}} src={forestImage}></img>
+                        <Container maxWidth="lg">
+                            <Box mt={-60} mb={50}>
+                          
+                            <Grid container spacing={20} justify="center" alignItems="center">
+                            
+                                    <Grid item md={12} alignItems="center" spacing={20}>
+                                        <Paper>
+                                        <div className={classes.mainFeaturedPostContent}>
+                                            <WhiteTypography component="h3" variant="h3" color="textPrimary" gutterBottom align="center">
+                                                Plant a tree, Save the world.
+                                            </WhiteTypography>
+                                            <WhiteTypography component="h3" variant="h3" color="textPrimary" gutterBottom align="center">
+                                                Welcome to Artemis.
+                                            </WhiteTypography>
+                                        </div>
+                                        </Paper>
+                                    </Grid>
+                            </Grid>
+                            </Box> 
+                        </Container>
                     </Box>
                     <Box fontSize={16}>
                     <Container>
+                        <Typography component="h4" variant="h4" color="textPrimary" gutterBottom align="center">
+                                        <strong>What is Artemis?</strong>
+                        </Typography>
                         <Grid container style={{backgroundColor: "white", opacity: '1', padding: "20px"}} spacing={3} alignItems="center">
                                 <Grid item md={6} xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                                     Introduction

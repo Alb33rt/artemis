@@ -55,8 +55,8 @@ function checkLogin() {
           localStorage.setItem('isAuthenticated', true)
           const status = localStorage.getItem('isLoggedIn')
           console.log(status)
-          if (!status) {
-
+          if (status) {
+            return  <Route path="/dashboard" exact component={() => <Dashboard/>} />
           }
       })
       .catch(error => {
