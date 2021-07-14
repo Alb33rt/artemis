@@ -165,6 +165,7 @@ export default function CarbonEntryPage() {
                 }
                 itemList=result
                 setItemListFinal(itemList);
+                console.log(item);
             })
             .catch(error => {
                 console.log(error);

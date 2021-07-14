@@ -33,6 +33,18 @@ class EditProfilePage extends React.Component {
         }
 
     }
+    onChangeUserName(component,value){
+        this.setState({username:value})
+    }
+    onChangeEmail(component,value){
+        this.setState({email:value})
+    }
+    onChangeLastName(component,value){
+        this.setState({last_name:value})
+    }
+    onChangeFirstName(component, value){
+        this.setState({first_name:value})
+    }
 
     componentDidMount() {  
         this.requestUserData();
@@ -70,9 +82,40 @@ class EditProfilePage extends React.Component {
                 console.log(error);
             });
     }
+    editUserData() {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("Requesting User data for Editing Profile");
 
+        fetch('http://localhost:8000/api-login/edit-profile', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    username: data['username'],
+                    email: data['email'],
+                    first_name: data['first_name'],
+                    last_name: data['last_name'],
+                })
+                console.log(this.state)
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    
     render() {
-
         return (
         <Container>
            <Box mt={2}>
@@ -81,6 +124,8 @@ class EditProfilePage extends React.Component {
             id="standard-basic"
             label="First Name"
             variant="standard"
+            value={this.state.first_name}
+            onChange={this.onChangeFirstName.bind(this)}
             >
             </TextField>
             <TextField
@@ -88,6 +133,8 @@ class EditProfilePage extends React.Component {
                 id="standard-basic"
                 label="Last Name" 
                 variant="standard"
+                value={this.state.last_name}
+                onChange={this.onChangeLastName.bind(this)}
             >
             </TextField>
             <TextField
@@ -97,6 +144,8 @@ class EditProfilePage extends React.Component {
                     readOnly: true,
                 }}
                 variant="filled"
+                value={this.state.username}
+                onChange={this.onChangeUserName.bind(this)}
             >
             </TextField>
             <TextField
@@ -106,6 +155,8 @@ class EditProfilePage extends React.Component {
                     readOnly: true,
                 }}
                 variant="filled"
+                value={this.state.email}
+                onChange={this.onChangeEmail.bind(this)}
             >
             </TextField>
         </Box>
