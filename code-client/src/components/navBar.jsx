@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import {Theme} from "../colorTheme";
 import AuthContext from "../auth-context";
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -22,7 +21,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import { Theme } from '../colorTheme.js';
 
 const drawerWidth = 240;
 
@@ -105,6 +104,7 @@ function NavInterface(props) {
 }
 
 function NavBar() {
+    const theme = Theme;
     const [open, setOpen] = React.useState(false);
   
     const handleDrawerOpen = () => {
