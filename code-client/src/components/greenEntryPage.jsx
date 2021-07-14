@@ -138,11 +138,11 @@ export default function GreenEntryPage() {
 
     return (
         <ThemeProvider theme={Theme}>
-            <Box mt={7}>
+            <Box m={7}>
             <Container maxWidth="1g">
                 
                 <Grid container spacing={10}>
-                    <Grid item md={6} xs={12}>
+                    <Grid item xs={6}>
                         <img style={{width:'100%', height:'auto', opacity:'0.9'}} src={log}></img>
                     </Grid>
                     <Grid item md={6} xs={12}>

@@ -40,7 +40,7 @@ const style = {
     bottom: 40,
     left: 'auto',
     position: 'fixed',
-    zIndex:1000
+    zIndex: 1000
 };
 
 function createData(itemName, quantity, unit, details, timeCreated) {
@@ -74,18 +74,18 @@ class Dashboard extends React.Component {
             weekEmissions: Array(7),
             threeDayEmission: Array(3),
             monthEmission: Array(30),
-            carbonEntries:[]
+            carbonEntries: []
         };
     }
 
     componentDidMount() {
-        this.getCarbonEntry();  
+        this.getCarbonEntry();
         this.get3DayEmission();
         this.getMonthEmission();
         this.getWeekEmission();
     }
 
-    redirectToEntry(){
+    redirectToEntry() {
         const { history } = this.props;
         history.push('/carbonEntryPage')
     }
@@ -106,11 +106,11 @@ class Dashboard extends React.Component {
         };
         console.log("get month emission data");
 
-        fetch('http://localhost:8000/api-carbon/recent-entries/30/', requestOptions)
+        fetch('http://localhost:8000/api-carbon/recent-carbon-entries/30/', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    monthEmission:data
+                    monthEmission: data
                 })
             })
             .catch(error => {
@@ -134,11 +134,11 @@ class Dashboard extends React.Component {
         };
         console.log("get week emission data ");
 
-        fetch('http://localhost:8000/api-carbon/recent-entries/7/', requestOptions)
+        fetch('http://localhost:8000/api-carbon/recent-carbon-entries/7/', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState(
-                { weekEmissions: data }
+                    { weekEmissions: data }
                 )
             })
             .catch(error => {
@@ -146,7 +146,7 @@ class Dashboard extends React.Component {
             });
     }
 
-    get3DayEmission(){
+    get3DayEmission() {
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -162,11 +162,11 @@ class Dashboard extends React.Component {
         };
         console.log("get 3 day emission data");
 
-        fetch('http://localhost:8000/api-carbon/recent-entries/3/', requestOptions)
+        fetch('http://localhost:8000/api-carbon/recent-carbon-entries/3/', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    threeDayEmission:data
+                    threeDayEmission: data
                 })
             })
             .catch(error => {
@@ -190,11 +190,11 @@ class Dashboard extends React.Component {
         };
         console.log("get carbon entries");
 
-        fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+        fetch('http://localhost:8000/api-carbon/carbon-logs', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    carbonEntries:data
+                    carbonEntries: data
                 })
                 console.log("Recieved Recent Carbon Entries.")
                 console.log(this.state.carbonEntries)
@@ -204,13 +204,13 @@ class Dashboard extends React.Component {
             });
 
     }
-    
+
     render() {
-        var tempRows=[];
-        for(let i=0;i<this.state.carbonEntries.length;i++){
-            tempRows.push(createData(this.state.carbonEntries[i]['item_name'],this.state.carbonEntries[i]['quantity'],this.state.carbonEntries[i]['unit_name'],this.state.carbonEntries[i]['details'],this.state.carbonEntries[i]['time_created'].substring(0,10)))
+        var tempRows = [];
+        for (let i = 0; i < this.state.carbonEntries.length; i++) {
+            tempRows.push(createData(this.state.carbonEntries[i]['item_name'], this.state.carbonEntries[i]['quantity'], this.state.carbonEntries[i]['unit_name'], this.state.carbonEntries[i]['details'], this.state.carbonEntries[i]['time_created'].substring(0, 10)))
         }
-        const rows=tempRows
+        const rows = tempRows
         return (<div><Box m={7}>
             <Container>
                 <Grid container spacing={2}>
@@ -268,33 +268,33 @@ class Dashboard extends React.Component {
                             </Chart>
                         </Paper>
                     </Grid>
-                    <Grid item>
-                    {/* <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Item</TableCell>
-                                    <TableCell align="right">Quantity</TableCell>
-                                    <TableCell align="right">Unit</TableCell>
-                                    <TableCell align="right">Details</TableCell>
-                                    <TableCell align="right">Date Created</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow key={row.itemName}>
-                                        <TableCell component="th" scope="row">
-                                            {row.itemName}
-                                        </TableCell>
-                                        <TableCell align="right">{row.quantity}</TableCell>
-                                        <TableCell align="right">{row.unit}</TableCell>
-                                        <TableCell align="right">{row.details}</TableCell>
-                                        <TableCell align="right">{row.timeCreated}</TableCell>
+                    <Grid item xs={12}>
+                        <TableContainer component={Paper}>
+                            <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Item</TableCell>
+                                        <TableCell align="right">Quantity</TableCell>
+                                        <TableCell align="right">Unit</TableCell>
+                                        <TableCell align="right">Details</TableCell>
+                                        <TableCell align="right">Date Created</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer> */}
+                                </TableHead>
+                                <TableBody>
+                                    {rows.map((row) => (
+                                        <TableRow key={row.itemName}>
+                                            <TableCell component="th" scope="row">
+                                                {row.itemName}
+                                            </TableCell>
+                                            <TableCell align="right">{row.quantity}</TableCell>
+                                            <TableCell align="right">{row.unit}</TableCell>
+                                            <TableCell align="right">{row.details}</TableCell>
+                                            <TableCell align="right">{row.timeCreated}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Grid>
                 </Grid>
                 <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style} onClick={this.redirectToEntry.bind(this)}>
@@ -302,8 +302,8 @@ class Dashboard extends React.Component {
                     Add Entry
                 </Fab>
             </Container>
-            </Box>
-        </div> );
+        </Box>
+        </div>);
     }
 }
 
