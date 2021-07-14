@@ -10,7 +10,6 @@ class Logout extends React.Component {
             isAuthenticated: localStorage.getItem('isAuthenticated'),
             loading: true,
             error: false,
-            loggedIn: null,
         }
     }
 
@@ -36,18 +35,9 @@ class Logout extends React.Component {
             .then(res => res.json())
             .then( (result) => {
                 console.log(result)
-
+                localStorage.removeItem("Authentication")
                 localStorage.setItem('isAuthenticated', false);
-                this.setState({
-                    isAuthenticated: false,
-                    loading: false,
-                });
-                const isLoggedIn = false;
-                console.log(isLoggedIn)
-                this.setState(
-                    {loggedIn: isLoggedIn}
-                )
-                
+                localStorage.setItem('isLoggedIn', false);
                 history.push("/home");
             })
             .catch(error => {

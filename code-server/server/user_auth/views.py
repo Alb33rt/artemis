@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import RegisterSerializer, LoginSerializer
 
@@ -36,6 +37,13 @@ class LogoutAPI(APIView):
         print(request)
         data = {}
         data['logout'] = "Success"
+        return Response(data)
+
+class AuthCheckAPI(APIView):
+    permission_classes = [ IsAuthenticated ]
+    def post(self, request, format=None):
+        data = {}
+        data['response'] = "Authentication Success"
         return Response(data)
 
 # class LoginAPI(APIView):

@@ -46,7 +46,6 @@ class SignIn extends React.Component {
       token: "",
       isAuthenticated: false,
       redirect: "/signin",
-      loggedIn: null,
     }
   }
   afterSubmission(event) {
@@ -93,15 +92,9 @@ class SignIn extends React.Component {
         })
         localStorage.setItem("Authentication", "Token " + data['token']);
         localStorage.setItem('isAuthenticated', true);
-        this.setState({isAuthenticated:true});
-        const isLoggedIn= true;
-        this.setState(
-          {loggedIn: isLoggedIn}
-        )
-        console.log(this.state.loggedIn)
-        this.forceUpdate();
-        history.push("/dashboard");
-
+        localStorage.setItem('isLoggedIn', true);
+        
+        history.push('/home')
       })
       .catch(error => {
         console.log(error);
@@ -118,9 +111,8 @@ class SignIn extends React.Component {
     })
   }
   render() {
-    const value = this.state.loggedIn
+    console.log("rendering...")
     return (
-      <AuthContext.Provider value={value}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -184,7 +176,6 @@ class SignIn extends React.Component {
           </Box>
         </Container>
       </ThemeProvider>
-      </AuthContext.Provider>
     );
   }
 }

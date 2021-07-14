@@ -56,31 +56,27 @@ function LogoutInterface(props) {
 //     }
 //     return <LoginInterface />
 // }
-const NavInterface = () => (
-    <AuthContext.Consumer>
-    { 
-        (loggedIn) => {
-        console.log(loggedIn)
-        if (loggedIn) {
-            return <LogoutInterface />
-        } else {
-            return <LoginInterface />
-        }
-    }
-    }
-    </AuthContext.Consumer>
-)
 
 class NavBar extends React.Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
+            isLoggedIn: localStorage.getItem('isLoggedIn')
         }
     }
 
     componentDidMount() {
     }  
 
+    NavInterface() {
+        const loggedIn = localStorage.getItem('isLoggedIn');
+        if (loggedIn) {
+            return <LogoutInterface />
+        } else {
+            return <LoginInterface />
+        }
+    }       
     render() {
     //    this.Authentication()
         return (
@@ -95,10 +91,10 @@ class NavBar extends React.Component {
                                     </IconButton>
                                 </Hidden>
                                 <Button color="secondary" className={classes.title} to="/" component={Link}>
-                                    Artemis
+                                    Artemis 
                                 </Button>
                                 
-                                <NavInterface />
+                                <this.NavInterface />
                             </Container>
                         </Toolbar>
                     </AppBar>

@@ -48,7 +48,6 @@ class SignUp extends React.Component {
       password2: "",
       token:"",
       isLoaded:false,
-      loggedIn: null,
     }
   }
 
@@ -99,13 +98,9 @@ class SignUp extends React.Component {
       this.setState({
         token:data['token']
       })
-      localStorage.setItem('login',true);
       localStorage.setItem("Authentication","Token "+data['token']);
-      const [isLoggedIn, setIsLoggedIn] = useState(false)
-      setIsLoggedIn(true)
-      this.setState(
-        {loggedIn: isLoggedIn}
-      )
+      localStorage.setItem('isAuthenticated', true);
+      localStorage.setItem("isLoggedIn", true);
       history.push("/dashboard");
     })
     .catch(error => {
