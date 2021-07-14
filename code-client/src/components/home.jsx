@@ -19,6 +19,7 @@ import Icon from '@material-ui/core/Icon';
 import SDG_imageA from '../images/icons/GOAL_15_TARGET_15.6.svg';
 import SDG_imageB from '../images/icons/GOAL_15_TARGET_15.B.svg';
 import SDG_imageC from '../images/icons/GOAL_15_TARGET_15.C.svg';
+import zIndex from "@material-ui/core/styles/zIndex";
 
 
 /*
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
         right: 0,
         left: 0,
-        backgroundColor: 'rgba(0,0,0,.3)',
+        backgroundColor: 'rgba(0,0,0,0.3)',
     },
     mainFeaturedPostContent: {
         position: 'relative',
@@ -92,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
 
 const WhiteTypography = withStyles({
     root: {
+        color: "#000000"
     }
 })(Typography);
 
@@ -120,15 +122,15 @@ class Home extends React.Component {
                     {/* Increase the priority of the hero background image */}
                     {<img style={{ display: 'none' }} src={Image} />}
                     <Box mx="auto" className={classes.mainSection}>
-                        <img style = {{width:'100%', height:'auto', opacity:'0.9', filter: 'brightness(75%)'}} src={forestImage}></img>
+                        <img style = {{width:'100%', height:'auto', opacity:'0.85', filter: 'brightness(70%)', zIndex:'1'}} src={forestImage}></img>
                         <Container maxWidth="lg">
                             <Box mt={-60} mb={50}>
                           
                             <Grid container spacing={20} justify="center" alignItems="center">
                             
                                     <Grid item md={12} alignItems="center" spacing={20}>
-                                        <Paper>
-                                        <div className={classes.mainFeaturedPostContent}>
+                                        
+                                        <div className={classes.mainFeaturedPostContent} style={{zIndex:'3'}}>
                                             <WhiteTypography component="h3" variant="h3" color="textPrimary" gutterBottom align="center">
                                                 Plant a tree, Save the world.
                                             </WhiteTypography>
@@ -136,7 +138,7 @@ class Home extends React.Component {
                                                 Welcome to Artemis.
                                             </WhiteTypography>
                                         </div>
-                                        </Paper>
+                                        
                                     </Grid>
                             </Grid>
                             </Box> 
