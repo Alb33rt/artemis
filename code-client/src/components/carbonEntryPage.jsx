@@ -78,6 +78,8 @@ export default function CarbonEntryPage() {
     const [open, setOpen] = React.useState(false);
     const [quantity, setQuantity] = React.useState("");
     const [detail, setDetail] = React.useState("");
+    const [unit, setUnit] = React.useState("");
+    const [chosedItem, setChosedItem] = React.useState("");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -89,7 +91,35 @@ export default function CarbonEntryPage() {
     var item=[]
     var nameList=[]
     var itemList=[]
+    var unitList=[]
+    function postEntry(){
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include",
+            body:{
+                
+            }
+        };
+        console.log("post carbon entry");
 
+        fetch('http://localhost:8000/api-carbon/all-item', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
     function getItems() {
         const requestOptions = {
             method: 'GET',
@@ -115,6 +145,7 @@ export default function CarbonEntryPage() {
                 for (let i = 0; i < item.length; i++) {
                     names.push(item[i]['name']);
                     id.push(item[i]['id']);
+                    unitList.push(item[i]['unit']);
                 }
                 nameList=names
                 var result=[]
@@ -171,13 +202,15 @@ export default function CarbonEntryPage() {
                             getOptionLabel={(option) => option.name}
                             style={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Item Type" variant="outlined" />}
+                            value={chosedItem}
+                            onChange={(e)=>{setChosedItem(e.target.value); setUnit(unitList[e.target.value-1])}}
                         />
                         <TextField
                             autoFocus
                             margin="normal"
                             value={quantity}
                             onChange={(e) => setQuantity(e.target.value)}
-                            label="Quantity"
+                            label={String("Quantity ("+unit+")")}
                             fullWidth
                         />
                         <TextField
