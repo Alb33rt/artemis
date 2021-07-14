@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import Container from '@material-ui/core/Container';
 import styled, { css } from 'styled-components/macro'
 import backgroundImage from '../images/545792.jpg';
@@ -69,8 +69,9 @@ function getCookie(name) {
     return cookieValue;
 }
 const csrftoken = getCookie('csrftoken');
-
 export default function CarbonEntryPage() {
+    const [itemListFinal,setItemListFinal]=useState(itemList);
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [quantity, setQuantity] = React.useState("");
@@ -84,6 +85,7 @@ export default function CarbonEntryPage() {
     };
 
     var item=[]
+    var nameList=[]
     var itemList=[]
 
     function getItems() {
@@ -112,6 +114,7 @@ export default function CarbonEntryPage() {
                     names.push(item[i]['name']);
                     id.push(item[i]['id']);
                 }
+                nameList=names
                 var result=[]
                 for (let i = 0; i < item.length; i++) {
                     var dict={}
@@ -120,8 +123,7 @@ export default function CarbonEntryPage() {
                     result.push(dict)
                 }
                 itemList=result
-                console.log(typeof itemList);
-                console.log(itemList);
+                setItemListFinal(itemList);
             })
             .catch(error => {
                 console.log(error);
@@ -164,10 +166,9 @@ export default function CarbonEntryPage() {
                         <DialogContentText>Enter details about your entry</DialogContentText>
                         <Autocomplete
                             id="item"
-                            options={itemList}
+                            options={itemListFinal}
                             autoHighlight
                             getOptionLabel={(option) => option.name}
-                            /*getOptionLabel={(option) => option}*/
                             style={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Item Type" variant="outlined" />}
                         />
