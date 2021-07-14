@@ -106,7 +106,7 @@ class Dashboard extends React.Component {
         };
         console.log("get month emission data");
 
-        fetch('http://localhost:8000/api-carbon/recent-entries/30/', requestOptions)
+        fetch('http://localhost:8000/api-carbon/recent-carbon-entries/30/', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -134,7 +134,7 @@ class Dashboard extends React.Component {
         };
         console.log("get week emission data ");
 
-        fetch('http://localhost:8000/api-carbon/recent-entries/7/', requestOptions)
+        fetch('http://localhost:8000/api-carbon/recent-carbon-entries/7/', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState(
@@ -162,7 +162,7 @@ class Dashboard extends React.Component {
         };
         console.log("get 3 day emission data");
 
-        fetch('http://localhost:8000/api-carbon/recent-entries/3/', requestOptions)
+        fetch('http://localhost:8000/api-carbon/recent-carbon-entries/3/', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -190,7 +190,7 @@ class Dashboard extends React.Component {
         };
         console.log("get carbon entries");
 
-        fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+        fetch('http://localhost:8000/api-carbon/carbon-logs', requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState({
