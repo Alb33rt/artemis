@@ -14,7 +14,6 @@ from .serializers import CarbonEntrySerializer, ItemSerializer
 
 # Create your views here.
 class PersonalEntriesAPI(APIView):
-    authentication_classes=[ TokenAuthentication ]
 
     def post(self, request, format=None):
         logs = CarbonEntry.objects.filter(owner=request.user)
@@ -22,7 +21,6 @@ class PersonalEntriesAPI(APIView):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 class AddEntriesAPI(APIView):
-    authentication_classes = [ TokenAuthentication ]
 
     '''
     During the Post sequence, we create an entry of a carbon log using sent data through the form, this includes the item (which is a dropdown menu), quantity and details, the user is the current user sending the api request. 
@@ -41,7 +39,7 @@ class AddEntriesAPI(APIView):
         return Response(data)
 
 class recentDataAPI(viewsets.ViewSet):
-    authentication_classes = [ TokenAuthentication ]
+   
     def list(self, request, pk=None):
         items = []
         today = datetime.date.today()
@@ -50,7 +48,6 @@ class recentDataAPI(viewsets.ViewSet):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 class myItemsAPI(APIView):
-    authentication_classes = [ TokenAuthentication ]
 
     '''
     Used to get the items that a user created personally
@@ -83,7 +80,6 @@ class relatedItemsAPI(viewsets.ViewSet):
         return Response(serializer.data, status= status.HTTP_202_ACCEPTED)
 
 class postItemsAPI(APIView):
-    authentication_classes = [ TokenAuthentication ]
     # permission_classes = [ IsAuthenticated ]
     '''
     Used to post items online to contribute to the growing database
