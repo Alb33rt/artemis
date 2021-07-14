@@ -18,14 +18,14 @@ from .serializers import CarbonEntrySerializer, ItemSerializer
 class PersonalEntriesAPI(APIView):
     authentication_classes = [TokenAuthentication]
 
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         logs = CarbonEntry.objects.filter(owner=request.user)
         serializer = CarbonEntrySerializer(logs, many=True)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
 class AddEntriesAPI(APIView):
-    permission_classes = [ IsAuthenticated ]
+    permission_classes = [IsAuthenticated]
 
     """
     During the Post sequence, we create an entry of a carbon log using sent data through the form, this includes the item (which is a dropdown menu), quantity and details, the user is the current user sending the api request.
@@ -45,13 +45,14 @@ class AddEntriesAPI(APIView):
             data["message"] = "Failed, Please Try Again"
         return Response(data)
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def recentDataAPI(request, days):
     try:
-        today = datetime.date.today()+datetime.timedelta(2)
+        today = datetime.date.today() + datetime.timedelta(2)
         data = []
-        for i in range(1, days+1):
+        for i in range(1, days + 1):
             timedelta_front = datetime.timedelta(days=i)
             timedelta_rear = datetime.timedelta(days=(i + 1))
             queryset = CarbonEntry.objects.filter(
@@ -60,10 +61,9 @@ def recentDataAPI(request, days):
                 owner=request.user,
             )
             sum_of_day = 0
-            date_str = ""
             for q in queryset:
                 sum_of_day += q.quantity
-                date_str = q.time_created.strftime("%m%d")
+            date_str = (today - datetime.timedelta(i)).strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
 
     except CarbonEntry.DoesNotExist:
