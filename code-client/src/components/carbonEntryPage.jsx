@@ -111,7 +111,7 @@ export default function CarbonEntryPage() {
         };
         console.log("post carbon entry");
 
-        fetch('http://localhost:8000/api-carbon/all-item', requestOptions)
+        fetch('http://localhost:8000/api-carbon/create-item', requestOptions)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -136,7 +136,7 @@ export default function CarbonEntryPage() {
         };
         console.log("get items");
 
-        fetch('http://localhost:8000/api-carbon/all-item', requestOptions)
+        fetch('http://localhost:8000/api-carbon/all-carbon-item', requestOptions)
             .then(response => response.json())
             .then(data => {
                 item = data
