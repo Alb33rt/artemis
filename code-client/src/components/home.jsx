@@ -91,9 +91,7 @@ class Home extends React.Component {
 
     componentDidMount() {
         const { history } = this.props;
-        if (this.state.isAuthenticated) {
-            history.push('/dashboard');
-        }
+        const loggedIn = localStorage.getItem('isLoggedIn');
     }
 
     render() {
