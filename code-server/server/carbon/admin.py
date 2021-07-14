@@ -7,7 +7,7 @@ class CarbonItemAdmin(admin.ModelAdmin):
     fields = ("name", "emission", "owner", "unit")
 
 
-class CarbonItemAdmin(admin.ModelAdmin):
+class GreenItemAdmin(admin.ModelAdmin):
     fields = ("name", "oxygen", "owner", "unit")
 
 
