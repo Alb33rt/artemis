@@ -26,7 +26,56 @@ const useStyles = makeStyles((theme) => ({
 
 const classes = useStyles;
 
+function LoginInterface(props) {
+    return (
+        <div>
+            <Button variant="contained" color="primary" className={classes.title} to="/signin" component={Link} style={{ left: '66%' }}>
+                Login
+            </Button>
+            <Button variant="contained" color="primary" className={classes.title} to="/signup" component={Link} style={{ left: '67%' }}>
+                Register
+            </Button>
+        </div>
+    )
+}
+
+function LogoutInterface(props) {
+    return (
+        <div>
+            <Hidden smDown>
+                <Button variant="contained" color="primary" component={Link} style={{ left: '78%' }}>Log Out</Button>
+            </Hidden>
+        </div>
+    )
+}
+
+function NavInterface(props) {
+    const isLoggedIn = props.isLoggedIn;
+    console.log("in nav")
+    if (isLoggedIn) {
+        return <LogoutInterface />
+    }
+    return <LoginInterface />
+}
+
 class NavBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuthenticated: localStorage.getItem('isAuthenticated'),
+            loggedIn: false
+        }
+    }
+
+    componentDidMount() {
+        const isAuthenticated = this.state.isAuthenticated;
+        const loggedIn = this.state.loggedIn;
+        if (isAuthenticated) {
+            this.setState(
+                {loggedIn: true}
+            )
+        }
+    }  
 
     render() {
         return (
@@ -43,10 +92,7 @@ class NavBar extends React.Component {
                                 <Button color="secondary" className={classes.title} to="/" component={Link}>
                                     Artemis
                                 </Button>
-                                <Hidden mdDown>
-                                    <Button variant="contained" color="primary" to="/signin" component={Link} style={{ left: '66%' }}>Login</Button>
-                                    <Button variant="contained" color="primary" to="/signup" component={Link} style={{ left: '67%' }}>Sign Up</Button>
-                                </Hidden>
+                                <NavInterface isLoggedIn={this.state.loggedIn} />
                             </Container>
                         </Toolbar>
                     </AppBar>
