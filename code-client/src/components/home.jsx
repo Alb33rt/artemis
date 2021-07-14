@@ -131,7 +131,7 @@ class Home extends React.Component {
                                 <Grid item md={12} alignItems="center" spacing={20}>
                                     <div className={classes.mainFeaturedPostContent}>
                                         
-                                        <Typography component="h3" variant="h3" color="textPrimary" gutterBottom align="center">
+                                        <Typography component="h3" variant="h3" color="secondaryColor" gutterBottom align="center" style={{position: 'absolute', top:'30%', left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
 
                                             Plant a tree, Save the world.
             
