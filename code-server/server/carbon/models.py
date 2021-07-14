@@ -27,7 +27,7 @@ class CarbonEntry(models.Model):
     details = models.TextField(max_length=256)
 
     def __str__(self):
-        return self.owner
+        return self.owner.username + "'s " + self.item_involved.name + " Entry"
 
     def get_emissions(self):
         total = self.item_involved["emission"] * self.quantity

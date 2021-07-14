@@ -4,7 +4,8 @@ from .models import Item, CarbonEntry
 
 
 class ItemAdmin(admin.ModelAdmin):
-    fields = ('name', 'emission', 'owner')
+    fields = ('name', 'emission', 'owner', 'unit')
+
 
 # Register your models here.
 admin.site.register(Item, ItemAdmin)

@@ -26,6 +26,9 @@ import { Theme } from '../colorTheme.js';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import NaturePeopleIcon from '@material-ui/icons/NaturePeople';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import HomeIcon from '@material-ui/icons/Home';
+import PhoneIcon from '@material-ui/icons/Phone';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const drawerWidth = 240;
 
@@ -176,11 +179,24 @@ function NavBar() {
                     </List>
                     <Divider />
                     <List>
-                    {['Misc.', 'Trash', 'Contacts'].map((text, index) => (
-                        <ListItem button key={text}>
-                        <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button key="Settings" component={Link} to="/">
+                            <ListItemIcon>
+                                <SettingsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Settings"  />
+                    </ListItem>
+                    <ListItem button key="Contacts" component={Link} to="/">
+                            <ListItemIcon>
+                                <PhoneIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Contacts"  />
+                    </ListItem>
+                    <ListItem button key="Home" component={Link} to="/">
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home"  />
+                    </ListItem>
                     </List>
                 </Drawer>
             </div>
