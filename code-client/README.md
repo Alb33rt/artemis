@@ -7,6 +7,7 @@
 6. ``npm i @devexpress/dx-react-chart-material-ui``
 7. ``npm i @devexpress/dx-react-chart``
 8. ``npm install --save styled-components``
+9. ``npm i @material-ui/lab``
 
 # Getting Started with Create React App
 

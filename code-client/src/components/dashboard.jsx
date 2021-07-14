@@ -92,7 +92,7 @@ export default class Dashboard extends React.Component {
         super(props);
         this.state = {
             entries: null,
-            weekEmissions: null,
+            weekEmissions: Array(7),
         };
     }
 
@@ -155,6 +155,7 @@ export default class Dashboard extends React.Component {
                 { weekEmissions: data }
                 )
                 console.log(this.state.weekEmissions)
+                console.log(data);
             })
             .catch(error => {
                 console.log(error);
