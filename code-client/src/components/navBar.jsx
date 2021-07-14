@@ -23,6 +23,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { Theme } from '../colorTheme.js';
 
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import NaturePeopleIcon from '@material-ui/icons/NaturePeople';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+
 const drawerWidth = 240;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -151,11 +155,24 @@ function NavBar() {
                     </DrawerHeader>
                     <Divider />
                     <List>
-                    {['Dashboard', 'Carbon Entries', 'Donations', 'Statistics'].map((text, index) => (
-                        <ListItem button key={text}>
-                        <ListItemText primary={text} />
+                        <ListItem button key="Dashboard" component={Link} to="/dashboard">
+                            <ListItemIcon>
+                                <DashboardIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Dashboard"  />
                         </ListItem>
-                    ))}
+                        <ListItem button key="Carbon Entries" component={Link} to="/carbonEntryPage">
+                            <ListItemIcon>
+                                <NaturePeopleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Carbon Entries" />
+                        </ListItem>
+                        <ListItem button key="Donation" component={Link} to="/donation">
+                            <ListItemIcon>
+                                <AccountBalanceIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Donation" />
+                        </ListItem>
                     </List>
                     <Divider />
                     <List>

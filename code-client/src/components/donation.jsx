@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Container } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,9 +74,11 @@ export default function Checkout() {
                 <CssBaseline />
                 <AppBar position="absolute" color="default" className={classes.appBar}>
                     <Toolbar>
+                        <Container max-width="lg">
                         <Typography variant="h6" color="inherit" noWrap>
                             Donate to Plant a Tree
                         </Typography>
+                        </Container>
                     </Toolbar>
                 </AppBar>
                 <main className={classes.layout}>
