@@ -18,10 +18,21 @@ from .serializers import CarbonEntrySerializer, ItemSerializer
 class PersonalEntriesAPI(APIView):
     authentication_classes = [TokenAuthentication]
 
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         logs = CarbonEntry.objects.filter(owner=request.user)
         serializer = CarbonEntrySerializer(logs, many=True)
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        data = {}
+        print(serializer.data)
+        if serializer.is_valid():
+            print(request.data)
+            carbon_entry = serializer.save(owner=request.user)
+            data["item_involved"] = carbon_entry.validated_data["item_envolved"].name
+            data["quantity"] = carbon_entry.validated_data["quantity"]
+            data["details"] = carbon_entry.validated_data["details"]
+            data["time_created"] = carbon_entry.validated_data["time_created"].strftime(
+                "%m%d"
+            )
+        return Response(data, status=status.HTTP_202_ACCEPTED)
 
 
 class AddEntriesAPI(APIView):
@@ -40,7 +51,7 @@ class AddEntriesAPI(APIView):
             carbon_entry = serializer.save(owner=request.user)
             data["message"] = "Success! Thank you for caring for the Earth!"
             data["quantity"] = carbon_entry.validated_data["quantity"]
-            data["item"] = carbon_entry.validated_data["item"]
+            data["item"] = carbon_entry.validated_data["item_envolved"]
         else:
             data["message"] = "Failed, Please Try Again"
         return Response(data)
