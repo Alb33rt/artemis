@@ -6,7 +6,7 @@ from user_auth.models import User
 # Create your models here.
 class CarbonItem(models.Model):
     name = models.TextField(max_length=256)
-    emission = models.IntegerField(null=False, decimal_places=2, max_digits=6)
+    emission = models.IntegerField(null=False)
     tree_emission = models.IntegerField(null=False, default=0)
     unit = models.TextField(max_length=256, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -17,7 +17,7 @@ class CarbonItem(models.Model):
 
 class GreenItem(models.Model):
     name = models.TextField(max_length=256)
-    oxygen = models.IntegerField(null=False, decimal_places=2, max_digits=6)
+    oxygen = models.IntegerField(null=False)
     tree_oxygen = models.IntegerField(null=False, default=0)
     unit = models.TextField(max_length=256, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

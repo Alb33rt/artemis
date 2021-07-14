@@ -20,8 +20,7 @@ class User(AbstractUser):
         ('RET', 'Retired'),
         ('VAC', 'Very Active')
     )
-    type_of_lifestyle = models.CharField(max_length=3, choices=LIFESTYLE_CHOICES)
-    favorite_entries = models.ManyToManyField()
+    type_of_lifestyle = models.CharField(max_length=3, choices=LIFESTYLE_CHOICES, default='ACT')
 
 # def generate_password_hash(password: str) -> bytes:
 #     # This function adds a salt(random string) to the original password and turn it into bytes
