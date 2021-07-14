@@ -35,7 +35,20 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://192.168.50.60:3000',
 ]
+CORS_ALLOW_HEADERS = [
+    'accept-encoding',
+    'dnt',
+    'user-agent',
+    'x-requested-with',
+    'Content-Type',
+    'Accept',
+    "Access-Control-Request-Method",
+    "Origin",
+    "Authorization",
+    'x-csrftoken'
+]
 
+CORS_ALLOW_CREDENTIALS=True
 # Application definition
 
 INSTALLED_APPS = [

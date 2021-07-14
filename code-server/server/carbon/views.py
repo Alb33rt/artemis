@@ -14,7 +14,7 @@ from .serializers import CarbonEntrySerializer, ItemSerializer
 
 # Create your views here.
 class PersonalEntriesAPI(APIView):
-
+    authentication_classes = [ TokenAuthentication ]
     def post(self, request, format=None):
         logs = CarbonEntry.objects.filter(owner=request.user)
         serializer = CarbonEntrySerializer(logs, many=True)

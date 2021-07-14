@@ -67,6 +67,22 @@ const rows =[
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
 const classes = useStyles;
 export default class Dashboard extends React.Component {
@@ -85,13 +101,6 @@ export default class Dashboard extends React.Component {
     }
 
     getCarbonEntry() {
-        /*
-        const xsrfCookies = document.cookie.split(';')
-        .map(c => c.trim())
-        .filter(c => c.startsWith(name + '='));
-        
-        console.log(xsrfCookies);
-        */
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -99,9 +108,11 @@ export default class Dashboard extends React.Component {
               'Accept': 'application/json',
               "Access-Control-Request-Method": "POST",
               "Origin":"https://127.0.0.1:3000",
-              "Authorization":localStorage.getItem("Authentication")
+              "Authorization":localStorage.getItem("Authentication"),
+              'x-csrftoken': csrftoken
             },
             mode:"cors",
+            credentials:"include"
           };
           console.log("sending POST request");
       
