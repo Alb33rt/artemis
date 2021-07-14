@@ -76,45 +76,29 @@ export default function Album() {
               Contact Us
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-                Get in touch with us if you have any questions
+                Member: Albert
+                <br></br>
+                Email: Albert@gmail.com
+                <br></br>
+                <br></br>
+                Member: Aaron
+                <br></br>
+                Email: Aaron@gmail.com
+                <br></br>
+                <br></br>
+                Member: Leo
+                <br></br>
+                Email: Leo@gmail.com
+                <br></br>
+                <br></br>
+                Member: Matt
+                <br></br>
+                Email: Matt@gmail.com
             </Typography>
           
           </Container>
         </div>
-        <Grid Container >
-            <Grid item xs={3}></Grid>
-            <Grid item xs={3}>
-                <Card style={{display:'blocks', justifyContent:'center'}}>
-                    <Typography gutterBottom variant="h5" component="h2"> Member: Albert</Typography>
-                    <n></n>
-                    <Typography gutterBottom variant="h5" component="h2"> Email: Albert@gmail.com</Typography>
-                </Card>
-            </Grid>
-            <Grid item xs={3}>
-                <Card style={{display:'blocks', justifyContent:'center'}}>
-                    <Typography gutterBottom variant="h5" component="h2"> Member: Aaron</Typography>
-                    <n></n>
-                    <Typography gutterBottom variant="h5" component="h2"> Email: Aaron@gmail.com</Typography>
-                </Card>
-            </Grid>
-            <Grid item xs={3}></Grid>
-            <Grid item xs={3}></Grid>
-            <Grid item xs={3}>
-                <Card style={{display:'blocks', justifyContent:'center'}}>
-                    <Typography gutterBottom variant="h5" component="h2"> Member: Leo</Typography>
-                    <n></n>
-                    <Typography gutterBottom variant="h5" component="h2"> Email: Leo@gmail.com</Typography>
-                </Card>
-            </Grid>
-            <Grid item xs={3}>
-                <Card style={{display:'blocks', justifyContent:'center'}}>
-                    <Typography gutterBottom variant="h5" component="h2"> Member: Matt</Typography>
-                    <n></n>
-                    <Typography gutterBottom variant="h5" component="h2"> Email: Matt@gmail.com</Typography>
-                </Card>
-            </Grid>
-            <Grid item xs={3}></Grid>
-        </Grid>
+        
       </main>
 
     </React.Fragment>
