@@ -98,6 +98,8 @@ class SignIn extends React.Component {
         this.setState(
           {loggedIn: isLoggedIn}
         )
+        console.log(this.state.loggedIn)
+        this.forceUpdate();
         history.push("/dashboard");
 
       })
@@ -116,8 +118,9 @@ class SignIn extends React.Component {
     })
   }
   render() {
+    const value = this.state.loggedIn
     return (
-      <AuthContext.Provider value={this.state.loggedIn}>
+      <AuthContext.Provider value={value}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
