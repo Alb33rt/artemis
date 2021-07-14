@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, donation } from "./components";
+import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, donation, CarbonEntryPage } from "./components";
 import AuthContext from "./auth-context.js";
 
 
