@@ -6,12 +6,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
+from carbon.models import GreenEntry
+
 import bcrypt
 
 # Create your models here.
 class User(AbstractUser):
     default_emissions = models.IntegerField(default = 50)
-
     LIFESTYLE_CHOICES = (
         ('ACT', 'Active'),
         ('ITD', 'Indoors'),
@@ -21,7 +22,8 @@ class User(AbstractUser):
         ('VAC', 'Very Active')
     )
     type_of_lifestyle = models.CharField(max_length=3, choices=LIFESTYLE_CHOICES)
-    favorite_entries = models.ManyToManyField()
+    favorite_entries = models.ManyToManyField(GreenEntry)
+    USERNAME_FIELD = 'identifier'
 
 # def generate_password_hash(password: str) -> bytes:
 #     # This function adds a salt(random string) to the original password and turn it into bytes
