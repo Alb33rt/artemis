@@ -160,14 +160,14 @@ class allGreenItemsAPI(APIView):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
-class relatedItemsAPI(viewsets.ViewSet):
+class relatedCarbonItemsAPI(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         # There should be a query here which is passed as the pk
         if pk:
             query = pk.strip.lower()
         else:
             query = None
-        all_items = Item.objects.all()
+        all_items = CarbonItem.objects.all()
 
         # Direct Search
         items = []
@@ -175,13 +175,34 @@ class relatedItemsAPI(viewsets.ViewSet):
             if query in item_iter.name:
                 items.append(item_iter)
         # Django Integration
-        detailitems = Item.objects.filter(details__icontains=query)
+        detailitems = CarbonItem.objects.filter(details__icontains=query)
         items += detailitems
-        serializer = ItemSerializer(items, many=True)
+        serializer = CarbonItemSerializer(items, many=True)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
-class postItemsAPI(APIView):
+class relatedGreenItemsAPI(viewsets.ViewSet):
+    def retrieve(self, request, pk=None):
+        # There should be a query here which is passed as the pk
+        if pk:
+            query = pk.strip.lower()
+        else:
+            query = None
+        all_items = GreenItem.objects.all()
+
+        # Direct Search
+        items = []
+        for item_iter in all_items:
+            if query in item_iter.name:
+                items.append(item_iter)
+        # Django Integration
+        detailitems = GreenItem.objects.filter(details__icontains=query)
+        items += detailitems
+        serializer = GreenItemSerializer(items, many=True)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+class postCarbonItemsAPI(APIView):
     # permission_classes = [ IsAuthenticated ]
     """
     Used to post items online to contribute to the growing database
@@ -190,7 +211,26 @@ class postItemsAPI(APIView):
     def post(self, request, format=None):
         data = {}
         user = request.user
-        serializer = ItemSerializer(data=request.data)
+        serializer = CarbonItemSerializer(data=request.data)
+        if serializer.is_valid():
+            item = serializer.save(owner=user)
+            data["status"] = "Success!"
+            data["item"] = item.validated_data["name"]
+        else:
+            data["status"] = "Item Creation Failed, please try again."
+        return Response(data)
+
+
+class postGreenItemsAPI(APIView):
+    # permission_classes = [ IsAuthenticated ]
+    """
+    Used to post items online to contribute to the growing database
+    """
+
+    def post(self, request, format=None):
+        data = {}
+        user = request.user
+        serializer = GreenItemSerializer(data=request.data)
         if serializer.is_valid():
             item = serializer.save(owner=user)
             data["status"] = "Success!"

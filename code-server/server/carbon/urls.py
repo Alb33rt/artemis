@@ -22,11 +22,25 @@ urlpatterns = [
         name="recent-green-entries",
     ),
     path(
-        "related-items",
-        views.relatedItemsAPI.as_view({"get": "retrieve"}),
-        name="related-items",
+        "related-carbon-items",
+        views.relatedCarbonItemsAPI.as_view({"get": "retrieve"}),
+        name="related-carbon-items",
     ),
-    path("create-item", views.postItemsAPI.as_view(), name="create-item"),
+    path(
+        "related-green-items",
+        views.relatedGreenItemsAPI.as_view({"get": "retrieve"}),
+        name="related-green-items",
+    ),
+    path(
+        "create-carbon-item",
+        views.postCarbonItemsAPI.as_view(),
+        name="create-carbon-item",
+    ),
+    path(
+        "create-green-item",
+        views.postGreenItemsAPI.as_view(),
+        name="create-green-item",
+    ),
     path("all-carbon-item", views.allCarbonItemsAPI.as_view(), name="all-item"),
     path("all-green-item", views.allGreenItemsAPI.as_view(), name="all-item"),
 ]

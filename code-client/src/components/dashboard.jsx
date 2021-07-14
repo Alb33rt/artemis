@@ -40,7 +40,7 @@ const style = {
     bottom: 40,
     left: 'auto',
     position: 'fixed',
-    zIndex:1000
+    zIndex: 1000
 };
 
 function createData(itemName, quantity, unit, details, timeCreated) {
@@ -74,18 +74,18 @@ class Dashboard extends React.Component {
             weekEmissions: Array(7),
             threeDayEmission: Array(3),
             monthEmission: Array(30),
-            carbonEntries:[]
+            carbonEntries: []
         };
     }
 
     componentDidMount() {
-        this.getCarbonEntry();  
+        this.getCarbonEntry();
         this.get3DayEmission();
         this.getMonthEmission();
         this.getWeekEmission();
     }
 
-    redirectToEntry(){
+    redirectToEntry() {
         const { history } = this.props;
         history.push('/carbonEntryPage')
     }
@@ -110,7 +110,7 @@ class Dashboard extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    monthEmission:data
+                    monthEmission: data
                 })
             })
             .catch(error => {
@@ -138,7 +138,7 @@ class Dashboard extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState(
-                { weekEmissions: data }
+                    { weekEmissions: data }
                 )
             })
             .catch(error => {
@@ -146,7 +146,7 @@ class Dashboard extends React.Component {
             });
     }
 
-    get3DayEmission(){
+    get3DayEmission() {
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -166,7 +166,7 @@ class Dashboard extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    threeDayEmission:data
+                    threeDayEmission: data
                 })
             })
             .catch(error => {
@@ -194,7 +194,7 @@ class Dashboard extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    carbonEntries:data
+                    carbonEntries: data
                 })
                 console.log("Recieved Recent Carbon Entries.")
                 console.log(this.state.carbonEntries)
@@ -204,13 +204,13 @@ class Dashboard extends React.Component {
             });
 
     }
-    
+
     render() {
-        var tempRows=[];
-        for(let i=0;i<this.state.carbonEntries.length;i++){
-            tempRows.push(createData(this.state.carbonEntries[i]['item_name'],this.state.carbonEntries[i]['quantity'],this.state.carbonEntries[i]['unit_name'],this.state.carbonEntries[i]['details'],this.state.carbonEntries[i]['time_created'].substring(0,10)))
+        var tempRows = [];
+        for (let i = 0; i < this.state.carbonEntries.length; i++) {
+            tempRows.push(createData(this.state.carbonEntries[i]['item_name'], this.state.carbonEntries[i]['quantity'], this.state.carbonEntries[i]['unit_name'], this.state.carbonEntries[i]['details'], this.state.carbonEntries[i]['time_created'].substring(0, 10)))
         }
-        const rows=tempRows
+        const rows = tempRows
         return (<div><Box m={7}>
             <Container>
                 <Grid container spacing={2}>
@@ -269,7 +269,7 @@ class Dashboard extends React.Component {
                         </Paper>
                     </Grid>
                     <Grid item>
-                    {/* <TableContainer component={Paper}>
+                        {/* <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
                             <TableHead>
                                 <TableRow>
@@ -302,8 +302,8 @@ class Dashboard extends React.Component {
                     Add Entry
                 </Fab>
             </Container>
-            </Box>
-        </div> );
+        </Box>
+        </div>);
     }
 }
 
