@@ -180,10 +180,10 @@ export default function CarbonEntryPage() {
             <Container maxWidth="1g">
                 
                 <Grid container spacing={10}>
-                    <Grid item md={6} xs={12}>
+                    <Grid item xs={7}>
                         <img style={{width:'100%', height:'auto', opacity:'0.9'}} src={log}></img>
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item md={4} xs={8}>
                         <Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
                             Carbon Entry
                         </Typography>
@@ -191,6 +191,7 @@ export default function CarbonEntryPage() {
                             Make your “Carbon Entry”! Log in your activities to keep track of the amount of impact you are bringing to society. This submission will be logged into your account as collective data. Make sure you are comfortable of these submissions. But ultimately, we hope you are making less and less submissions over time. You will be able to view how these entries contribute to your routine. And calculations will be available to show how much of contribution you should make for the society via planting trees. We await for your awakening to the realization of this urgent world crisis.
                         </Typography>
                         <Grid fullWidth classes={{ root: classes.root }}>
+                <Box m={10}></Box>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Create New Carbon Entry
                 </Button>

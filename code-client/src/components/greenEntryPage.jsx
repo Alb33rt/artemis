@@ -22,6 +22,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import log from '../images/logging.jpg'
 import { Box } from "@material-ui/core";
+import green from '../images/green.png'
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -142,17 +143,18 @@ export default function GreenEntryPage() {
             <Container maxWidth="1g">
                 
                 <Grid container spacing={10}>
-                    <Grid item xs={6}>
-                        <img style={{width:'100%', height:'auto', opacity:'0.9'}} src={log}></img>
+                    <Grid item xs={7}>
+                        <img style={{width:'100%', height:'auto', opacity:'0.9'}} src={green}></img>
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item md={4} xs={8}>
                         <Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
                             Green Entry
                         </Typography>
                         <Typography>
-                            Make your “Carbon Entry”! Log in your activities to keep track of the amount of impact you are bringing to society. This submission will be logged into your account as collective data. Make sure you are comfortable of these submissions. But ultimately, we hope you are making less and less submissions over time. You will be able to view how these entries contribute to your routine. And calculations will be available to show how much of contribution you should make for the society via planting trees. We await for your awakening to the realization of this urgent world crisis.
+                        Looking at all your carbon emissions. Your should be committing more work to neutralize the impact you have bring along. This Green Entry Log would be where you log what kind of activities you have made contributions to. We wish all users to adapt the habit to increase the amount of Green Activities your deed executes. Come on, use the log to tell us your good deeds to the world. We trust that you are honest while logging, and wish to receive more and more Green Entries from you.
                         </Typography>
                         <Grid fullWidth classes={{ root: classes.root }}>
+                    <Box m={10}></Box>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Create New Carbon Entry
                 </Button>
