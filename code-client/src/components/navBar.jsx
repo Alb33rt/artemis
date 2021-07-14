@@ -184,7 +184,7 @@ function NavBar() {
                             </ListItemIcon>
                             <ListItemText primary="Settings"  />
                     </ListItem>
-                    <ListItem button key="Contacts" component={Link} to="/">
+                    <ListItem button key="Contacts" component={Link} to="/contactus">
                             <ListItemIcon>
                                 <PhoneIcon />
                             </ListItemIcon>

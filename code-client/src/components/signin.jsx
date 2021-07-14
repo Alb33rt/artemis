@@ -45,6 +45,7 @@ class SignIn extends React.Component {
       token: "",
       isAuthenticated: false,
       redirect: "/signin",
+      rememberMe:false
     }
   }
   afterSubmission(event) {
@@ -64,6 +65,12 @@ class SignIn extends React.Component {
     this.setState({
       password: input.target.value
     })
+  }
+  getRememberMe(input) {
+    this.setState({
+      rememberMe:input.target.checked
+    })
+    console.log(this.state.rememberMe)
   }
 
   postRequest(e) {
@@ -159,6 +166,7 @@ class SignIn extends React.Component {
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
+                onChange={this.getRememberMe.bind(this)}
               />
               <Button
                 type="submit"
