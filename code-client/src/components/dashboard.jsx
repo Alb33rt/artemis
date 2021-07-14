@@ -75,30 +75,34 @@ export default class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            entries:null
         };
     }
 
-    getCarbonEmission(days) {
+    componentDidMount(){
+        this.getCarbonEntry();
 
     }
-    sendAPIRequest = () => {
+
+    getCarbonEntry() {
+        console.log(localStorage.getItem("Authentication"));
         const requestOptions = {
-            method: 'POST',
+            method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
-              "Access-Control-Request-Method": "POST"
+              "Access-Control-Request-Method": "GET",
+              "Origin":"http://localhost:3000",
+              "Access-Control-Request-Headers":"Content-Type, Accept, Access-Control-Request-Method, Origin,Access-Control-Request-Headers,Token",
+              "Token": localStorage.getItem("Authentication")
             },
-            body: JSON.stringify({
-              
-            })
           };
-          console.log("sending POST request");
+          console.log("sending GET request");
       
           fetch('http://localhost:8000/api-carbon/logs', requestOptions)
             .then(response => response.json())
             .then(data => {
-              
+              console.log(data);
             })
             .catch(error => {
               console.log(error);
