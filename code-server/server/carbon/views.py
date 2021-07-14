@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 
 from .models import CarbonEntry, Item
 from .serializers import CarbonEntrySerializer, ItemSerializer
@@ -25,6 +25,7 @@ class PersonalEntriesAPI(APIView):
 
 
 class AddEntriesAPI(APIView):
+    permission_classes = [ IsAuthenticated ]
 
     """
     During the Post sequence, we create an entry of a carbon log using sent data through the form, this includes the item (which is a dropdown menu), quantity and details, the user is the current user sending the api request.
@@ -33,7 +34,9 @@ class AddEntriesAPI(APIView):
     def post(self, request, format=None):
         serializer = CarbonEntrySerializer(data=request.data)
         data = {}
+        print(serializer.data)
         if serializer.is_valid():
+            print(request.data)
             carbon_entry = serializer.save(owner=request.user)
             data["message"] = "Success! Thank you for caring for the Earth!"
             data["quantity"] = carbon_entry.validated_data["quantity"]
@@ -42,8 +45,13 @@ class AddEntriesAPI(APIView):
             data["message"] = "Failed, Please Try Again"
         return Response(data)
 
+<<<<<<< HEAD
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+=======
 
 @api_view(["GET"])
+>>>>>>> 039cf6627447c763e167ff70ba88cff3e81f0ac5
 def recentDataAPI(request, days):
     try:
         print("request recieved")
@@ -64,6 +72,11 @@ def recentDataAPI(request, days):
                 date_str = q.time_created.strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
 
+<<<<<<< HEAD
+            data.append({"days": i, "emissions": sum_of_day})
+
+=======
+>>>>>>> 039cf6627447c763e167ff70ba88cff3e81f0ac5
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == "GET":

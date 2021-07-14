@@ -37,6 +37,7 @@ function checkLogin() {
       credentials: "include"
   };
   console.log("sending POST request");
+  console.log(localStorage.getItem("Authentication"))
 
   fetch('http://localhost:8000/api-login/auth-check', requestOptions)
       .then(response => response.json())
@@ -47,6 +48,7 @@ function checkLogin() {
           const status = localStorage.getItem('isLoggedIn')
           console.log(status)
           if (!status) {
+
           }
       })
       .catch(error => {
