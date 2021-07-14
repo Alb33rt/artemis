@@ -84,14 +84,15 @@ export default function CarbonEntryPage() {
     };
 
     var item=[]
+    var itemList=[]
 
     function getItems() {
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                "Access-Control-Request-Method": "GET",
+                "Access-Control-Request-Method": "POST",
                 "Origin": "https://127.0.0.1:3000",
                 "Authorization": localStorage.getItem("Authentication"),
                 'x-csrftoken': csrftoken
@@ -101,12 +102,25 @@ export default function CarbonEntryPage() {
         };
         console.log("get items");
 
-        fetch('http://localhost:8000/api-carbon/recent-entries/30/', requestOptions)
+        fetch('http://localhost:8000/api-carbon/all-item', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log("items");
-                console.log(data);
-                item=data
+                item = data
+                var names = Array();
+                var id = Array();
+                for (let i = 0; i < item.length; i++) {
+                    names.push(item[i]['name']);
+                    id.push(item[i]['id']);
+                }
+                var result=[]
+                for (let i = 0; i < item.length; i++) {
+                    var dict={}
+                    dict['name']=names[i];
+                    dict['id']=id[i];
+                    result.push(dict)
+                }
+                itemList=result
+                console.log(itemList);
             })
             .catch(error => {
                 console.log(error);
@@ -149,8 +163,8 @@ export default function CarbonEntryPage() {
                         <DialogContentText>Enter details about your entry</DialogContentText>
                         <Autocomplete
                             id="item"
-                            options={[{ itemName: "option1", valur: 1 }]}
-                            getOptionLabel={(option) => option.title}
+                            options={itemList}
+                            getOptionLabel={(option) => option.name}
                             style={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Item Type" variant="outlined" />}
                         />
