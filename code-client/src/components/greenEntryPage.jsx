@@ -21,6 +21,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import log from '../images/logging.jpg'
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -137,9 +138,10 @@ export default function GreenEntryPage() {
 
     return (
         <ThemeProvider theme={Theme}>
+            <Box m={7}>
             <Container maxWidth="1g">
                 
-                <Grid container>
+                <Grid container spacing={10}>
                     <Grid item xs={6}>
                         <img style={{width:'100%', height:'auto', opacity:'0.9'}} src={log}></img>
                     </Grid>
@@ -204,7 +206,7 @@ export default function GreenEntryPage() {
                 </Grid>
                 
             </Container>
-            
+            </Box>
         </ThemeProvider>
     );
 }

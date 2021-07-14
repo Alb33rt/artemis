@@ -268,8 +268,8 @@ class Dashboard extends React.Component {
                             </Chart>
                         </Paper>
                     </Grid>
-                    <Grid item>
-                    {/* <TableContainer component={Paper}>
+                    <Grid item xs={12}>
+                    <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
                             <TableHead>
                                 <TableRow>
@@ -294,7 +294,7 @@ class Dashboard extends React.Component {
                                 ))}
                             </TableBody>
                         </Table>
-                    </TableContainer> */}
+                    </TableContainer>
                     </Grid>
                 </Grid>
                 <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} style={style} onClick={this.redirectToEntry.bind(this)}>

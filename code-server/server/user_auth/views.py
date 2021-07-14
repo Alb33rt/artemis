@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import RegisterSerializer, LoginSerializer
+from .serializers import RegisterSerializer, LoginSerializer, EditProfileSerializer
 
 # Create your views here.
 class RegisterAPI(APIView):
@@ -45,6 +45,13 @@ class AuthCheckAPI(APIView):
         data = {}
         data['response'] = "Authentication Success"
         return Response(data)
+
+class EditProfileAPI(APIView):
+    permission_classes = [ IsAuthenticated ]
+    def get(self, request, format=None):
+        user = request.user
+        pass
+
 
 # class LoginAPI(APIView):
 #     def post(self, request, format=None):
