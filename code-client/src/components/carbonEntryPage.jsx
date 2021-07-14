@@ -70,35 +70,16 @@ class CarbonEntryPage extends React.Component{
                 <Container maxWidth="1g">
                 <Paper elevation={0} />
                     <Grid container>
+                    <Grid item xs></Grid>
                         <Grid item xs={6}><Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
                             <br></br>
-                            Introduction
+                            Carbon Entry
                         </Typography>
                             <Typography>
-                                hihi
+                            Make your “Carbon Entry”! Log in your activities to keep track of the amount of impact you are bringing to society. This submission will be logged into your account as collective data. Make sure you are comfortable of these submissions. But ultimately, we hope you are making less and less submissions over time. You will be able to view how these entries contribute to your routine. And calculations will be available to show how much of contribution you should make for the society via planting trees. We await for your awakening to the realization of this urgent world crisis.
                             </Typography></Grid>
-                        <Grid item xs={6}></Grid>
-                        <Grid item xs={6}><Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
-                            <br></br>
-                            Collectivist in Deforestation
-                        </Typography>
-                            <Typography>
-                            Deforestation </Typography></Grid>
-                        <Grid item xs={6}></Grid>
-                        <Grid item xs={6}><Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
-                            <br></br>
-                            Our Goal
-                        </Typography>
-                            <Typography>
-                            We are </Typography></Grid>
-                        <Grid item xs={6}></Grid>
-                        <Grid item xs={6}><Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
-                            <br></br>
-                            Methodology
-                        </Typography>
-                            <Typography>
-                            Sign up </Typography></Grid>
-                        <Grid item xs={6}></Grid>
+                    <Grid item xs></Grid>
+                        
                     </Grid>
                     <Paper />
                 </Container>
