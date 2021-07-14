@@ -28,14 +28,14 @@ const classes = useStyles;
 
 function LoginInterface(props) {
     return (
-        <div>
+        <Hidden smDown>
             <Button variant="contained" color="primary" className={classes.title} to="/signin" component={Link} style={{ left: '66%' }}>
                 Login
             </Button>
             <Button variant="contained" color="primary" className={classes.title} to="/signup" component={Link} style={{ left: '67%' }}>
                 Register
             </Button>
-        </div>
+        </Hidden>
     )
 }
 

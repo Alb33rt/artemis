@@ -30,6 +30,12 @@ class RegisterAPI(APIView):
 '''
 Basic Authentication Login Method as Below, for backup.
 '''
+class LogoutAPI(APIView):
+    def get(self, request, format=None):
+        logout(request)
+        data = {}
+        data['logout'] = "Success"
+        return Response(data)
 
 # class LoginAPI(APIView):
 #     def post(self, request, format=None):

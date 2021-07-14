@@ -8,4 +8,5 @@ from . import views
 urlpatterns = [
     path(r'register', views.RegisterAPI.as_view(), name="register"),
     path(r'login', obtain_auth_token, name="login"),
+    path(r'logout', views.LogoutAPI, name="logout"),
 ]
