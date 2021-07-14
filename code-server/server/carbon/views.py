@@ -44,7 +44,7 @@ class recentDataAPI(viewsets.ViewSet):
     def list(self, request, pk=None):
         items = []
         today = datetime.date.today()
-        queryset = CarbonEntry.objects.filter(time_created_lte = datetime.date.today(), time_created__gt=datetime.date.today()-datetime.timedelta(days=7), owner=request.user)
+        queryset = CarbonEntry.objects.filter(time_created__lte = datetime.date.today(), time_created__gt=datetime.date.today()-datetime.timedelta(days=7), owner=request.user)
         serializer = CarbonEntrySerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
