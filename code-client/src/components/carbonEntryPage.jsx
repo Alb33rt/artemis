@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import Container from '@material-ui/core/Container';
 import styled, { css } from 'styled-components/macro'
 import backgroundImage from '../images/545792.jpg';
@@ -18,9 +19,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { Box } from "@material-ui/core";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -54,46 +53,70 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-
-const WhiteTextTypography = withStyles({
-    root: {
-        color: "#eaedd5",
-        textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-        fontFamily: "Garamond, serif",
-        justifyContent:"center",
-        alignItems:"center"
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
-})(Typography);
-
-
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
 export default function CarbonEntryPage() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [values, setValues] = React.useState([]);
-    const [text, setText] = React.useState("");
+    const [quantity, setQuantity] = React.useState("");
+    const [detail, setDetail] = React.useState("");
 
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
-        setValues([]);
     };
-    const handleChangeText = (e) => {
-        setText(e.target.value);
-    };
-    const addValue = () => {
-        setValues([...values, ""]);
-    };
-    const handleValueChange = (index, e) => {
-        values[index] = e.target.value;
-        console.log(values);
-        setValues(values);
-    };
-    const deleteValue = (jump) => {
-        setValues(values.filter((j) => j !== jump));
-    };
+
+    var item=[]
+
+    function getItems() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "GET",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get items");
+
+        fetch('http://localhost:8000/api-carbon/recent-entries/30/', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log("items");
+                console.log(data);
+                item=data
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        getItems();
+    }, []);
+
     return (
         <ThemeProvider theme={Theme}>
             <Container maxWidth="1g">
@@ -112,7 +135,7 @@ export default function CarbonEntryPage() {
                 </Grid>
                 <Paper />
             </Container>
-            <Grid fullWidth classes={{root:classes.root}}>
+            <Grid fullWidth classes={{ root: classes.root }}>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Create New Entry
                 </Button>
@@ -124,12 +147,27 @@ export default function CarbonEntryPage() {
                     <DialogTitle id="form-dialog-title">Create New Entry</DialogTitle>
                     <DialogContent>
                         <DialogContentText>Enter details about your entry</DialogContentText>
+                        <Autocomplete
+                            id="item"
+                            options={[{ itemName: "option1", valur: 1 }]}
+                            getOptionLabel={(option) => option.title}
+                            style={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Item Type" variant="outlined" />}
+                        />
                         <TextField
                             autoFocus
-                            margin="dense"
-                            value={text}
-                            onChange={handleChangeText}
-                            label="Text"
+                            margin="normal"
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                            label="Quantity"
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            margin="normal"
+                            value={detail}
+                            onChange={(e) => setDetail(e.target.value)}
+                            label="Details"
                             fullWidth
                         />
                     </DialogContent>
