@@ -85,19 +85,25 @@ export default class Dashboard extends React.Component {
     }
 
     getCarbonEntry() {
-        console.log(localStorage.getItem("Authentication"));
+        /*
+        const xsrfCookies = document.cookie.split(';')
+        .map(c => c.trim())
+        .filter(c => c.startsWith(name + '='));
+        
+        console.log(xsrfCookies);
+        */
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
-              "Access-Control-Request-Method": "GET",
-              "Origin":"http://localhost:3000",
-              "Access-Control-Request-Headers":"Content-Type, Accept, Access-Control-Request-Method, Origin,Access-Control-Request-Headers,Token",
-              "Token": localStorage.getItem("Authentication")
+              "Access-Control-Request-Method": "POST",
+              "Origin":"https://127.0.0.1:3000",
+              "Authorization":localStorage.getItem("Authentication")
             },
+            mode:"cors",
           };
-          console.log("sending GET request");
+          console.log("sending POST request");
       
           fetch('http://localhost:8000/api-carbon/logs', requestOptions)
             .then(response => response.json())
