@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage, Contactus
  } from "./components";
 import { withRouter } from "react-router";
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 function getCookie(name) {
   let cookieValue = null;
@@ -20,6 +21,14 @@ function getCookie(name) {
   return cookieValue;
 }
 const csrftoken = getCookie('csrftoken');
+
+// const theme = createTheme({
+//   typography: {
+//     fontFamily: [
+//       'Montserrat',
+//     ].join(','),
+//   },});
+
 
 function checkLogin() {
   const requestOptions = {
