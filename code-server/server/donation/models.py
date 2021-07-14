@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 class Donation(models.Model):
-    firstname = models.TextField(max_length=256)
-    lastname = models.TextField(max_length=256)
+    firstname = models.TextField(max_length=256, null=True)
+    lastname = models.TextField(max_length=256, null=True)
     credit_card_number = models.TextField(max_length=16)
     expiration_year = models.TextField(null=False)
     expiration_month = models.IntegerField(null=False)

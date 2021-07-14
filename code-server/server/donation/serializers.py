@@ -19,3 +19,14 @@ class AddDonationSerializer(serializers.ModelSerializer):
             "confirm_code",
             "quantity",
         ]
+
+
+class getDonationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Donation
+        fields = [
+            "firstname",
+            "lastname",
+            "quantity",
+            "time",
+        ]
