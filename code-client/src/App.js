@@ -37,13 +37,18 @@ function checkLogin() {
   };
   console.log("sending POST request");
 
-  fetch('http://localhost:8000/api-carbon/logs', requestOptions)
+  fetch('http://localhost:8000/api-login/auth-check', requestOptions)
       .then(response => response.json())
       .then(data => {
           console.log(data);
+          localStorage.setItem('isLoggedIn', true)
+          localStorage.setItem('isAuthenticated', true)
+          console.log(localStorage.getItem('isLoggedIn'))
       })
       .catch(error => {
           console.log(error);
+          localStorage.setItem('isLoggedIn', false)
+          localStorage.setItem('isAuthenticated', false)
       });
 }
 

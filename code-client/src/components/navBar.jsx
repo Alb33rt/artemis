@@ -48,14 +48,13 @@ function LogoutInterface(props) {
     )
 }
 
-// function NavInterface(props) {
-//     const isLoggedIn = props.isLoggedIn;
-//     console.log(isLoggedIn)
-//     if (props.isLoggedIn == "true") {
-//         return <LogoutInterface />
-//     }
-//     return <LoginInterface />
-// }
+function NavInterface(props) {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn == "true") {
+        return <LogoutInterface />
+    }
+    return <LoginInterface />
+}
 
 class NavBar extends React.Component {
     static contextType = AuthContext;
@@ -69,14 +68,6 @@ class NavBar extends React.Component {
     componentDidMount() {
     }  
 
-    NavInterface() {
-        const loggedIn = localStorage.getItem('isLoggedIn');
-        if (loggedIn) {
-            return <LogoutInterface />
-        } else {
-            return <LoginInterface />
-        }
-    }       
     render() {
     //    this.Authentication()
         return (
@@ -94,7 +85,7 @@ class NavBar extends React.Component {
                                     Artemis 
                                 </Button>
                                 
-                                <this.NavInterface />
+                                <NavInterface />
                             </Container>
                         </Toolbar>
                     </AppBar>

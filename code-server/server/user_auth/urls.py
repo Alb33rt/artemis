@@ -9,5 +9,5 @@ urlpatterns = [
     path(r'register', views.RegisterAPI.as_view(), name="register"),
     path(r'login', obtain_auth_token, name="login"),
     path(r'logout', views.LogoutAPI.as_view(), name="logout"),
-    path(r'auth-check', views.AuthCheckAPI, name="auth-check"),
+    path(r'auth-check', views.AuthCheckAPI.as_view(), name="auth-check"),
 ]

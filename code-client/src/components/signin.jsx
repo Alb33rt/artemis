@@ -93,8 +93,13 @@ class SignIn extends React.Component {
         localStorage.setItem("Authentication", "Token " + data['token']);
         localStorage.setItem('isAuthenticated', true);
         localStorage.setItem('isLoggedIn', true);
-        
-        history.push('/home')
+
+        console.log(data['token'])
+        if(data['token']){
+          history.push('/dashboard')
+        } else {
+          console.log("Password is wrong")
+        }
       })
       .catch(error => {
         console.log(error);

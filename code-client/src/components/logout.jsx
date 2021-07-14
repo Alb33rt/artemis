@@ -38,6 +38,9 @@ class Logout extends React.Component {
                 localStorage.removeItem("Authentication")
                 localStorage.setItem('isAuthenticated', false);
                 localStorage.setItem('isLoggedIn', false);
+                this.setState(
+                    {loading: false}
+                )
                 history.push("/home");
             })
             .catch(error => {
