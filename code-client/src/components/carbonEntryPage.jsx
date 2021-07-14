@@ -20,6 +20,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import log from '../images/logging.jpg'
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -137,22 +138,19 @@ export default function CarbonEntryPage() {
     return (
         <ThemeProvider theme={Theme}>
             <Container maxWidth="1g">
-                <Paper elevation={0} />
+                
                 <Grid container>
-                    <Grid item xs></Grid>
-                    <Grid item xs={6}><Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
-                        <br></br>
-                        Carbon Entry
-                    </Typography>
+                    <Grid item xs={6}>
+                        <img style={{width:'100%', height:'auto', opacity:'0.9'}} src={log}></img>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
+                            Carbon Entry
+                        </Typography>
                         <Typography>
                             Make your “Carbon Entry”! Log in your activities to keep track of the amount of impact you are bringing to society. This submission will be logged into your account as collective data. Make sure you are comfortable of these submissions. But ultimately, we hope you are making less and less submissions over time. You will be able to view how these entries contribute to your routine. And calculations will be available to show how much of contribution you should make for the society via planting trees. We await for your awakening to the realization of this urgent world crisis.
-                        </Typography></Grid>
-                    <Grid item xs></Grid>
-
-                </Grid>
-                <Paper />
-            </Container>
-            <Grid fullWidth classes={{ root: classes.root }}>
+                        </Typography>
+                        <Grid fullWidth classes={{ root: classes.root }}>
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Create New Entry
                 </Button>
@@ -199,6 +197,13 @@ export default function CarbonEntryPage() {
                     </DialogActions>
                 </Dialog>
             </Grid>
+                    </Grid>
+                    
+
+                </Grid>
+                
+            </Container>
+            
         </ThemeProvider>
     );
 }
