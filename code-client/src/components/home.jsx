@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
-import { theme } from "../colorTheme";
+import { Theme } from "../colorTheme";
 
 /*
 const HeroSection = styled.section`
@@ -96,7 +96,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={Theme}>
                 <Container maxWidth="lg">
                     <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: `round` }}>
                         {/* Increase the priority of the hero background image */}

@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { theme } from '../colorTheme';
+import {Theme} from "../colorTheme";
 import AuthContext from "../auth-context";
 
 
@@ -82,7 +82,7 @@ class NavBar extends React.Component {
     render() {
     //    this.Authentication()
         return (
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={Theme}>
                 <div className={classes.root}>
                     <AppBar position="static">
                         <Toolbar>
