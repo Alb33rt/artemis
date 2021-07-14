@@ -15,7 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useState } from "react";
-import { Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import NatureTwoToneIcon from '@material-ui/icons/NatureTwoTone';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -149,6 +149,7 @@ const SubmitDonation = (props) => {
     
     return (
       <div>
+        <Box m={10}></Box>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
           Confirm Donate
         </Button>
@@ -203,17 +204,18 @@ export default function Checkout() {
                         </Container>
                     </Toolbar>
                 </AppBar>
+                <Box m={10}></Box>
                 <Grid container>
-                    <Grid item xs={3}></Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={4}>
                         <Container>
-                            <img style={{width:'100%', height:'auto', opacity:'0.6'}} src={Frog}></img>
+                            <img style={{width:'100%', height:'auto', opacity:'0.8'}} src={Frog}></img>
                             <Typography variant="h6" gutterBottom>
                                 Make your “Donation” towards helping this planet! Believing that you have glance through the data we provided, you are convinced to make donation to helps us planting more trees. This is a good start of making contributions. Imaging everybody are making donations to contribute, it would be utopian but the ultimate goal. Promote the call to action to the people around you. Collectivist (sounds alike to communism but is not) towards contributing to save the planet starts here!
                             </Typography>
                         </Container>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={4}>
                     <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography component="h1" variant="h4" align="center">
@@ -222,7 +224,7 @@ export default function Checkout() {
                         </Typography>
                         <React.Fragment>
                             <React.Fragment>
-                                <Grid container spacing={3}>
+                                <Grid container spacing={5}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
                                             required
@@ -351,7 +353,7 @@ export default function Checkout() {
                     </Paper>
                 </main>
                     </Grid>
-                    <Grid item xs={3}></Grid>
+                    <Grid item xs={2}></Grid>
                 </Grid>
             </React.Fragment>
         </ThemeProvider>
