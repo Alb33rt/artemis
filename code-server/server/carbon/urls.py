@@ -11,7 +11,7 @@ urlpatterns = [
     path("create", views.AddEntriesAPI.as_view(), name="create"),
     path(
         "recent-entries/<int:days>/",
-        views.recentDataAPI.as_view({"get": "list"}),
+        views.recentDataAPI ,
         name="recent-entries",
     ),
     path(

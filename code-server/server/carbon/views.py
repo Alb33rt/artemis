@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
 
 from .models import CarbonEntry, Item
 from .serializers import CarbonEntrySerializer, ItemSerializer
@@ -41,28 +42,28 @@ class AddEntriesAPI(APIView):
             data["message"] = "Failed, Please Try Again"
         return Response(data)
 
+@api_view(['GET'])
+def recentDataAPI(request, days):
+    try:
+        today = datetime.date.today()
+        data = {}
+        for i in range(days):
+            timedelta_front = datetime.timedelta(days=i)
+            timedelta_rear = datetime.timedelta(days=(i + 1))
+            queryset = CarbonEntry.objects.filter(
+                time_created__lte=today - timedelta_front,
+                time_created__gt=today - timedelta_rear,
+                owner=request.user,
+            )
+            sum_of_day = 0
+            for q in queryset:
+                sum_of_day += q.emission
+            data[str(i)] = sum_of_day
+    except CarbonEntry.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        return Response(data, status=status.HTTP_202_ACCEPTED)
 
-class recentDataAPI(viewsets.ViewSet):
-    def list(self, request, *args, **kwargs):
-        return get_sum(request, self.kwargs.get("days", None))
-
-
-def get_sum(request, time_period):
-    today = datetime.date.today()
-    data = {}
-    for i in range(time_period):
-        timedelta_front = datetime.timedelta(days=i)
-        timedelta_rear = datetime.timedelta(days=(i + 1))
-        queryset = CarbonEntry.objects.filter(
-            time_created_lte=today - timedelta_front,
-            time_created__gt=today - timedelta_rear,
-            owner=request.user,
-        )
-        sum_of_day = 0
-        for q in queryset:
-            sum_of_day += q.emission
-        data[str(i)] = sum_of_day
-    return Response(data, status=status.HTTP_202_ACCEPTED)
 
 
 class myItemsAPI(APIView):
