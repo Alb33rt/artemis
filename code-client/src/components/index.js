@@ -6,4 +6,5 @@ export { default as Home } from "./home";
 export { default as Dashboard } from "./dashboard";
 export { default as Donation } from "./donation";
 export { default as CarbonEntryPage} from "./carbonEntryPage";
+export { default as GreenEntryPage} from "./greenEntryPage";
 export { default as Contactus} from "./contactus";

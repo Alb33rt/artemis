@@ -169,6 +169,12 @@ function NavBar() {
                             </ListItemIcon>
                             <ListItemText primary="Carbon Entries" />
                         </ListItem>
+                        <ListItem button key="Green Entries" component={Link} to="/greenEntryPage">
+                            <ListItemIcon>
+                                <NaturePeopleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Green Entries" />
+                        </ListItem>
                         <ListItem button key="Donation" component={Link} to="/donation">
                             <ListItemIcon>
                                 <AccountBalanceIcon />

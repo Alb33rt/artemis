@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage, Contactus
+import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage, Contactus, GreenEntryPage
  } from "./components";
 import { withRouter } from "react-router";
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
@@ -81,6 +81,7 @@ function App() {
           <Route path="/dashboard" exact component={() => <Dashboard/>} />
           <Route path="/logout" exact component={() => <Logout/>} />
           <Route path="/carbonEntryPage" exact component={() => <CarbonEntryPage/>} />
+          <Route path="/greenEntryPage" exact component={() => <GreenEntryPage/>} />
           <Route path="/donation" exact component={() => <Donation/>} />
           <Route path="/contactus" exact component={() => <Contactus/>} />
         </Switch>
