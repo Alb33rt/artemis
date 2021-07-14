@@ -19,7 +19,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Link } from "@material-ui/core";
+import { Link, Typography } from "@material-ui/core";
 import { withRouter } from "react-router";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
@@ -211,10 +211,13 @@ class Dashboard extends React.Component {
             tempRows.push(createData(this.state.carbonEntries[i]['item_name'],this.state.carbonEntries[i]['quantity'],this.state.carbonEntries[i]['unit_name'],this.state.carbonEntries[i]['details'],this.state.carbonEntries[i]['time_created'].substring(0,10)))
         }
         const rows=tempRows
-        return (<div><Box m={10}>
+        return (<div><Box m={7}>
             <Container>
-                <Grid container>
-                    <Grid item md={6} sm={6} xs={12}>
+                <Grid container spacing={2}>
+                    <Typography variant="h4">
+                        Dashboard
+                    </Typography>
+                    <Grid item xs={12}>
                         <Paper>
                             <Chart
                                 data={this.state.weekEmissions}
@@ -231,7 +234,7 @@ class Dashboard extends React.Component {
                             </Chart>
                         </Paper>
                     </Grid>
-                    <Grid item md={6} sm={6} xs={12}>
+                    <Grid item md={6} sm={12} xs={12}>
                         <Paper>
                             <Chart
                                 data={this.state.threeDayEmission}
@@ -248,7 +251,7 @@ class Dashboard extends React.Component {
                             </Chart>
                         </Paper>
                     </Grid>
-                    <Grid item sm={6} xs={12}>
+                    <Grid item md={6} sm={12} xs={12}>
                         <Paper>
                             <Chart
                                 data={this.state.monthEmission}
