@@ -1,10 +1,10 @@
 import React from "react";
 import Container from '@material-ui/core/Container';
 import styled, { css } from 'styled-components/macro'
-import backgroundImage from '../images/hero_Shot.jpg';
+import backgroundImage from '../images/545792.jpg';
 import { withRouter } from "react-router";
 import PropTypes from 'prop-types';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -68,6 +68,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const WhiteTextTypography = withStyles({
+    root: {
+        color: "#eaedd5",
+        textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
+        fontFamily: "Garamond, serif"
+    }
+})(Typography);
+
+
 const classes = useStyles;
 
 class Home extends React.Component {
@@ -91,27 +100,34 @@ class Home extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <Container maxWidth="lg">
-                    <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${backgroundImage})` }}>
+                    <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: `round` }}>
                         {/* Increase the priority of the hero background image */}
                         {<img style={{ display: 'none' }} src={backgroundImage} />}
                         <div className={classes.overlay} />
-                        <Grid container>
+                        <Grid container justify="center" alignItems="center">
                             <Grid item md={6} alignItems="center">
                                 <div className={classes.mainFeaturedPostContent}>
-                                    <Typography component="h1" variant="h3" color="textPrimary" gutterBottom align="center">
+                                    <WhiteTextTypography component="h1" variant="h1" color="textSecondary" gutterBottom align="center">
+                                        <br></br>
                                         Plant a tree, save the world.
-                                    </Typography>
-                                    <Typography variant="h5" color="textPrimary" paragraph>
-                                        test
-                                    </Typography>
-                                    <Link variant="subtitle1" href="#" color="textPrimary" paragraph>
-                                        test
-                                    </Link>
-                                    <br></br><br></br><br></br><br></br><br></br>
+                                        <br></br>
+                                    </WhiteTextTypography>
                                 </div>
                             </Grid>
                         </Grid>
                     </Paper>
+                    <Paper elevation={0} />
+                    <Grid container>
+                        <Grid item xs={6}><Typography component="h2" variant="h2" color="textPrimary" gutterBottom>
+                            <br></br>
+                            Introduction
+                        </Typography>
+                            <Typography>
+                                As we are here in 2021. There are more and more volume in discussing climate change around the whole world. It is very distinct, but obvious that people focus the cause of this matter with carbon emission. Last year along, the world have emitted 36.44 billion metric tons of that. It is ultimately relatable and understandable, since carbon dioxide is reasoning to our current situation. But, looking back to these emission, really none of these emission are done naturally. Nearly all emission are done through human measure. Domestication, Deforestation, Industrialization, Power Generation, Habitual Emission. We are facing factors that are not removable from current society, except for one.
+                            </Typography></Grid>
+                        <Grid item xs={6}></Grid>
+                    </Grid>
+                    <Paper />
                 </Container>
             </ThemeProvider>
         )
