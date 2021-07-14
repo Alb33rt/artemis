@@ -60,8 +60,13 @@ const NavInterface = () => (
     <AuthContext.Consumer>
     { 
         (loggedIn) => {
-        return (loggedIn ? <LoginInterface /> : <LogoutInterface />);
+        console.log(loggedIn)
+        if (loggedIn) {
+            return <LogoutInterface />
+        } else {
+            return <LoginInterface />
         }
+    }
     }
     </AuthContext.Consumer>
 )
