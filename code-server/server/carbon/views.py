@@ -65,6 +65,7 @@ def recentDataAPI(request, days):
                 sum_of_day += q.quantity
             date_str = (today - datetime.timedelta(i)).strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
+        data.reverse()
 
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
