@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
+        overflow: 'hidden',
     },
     overlay: {
         position: 'absolute',
@@ -120,7 +121,7 @@ class Home extends React.Component {
                         
                   
                     <Paper elevation={0} />
-                    <Grid container>
+                    <Grid container style={{backgroundColor: "white"}}>
                         <Grid item xs={12}><Typography component="h5" variant="h5" color="textPrimary" gutterBottom>
                             <br></br>
                             Introduction
