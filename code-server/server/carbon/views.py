@@ -40,6 +40,7 @@ class AddEntriesAPI(APIView):
         return Response(data)
 
 class recentDataAPI(viewsets.ViewSet):
+    permission_classes = [ IsAuthenticated ]
     def list(self, request, pk=None):
         items = []
         today = datetime.date.today()
