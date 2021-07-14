@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
-import AuthContext from "../auth-context";
 
 class Logout extends React.Component {
     _isMounted = false;
@@ -67,9 +66,7 @@ class Logout extends React.Component {
         const { isAuthenticated, loading, error } = this.state;
         if (loading) {
             return (
-            <AuthContext.Provider value={this.state.loggedIn}>
                 <p>Loading...</p>
-            </AuthContext.Provider>
             );
         }
 

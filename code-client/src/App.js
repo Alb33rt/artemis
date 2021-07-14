@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage
  } from "./components";
-import AuthContext from "./auth-context.js";
 import { withRouter } from "react-router";
 
 function getCookie(name) {
