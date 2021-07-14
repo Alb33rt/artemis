@@ -21,12 +21,12 @@ urlpatterns = [
         views.recentGreenDataAPI,
         name="recent-green-entries",
     ),
-    path(
-        "related-items",
-        views.relatedItemsAPI.as_view({"get": "retrieve"}),
-        name="related-items",
-    ),
-    path("create-item", views.postItemsAPI.as_view(), name="create-item"),
+    # path(
+    #     "related-items",
+    #     views.relatedItemsAPI.as_view({"get": "retrieve"}),
+    #     name="related-items",
+    # ),
+    # path("create-item", views.postItemsAPI.as_view(), name="create-item"),
     path("all-carbon-item", views.allCarbonItemsAPI.as_view(), name="all-item"),
     path("all-green-item", views.allGreenItemsAPI.as_view(), name="all-item"),
 ]
