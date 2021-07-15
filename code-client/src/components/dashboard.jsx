@@ -23,6 +23,7 @@ import { Link, Typography } from "@material-ui/core";
 import { withRouter } from "react-router";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -170,7 +171,12 @@ class Dashboard extends React.Component {
             .then(data => {
                 this.setState(
                     { weekEmissions: data }
+                    
                 )
+                const today_emissions = data["6"]["emissions"]
+                if (today_emissions > 0) {
+                toast.warn("You have accumulated " + today_emissions + " g of Carbon Emissions. Get to work to save Earth!");
+                }
             })
             .catch(error => {
                 console.log(error);

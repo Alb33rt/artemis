@@ -11,6 +11,7 @@ import Container from '@material-ui/core/Container';
 import { Theme } from '../colorTheme';
 import { withRouter } from 'react-router-dom';
 import { Redirect } from "react-router";
+import { toast } from "react-toastify";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -108,10 +109,12 @@ class SignUp extends React.Component {
         this.setWithExpiry("Authentication", "Token " + data['token']);
         localStorage.localStorage('isAuthenticated', true);
         localStorage.localStorage('isLoggedIn', true);
+        toast.success("You have successfully registered! You are now redirected to the Dashboard.")
         history.push("/dashboard");
       })
       .catch(error => {
         console.log(error);
+        toast.warn("Registration failure. Please try again.")
       });
   }
 

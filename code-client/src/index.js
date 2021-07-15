@@ -11,7 +11,7 @@ function AppWrapper() {
 }
 
 ReactDOM.render(
-    <AppWrapper />,
+    <App />,
   document.getElementById('root')
 );
 

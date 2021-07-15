@@ -4,6 +4,8 @@ import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryP
  } from "./components";
 import { withRouter } from "react-router";
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function getCookie(name) {
   let cookieValue = null;
@@ -55,8 +57,8 @@ function checkLogin() {
           localStorage.setItem('isAuthenticated', true)
           const status = localStorage.getItem('isLoggedIn')
           console.log(status)
-          if (status) {
-            return  <Route path="/dashboard" exact component={() => <Dashboard/>} />
+          if (localStorage.getItem('isLoggedIn')) {
+            toast.info("Your Artemis app has your login saved and will automatically signin when you open the app.")
           }
       })
       .catch(error => {
@@ -72,6 +74,7 @@ function App() {
 }, []); 
   return (
     <div className="App">
+      <ToastContainer draggable={false} transition={Zoom}/>
       <Router>
         <NavBar/>
         <Switch>

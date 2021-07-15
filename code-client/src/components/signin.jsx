@@ -12,6 +12,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Theme } from '../colorTheme';
 import { withRouter } from "react-router";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -115,18 +116,19 @@ class SignIn extends React.Component {
         }*/
         console.log(data['token'])
         if (data['token']) {
+          toast.success("You are logged in!");
           history.push('/dashboard')
         } else {
-          console.log("Login Failed, please double check your Username or Password.")
+          console.log("Login Failed, please double check your Username or Password.") 
           this.setState(
             {
-
             }
           )
         }
       })
       .catch(error => {
         console.log(error);
+        toast.warn("Error. Please Try Again. Or check your Username & Password as they may be incorrect")
       });
   }
   renderRedirect() {
