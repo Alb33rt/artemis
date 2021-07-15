@@ -93,7 +93,6 @@ class Dashboard extends React.Component {
         this.get3DayGreen();
         this.getMonthGreen();
         this.getWeekGreen();
-        this.combineData();
     }
 
     redirectToHome() {
@@ -120,7 +119,7 @@ class Dashboard extends React.Component {
             }
           }
         console.log("temp dict");
-        console.log(result);
+        console.log(JSON.stringify(result));
     }
     getMonthEmission() {
         const requestOptions = {
@@ -181,6 +180,7 @@ class Dashboard extends React.Component {
             .catch(error => {
                 console.log(error);
             });
+        this.combineData();
     }
 
     get3DayEmission() {
