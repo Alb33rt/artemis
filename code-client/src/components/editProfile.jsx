@@ -120,7 +120,7 @@ class EditProfilePage extends React.Component {
         <Container container>
            <Box mt={2}>
             <Grid container spacing={0}>
-            <Grid item md={6} xs={12}>
+            <Grid item md={12} xs={12}>
                 <TextField
                 required
                 id="standard-basic"
