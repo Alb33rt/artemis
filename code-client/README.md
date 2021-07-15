@@ -8,6 +8,7 @@
 7. ``npm i @devexpress/dx-react-chart``
 8. ``npm install --save styled-components``
 9. ``npm i @material-ui/lab``
+10. ``npm install --save react-toastify``
 
 # Getting Started with Create React App
 
