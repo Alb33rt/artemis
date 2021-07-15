@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import RegisterSerializer, LoginSerializer, EditProfileSerializer
+from .serializers import ChangeBaseProfileSerializer, RegisterSerializer, LoginSerializer, EditProfileSerializer
 
 # Create your views here.
 class RegisterAPI(APIView):
@@ -57,7 +57,16 @@ class EditProfileAPI(APIView):
 
     def post(self, request, format=None):
         user = request.user
-        pass
+        serializer = ChangeBaseProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            first_name = serializer.validated_data['first_name']
+            last_name = serializer.validated_data['last_name']
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save(update_fields=['first_name', 'last_name'])
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
 # class LoginAPI(APIView):
 #     def post(self, request, format=None):

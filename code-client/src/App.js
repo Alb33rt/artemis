@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage, Contactus, GreenEntryPage, EditProfilePage
  } from "./components";
 import { withRouter } from "react-router";
@@ -59,6 +59,7 @@ function checkLogin() {
           console.log(status)
           if (localStorage.getItem('isLoggedIn')) {
             toast.info("Your Artemis app has your login saved and will automatically signin when you open the app.")
+          } else {
           }
       })
       .catch(error => {
