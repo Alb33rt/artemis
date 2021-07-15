@@ -86,6 +86,7 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
+        this.checkLogin();
         this.getCarbonEntry();
         this.get3DayEmission();
         this.getMonthEmission();
@@ -356,6 +357,13 @@ class Dashboard extends React.Component {
                 console.log(error);
             });
 
+    }
+
+    checkLogin() {
+        const { history } = this.props;
+        if (!localStorage.getItem('isLoggedIn') || !localStorage.getItem('isAuthenticated')) {
+            history.push("/signin");
+        }
     }
 
     render() {

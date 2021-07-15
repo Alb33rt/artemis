@@ -13,21 +13,22 @@ class CarbonEntrySerializer(serializers.ModelSerializer):
         model = CarbonEntry
         fields = "__all__"
 
+
 class PostCarbonEntrySerializer(serializers.Serializer):
     quantity = serializers.IntegerField()
     details = serializers.CharField()
     item_involved = serializers.CharField()
 
     def save(self, user):
-        print('running save function')
-        item = CarbonItem.objects.get(name=self.validated_data['item_involved'])
+        print("running save function")
+        item = CarbonItem.objects.get(name=self.validated_data["item_involved"])
         if not item:
             raise serializers.ValidationError({"message": "No such item"})
         Entry = CarbonEntry(
-            quantity=self.validated_data['quantity'],
-            details=self.validated_data['details'],
+            quantity=self.validated_data["quantity"],
+            details=self.validated_data["details"],
             item_involved=item,
-            owner=user
+            owner=user,
         )
         Entry.save()
         return Entry
@@ -40,6 +41,26 @@ class GreenEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = GreenEntry
         fields = "__all__"
+
+
+class PostGreenEntrySerializer(serializers.Serializer):
+    quantity = serializers.IntegerField()
+    details = serializers.CharField()
+    item_involved = serializers.CharField()
+
+    def save(self, user):
+        print("running save function")
+        item = GreenItem.objects.get(name=self.validated_data["item_involved"])
+        if not item:
+            raise serializers.ValidationError({"message": "No such item"})
+        Entry = GreenEntry(
+            quantity=self.validated_data["quantity"],
+            details=self.validated_data["details"],
+            item_involved=item,
+            owner=user,
+        )
+        Entry.save()
+        return Entry
 
 
 class AddCarbonEntrySerializer(serializers.ModelSerializer):
