@@ -20,9 +20,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import log from '../images/logging.jpg'
-import { Box } from "@material-ui/core";
 import green from '../images/green.png'
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     mainGrid: {
@@ -74,11 +73,15 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 export default function GreenEntryPage() {
     const [itemListFinal, setItemListFinal] = useState(itemList);
+    const [unitListFinal, setUnitListFinal] = useState(unitList);
+    const [itemObjectList, setItemObjectList] = useState(item);
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [quantity, setQuantity] = React.useState("");
+    const [quantity, setQuantity] = React.useState(0);
     const [detail, setDetail] = React.useState("");
+    const [unit, setUnit] = React.useState("");
+    const [chosedItem, setChosedItem] = React.useState("");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -90,7 +93,41 @@ export default function GreenEntryPage() {
     var item = []
     var nameList = []
     var itemList = []
+    var unitList = []
+    function postEntry() {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include",
+            body: JSON.stringify({
+                "quantity": quantity,
+                "details": detail,
+                "item_involved": chosedItem['name'],
+            })
+        };
+        console.log("Sending POST request to create-carbon");
 
+        fetch('http://localhost:8000/api-carbon/create-green', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        setOpen(false);
+        setQuantity(0);
+        setDetail("");
+        setChosedItem("");
+    }
     function getItems() {
         const requestOptions = {
             method: 'GET',
@@ -106,19 +143,24 @@ export default function GreenEntryPage() {
             credentials: "include"
         };
         console.log("get items");
+        console.log(itemObjectList)
 
-        fetch('http://localhost:8000/api-carbon/all-item', requestOptions)
+        fetch('http://localhost:8000/api-carbon/all-green-item', requestOptions)
             .then(response => response.json())
             .then(data => {
                 item = data
-                var names = [];
-                var id = [];
+                console.log("bla")
+                console.log(item)
+                let names = [];
+                let id = [];
                 for (let i = 0; i < item.length; i++) {
                     names.push(item[i]['name']);
                     id.push(item[i]['id']);
+                    unitList.push(item[i]['unit']);
                 }
+                setUnitListFinal(unitList);
                 nameList = names
-                var result = []
+                let result = []
                 for (let i = 0; i < item.length; i++) {
                     var dict = {}
                     dict['name'] = names[i];
@@ -127,6 +169,7 @@ export default function GreenEntryPage() {
                 }
                 itemList = result
                 setItemListFinal(itemList);
+                setItemObjectList(data)
             })
             .catch(error => {
                 console.log(error);
@@ -136,10 +179,9 @@ export default function GreenEntryPage() {
     useEffect(() => {
         getItems();
     }, []);
-
     return (
         <ThemeProvider theme={Theme}>
-            <Box m={7}>
+            <Box mt={7}>
                 <Container maxWidth="lg">
 
                     <Grid container spacing={10}>
@@ -151,12 +193,12 @@ export default function GreenEntryPage() {
                                 Green Entry
                             </Typography>
                             <Typography>
-                                Looking at all your carbon emissions. Your should be committing more work to neutralize the impact you have bring along. This Green Entry Log would be where you log what kind of activities you have made contributions to. We wish all users to adapt the habit to increase the amount of Green Activities your deed executes. Come on, use the log to tell us your good deeds to the world. We trust that you are honest while logging, and wish to receive more and more Green Entries from you.
+                            Looking at all your carbon emissions. Your should be committing more work to neutralize the impact you have bring along. This Green Entry Log would be where you log what kind of activities you have made contributions to. We wish all users to adapt the habit to increase the amount of Green Activities your deed executes. Come on, use the log to tell us your good deeds to the world. We trust that you are honest while logging, and wish to receive more and more Green Entries from you.
                             </Typography>
                             <Grid fullWidth classes={{ root: classes.root }}>
                                 <Box m={10}></Box>
                                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                                    Create New Carbon Entry
+                                    Create New Green Entry
                                 </Button>
                                 <Dialog
                                     open={open}
@@ -173,13 +215,15 @@ export default function GreenEntryPage() {
                                             getOptionLabel={(option) => option.name}
                                             style={{ width: 300 }}
                                             renderInput={(params) => <TextField {...params} label="Item Type" variant="outlined" />}
+                                            value={chosedItem}
+                                            onChange={(event, newValue) => { setChosedItem(newValue); setUnit("Quantity (" + unitListFinal[itemListFinal.indexOf(newValue)] + ")") }}
                                         />
                                         <TextField
                                             autoFocus
                                             margin="normal"
                                             value={quantity}
                                             onChange={(e) => setQuantity(e.target.value)}
-                                            label="Quantity"
+                                            label={unit}
                                             fullWidth
                                         />
                                         <TextField
@@ -195,14 +239,17 @@ export default function GreenEntryPage() {
                                         <Button onClick={handleClose} variant="contained" color="secondary">
                                             Cancel
                                         </Button>
-                                        <Button onClick={handleClose} variant="contained" color="primary">
+                                        <Button onClick={postEntry} variant="contained" color="primary">
                                             Create
                                         </Button>
                                     </DialogActions>
                                 </Dialog>
                             </Grid>
                         </Grid>
+
+
                     </Grid>
+
                 </Container>
             </Box>
         </ThemeProvider>
