@@ -348,7 +348,7 @@ class Dashboard extends React.Component {
                                     valueField="green"
                                     argumentField="days"
                                 />
-                                <Title text="This Week's Overview" />
+                                <Title text="This Week's Greenlife Overview" />
                                 <Animation />
                             </Chart>
                         </Paper>
@@ -365,7 +365,7 @@ class Dashboard extends React.Component {
                                     valueField="emissions"
                                     argumentField="days"
                                 />
-                                <Title text="The Last 3 Days' Overview" />
+                                <Title text="Within 3 Days" />
                                 <Animation />
                             </Chart>
                         </Paper>
@@ -382,13 +382,20 @@ class Dashboard extends React.Component {
                                     valueField="emissions"
                                     argumentField="days"
                                 />
-                                <Title text="This Month's Overview" />
+                                <Title text="Within this month" />
                                 <Animation />
                             </Chart>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <TableContainer component={Paper}>
+                            <Container container>
+                                <Box mt={4}>
+                                <Typography variant="h6">
+                                    Recent Carbon Entries
+                                </Typography>
+                                </Box>
+                            </Container>
                             <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
                                 <TableHead>
                                     <TableRow>
