@@ -13,8 +13,9 @@ from user_auth.models import User
 
 # Create your views here.
 class DonationAPI(APIView):
-    authentication_classes = [ TokenAuthentication ]
-    permission_classes = [ IsAuthenticated ]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         pass
 
@@ -25,9 +26,10 @@ class DonationAPI(APIView):
         if serializer.is_valid():
             serializer.save(owner=request.user)
             # print(serializer.data['Authorization'])
-            data['status'] = "Donation Request Success"
-            data['quantity'] = serializer.validated_data['quantity']
-            data['firstname'] = serializer.validated_data['firstname']
+            data["status"] = "Donation Request Success"
+            data["quantity"] = serializer.validated_data["quantity"]
+            data["firstname"] = serializer.validated_data["firstname"]
+            print("Donate Record Success")
         else:
             data = serializer.errors
         return Response(data)
