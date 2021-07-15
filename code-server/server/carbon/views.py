@@ -112,9 +112,7 @@ def recentCarbonDataAPI(request, days):
         return Response(data, status=status.HTTP_202_ACCEPTED)
 
 
-api_view(["GET"])
-
-
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def recentGreenDataAPI(request, days):
     try:
@@ -153,6 +151,7 @@ def recentConbinedDataAPI(request, days):
         for i in range(1, days + 1):
             timedelta_front = datetime.timedelta(days=i)
             timedelta_rear = datetime.timedelta(days=(i + 1))
+
             Greenqueryset = GreenEntry.objects.filter(
                 time_created__lte=today - timedelta_front,
                 time_created__gt=today - timedelta_rear,

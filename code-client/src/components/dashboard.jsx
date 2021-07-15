@@ -93,6 +93,7 @@ class Dashboard extends React.Component {
         this.get3DayGreen();
         this.getMonthGreen();
         this.getWeekGreen();
+        this.get3DayCombined();
     }
 
     redirectToHome() {
@@ -104,20 +105,20 @@ class Dashboard extends React.Component {
         const { history } = this.props;
         history.push('/carbonEntryPage')
     }
-    combineData(){
-        const result={};
+    combineData() {
+        const result = {};
         let key;
         for (key in this.state.weekEmissions) {
-            if(this.state.weekEmissions.hasOwnProperty(key)){
-              result[key] = this.state.weekEmissions[key];
+            if (this.state.weekEmissions.hasOwnProperty(key)) {
+                result[key] = this.state.weekEmissions[key];
             }
-          }
-          
-          for (key in this.state.weekGreen) {
-            if(this.state.weekGreen.hasOwnProperty(key)){
-              result[key] = this.state.weekGreen[key];
+        }
+
+        for (key in this.state.weekGreen) {
+            if (this.state.weekGreen.hasOwnProperty(key)) {
+                result[key] = this.state.weekGreen[key];
             }
-          }
+        }
         console.log("temp dict");
         console.log(JSON.stringify(result));
     }
@@ -170,11 +171,11 @@ class Dashboard extends React.Component {
             .then(data => {
                 this.setState(
                     { weekEmissions: data }
-                    
+
                 )
                 const today_emissions = data["6"]["emissions"]
                 if (today_emissions > 0) {
-                toast.warn("You have accumulated " + today_emissions + " g of Carbon Emissions. Get to work to save Earth!");
+                    toast.warn("You have accumulated " + today_emissions + " g of Carbon Emissions. Get to work to save Earth!");
                 }
             })
             .catch(error => {
@@ -231,7 +232,7 @@ class Dashboard extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    monthGreen:data
+                    monthGreen: data
                 })
             })
             .catch(error => {
@@ -326,6 +327,37 @@ class Dashboard extends React.Component {
 
     }
 
+    get3DayCombined() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "GET",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get carbon entries");
+
+        fetch('http://localhost:8000/api-carbon/recent-combine-entries/3', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    threeCombined: data,
+                })
+                console.log("Recieved Recent Combined Entries.")
+                console.log(this.state.threeCombined)
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+    }
+
     render() {
         var tempRows = [];
         for (let i = 0; i < this.state.carbonEntries.length; i++) {
@@ -362,13 +394,17 @@ class Dashboard extends React.Component {
                     <Grid item md={6} sm={12} xs={12}>
                         <Paper>
                             <Chart
-                                data={this.state.threeDayEmission}
+                                data={this.state.threeCombined}
                             >
                                 <ArgumentAxis />
                                 <ValueAxis />
 
                                 <BarSeries
                                     valueField="emissions"
+                                    argumentField="days"
+                                />
+                                <BarSeries
+                                    valueField="oxygen"
                                     argumentField="days"
                                 />
                                 <Title text="Within 3 Days" />
@@ -397,9 +433,9 @@ class Dashboard extends React.Component {
                         <TableContainer component={Paper}>
                             <Container container>
                                 <Box mt={4}>
-                                <Typography variant="h6">
-                                    Recent Carbon Entries
-                                </Typography>
+                                    <Typography variant="h6">
+                                        Recent Carbon Entries
+                                    </Typography>
                                 </Box>
                             </Container>
                             <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>

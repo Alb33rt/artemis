@@ -13,7 +13,7 @@ urlpatterns = [
     path("create-green", views.AddGreenEntriesAPI.as_view(), name="create-green"),
     path(
         "recent-combine-entries/<int:days>",
-        views.recentCombinedDataAPI,
+        views.recentConbinedDataAPI,
         name="recent-combine-entries",
     ),
     path(
