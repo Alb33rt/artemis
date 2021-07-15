@@ -182,7 +182,7 @@ export default function CarbonEntryPage() {
     return (
         <ThemeProvider theme={Theme}>
             <Box mt={7}>
-                <Container maxWidth="1g">
+                <Container maxWidth="lg">
 
                     <Grid container spacing={10}>
                         <Grid item xs={7}>
