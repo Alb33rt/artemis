@@ -18,7 +18,7 @@ from .serializers import (
     GreenEntrySerializer,
     CarbonItemSerializer,
     GreenItemSerializer,
-    PostCarbonEntrySerializer
+    PostCarbonEntrySerializer,
 )
 
 # Create your views here.
@@ -118,7 +118,7 @@ api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def recentGreenDataAPI(request, days):
     try:
-        today = datetime.date.today() + datetime.timedelta(2)
+        today = datetime.date.today()
         data = []
         for i in range(1, days + 1):
             timedelta_front = datetime.timedelta(days=i)
@@ -131,7 +131,7 @@ def recentGreenDataAPI(request, days):
             sum_of_day = 0
             for q in queryset:
                 sum_of_day += q.quantity
-            date_str = (today - datetime.timedelta(i)).strftime("%m%d")
+            date_str = (today - datetime.timedelta(days=i + 3)).strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
         data.reverse()
 
@@ -144,6 +144,7 @@ def recentGreenDataAPI(request, days):
 
 class allCarbonItemsAPI(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, format=None):
         user = request.user
         my_items = CarbonItem.objects.all()
