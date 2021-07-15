@@ -4,6 +4,7 @@ import { Container } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import { ThemeConsumer } from "styled-components";
 import TextField from '@material-ui/core/TextField';
+import { Grid } from "@material-ui/core";
 
 function getCookie(name) {
     let cookieValue = null;
@@ -94,7 +95,13 @@ class EditProfilePage extends React.Component {
                 'x-csrftoken': csrftoken
             },
             mode: "cors",
-            credentials: "include"
+            credentials: "include",
+            body: JSON.stringify({
+                "username": this.state.username,
+                "email": this.state.email,
+                "first_name": this.state.first_name,
+                "last_name": this.state.last_name,
+            })
         };
         console.log("Requesting User data for Editing Profile");
 
@@ -102,13 +109,6 @@ class EditProfilePage extends React.Component {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({
-                    username: data['username'],
-                    email: data['email'],
-                    first_name: data['first_name'],
-                    last_name: data['last_name'],
-                })
-                console.log(this.state)
             })
             .catch(error => {
                 console.log(error);
@@ -117,48 +117,58 @@ class EditProfilePage extends React.Component {
     
     render() {
         return (
-        <Container>
+        <Container container>
            <Box mt={2}>
-            <TextField
-            required
-            id="standard-basic"
-            label="First Name"
-            variant="standard"
-            value={this.state.first_name}
-            onChange={this.onChangeFirstName.bind(this)}
-            >
-            </TextField>
-            <TextField
+            <Grid container spacing={0}>
+            <Grid item md={6} xs={12}>
+                <TextField
                 required
                 id="standard-basic"
-                label="Last Name" 
+                label="First Name"
                 variant="standard"
-                value={this.state.last_name}
-                onChange={this.onChangeLastName.bind(this)}
-            >
-            </TextField>
-            <TextField
-                id="filled-read-only-input"
-                label="Username" 
-                InputProps={{
-                    readOnly: true,
-                }}
-                variant="filled"
-                value={this.state.username}
-                onChange={this.onChangeUserName.bind(this)}
-            >
-            </TextField>
-            <TextField
-                id="filled-read-only-input"
-                label="Email"
-                InputProps={{
-                    readOnly: true,
-                }}
-                variant="filled"
-                value={this.state.email}
-                onChange={this.onChangeEmail.bind(this)}
-            >
-            </TextField>
+                value={this.state.first_name}
+                onChange={this.onChangeFirstName.bind(this)}
+                >
+                </TextField>
+            </Grid>
+            <Grid item md={6} xs={12}>
+                <TextField
+                    required
+                    id="standard-basic"
+                    label="Last Name" 
+                    variant="standard"
+                    value={this.state.last_name}
+                    onChange={this.onChangeLastName.bind(this)}
+                >
+                </TextField>
+            </Grid>
+            <Grid item md={6} xs={12}>
+                <TextField
+                    id="filled-read-only-input"
+                    label="Username" 
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    value={this.state.username}
+                    onChange={this.onChangeUserName.bind(this)}
+                >
+                </TextField>
+            </Grid>
+            <Grid item md={6} xs={12}>
+                <TextField
+                    id="filled-read-only-input"
+                    label="Email"
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    value={this.state.email}
+                    onChange={this.onChangeEmail.bind(this)}
+                >
+                </TextField>
+            </Grid>
+            </Grid>
         </Box>
         </Container>
         )
