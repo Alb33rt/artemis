@@ -140,7 +140,7 @@ export default function GreenEntryPage() {
     return (
         <ThemeProvider theme={Theme}>
             <Box m={7}>
-            <Container maxWidth="1g">
+            <Container maxWidth="lg">
                 
                 <Grid container spacing={10}>
                     <Grid item xs={7}>
