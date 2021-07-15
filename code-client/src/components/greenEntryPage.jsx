@@ -202,10 +202,7 @@ export default function GreenEntryPage() {
                                 </Dialog>
                             </Grid>
                         </Grid>
-
-
                     </Grid>
-
                 </Container>
             </Box>
         </ThemeProvider>
