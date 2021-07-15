@@ -12,6 +12,11 @@ urlpatterns = [
     path("create-carbon", views.AddCarbonEntriesAPI.as_view(), name="create-carbon"),
     path("create-green", views.AddGreenEntriesAPI.as_view(), name="create-green"),
     path(
+        "recent-combine-entries/<int:days>",
+        views.recentCombinedDataAPI,
+        name="recent-combine-entries",
+    ),
+    path(
         "recent-carbon-entries/<int:days>/",
         views.recentCarbonDataAPI,
         name="recent-carbon-entries",

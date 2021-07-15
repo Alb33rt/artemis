@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
+import { toast } from "react-toastify";
 
 class Logout extends React.Component {
     _isMounted = false;
@@ -46,6 +47,8 @@ class Logout extends React.Component {
                 this.setState(
                     {loading: false}
                 )
+                toast("You have signed out of Artemis.")
+
                 history.push("/");
             })
             .catch(error => {

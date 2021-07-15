@@ -23,6 +23,7 @@ import { Link, Typography } from "@material-ui/core";
 import { withRouter } from "react-router";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -170,7 +171,12 @@ class Dashboard extends React.Component {
             .then(data => {
                 this.setState(
                     { weekEmissions: data }
+                    
                 )
+                const today_emissions = data["6"]["emissions"]
+                if (today_emissions > 0) {
+                toast.warn("You have accumulated " + today_emissions + " g of Carbon Emissions. Get to work to save Earth!");
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -348,7 +354,7 @@ class Dashboard extends React.Component {
                                     valueField="green"
                                     argumentField="days"
                                 />
-                                <Title text="This Week's Overview" />
+                                <Title text="This Week's Greenlife Overview" />
                                 <Animation />
                             </Chart>
                         </Paper>
@@ -365,7 +371,7 @@ class Dashboard extends React.Component {
                                     valueField="emissions"
                                     argumentField="days"
                                 />
-                                <Title text="The Last 3 Days' Overview" />
+                                <Title text="Within 3 Days" />
                                 <Animation />
                             </Chart>
                         </Paper>
@@ -382,13 +388,20 @@ class Dashboard extends React.Component {
                                     valueField="emissions"
                                     argumentField="days"
                                 />
-                                <Title text="This Month's Overview" />
+                                <Title text="Within this month" />
                                 <Animation />
                             </Chart>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <TableContainer component={Paper}>
+                            <Container container>
+                                <Box mt={4}>
+                                <Typography variant="h6">
+                                    Recent Carbon Entries
+                                </Typography>
+                                </Box>
+                            </Container>
                             <Table className={classes.table} aria-label="simple table" style={{ marginTop: "5%" }}>
                                 <TableHead>
                                     <TableRow>

@@ -130,9 +130,55 @@ def recentGreenDataAPI(request, days):
             )
             sum_of_day = 0
             for q in queryset:
-                sum_of_day += q.quantity
+                amount_of_item = q.quantity
+                emission = q.get_emissions
+                sum_of_day += amount_of_item * int(emission)
             date_str = (today - datetime.timedelta(i + 1)).strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
+        data.reverse()
+
+    except GreenEntry.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        print("Authenticated")
+        return Response(data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def recentConbinedDataAPI(request, days):
+    try:
+        today = datetime.date.today() + datetime.timedelta(1)
+        data = []
+        for i in range(1, days + 1):
+            timedelta_front = datetime.timedelta(days=i)
+            timedelta_rear = datetime.timedelta(days=(i + 1))
+            Greenqueryset = GreenEntry.objects.filter(
+                time_created__lte=today - timedelta_front,
+                time_created__gt=today - timedelta_rear,
+                owner=request.user,
+            )
+            green_sum = 0
+            for q in Greenqueryset:
+                amount_of_item = q.quantity
+                emission = q.get_emissions
+                green_sum += amount_of_item * int(emission)
+
+            Carbonqueryset = CarbonEntry.objects.filter(
+                time_created__lte=today - timedelta_front,
+                time_created__gt=today - timedelta_rear,
+                owner=request.user,
+            )
+            carbon_sum = 0
+            for q in Carbonqueryset:
+                amount_of_item = q.quantity
+                emission = q.get_emissions
+                carbon_sum += amount_of_item * int(emission)
+
+            date_str = (today - datetime.timedelta(i + 1)).strftime("%m%d")
+            data.append(
+                {"days": date_str, "emissions": carbon_sum, "oxygen": green_sum}
+            )
         data.reverse()
 
     except GreenEntry.DoesNotExist:
