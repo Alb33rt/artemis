@@ -101,7 +101,7 @@ def recentCarbonDataAPI(request, days):
                 amount_of_item = q.quantity
                 emission = q.get_emissions
                 sum_of_day += amount_of_item * int(emission)
-            date_str = (today - datetime.timedelta(i + 1)).strftime("%m%d")
+            date_str = (today - datetime.timedelta(i)).strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
         data.reverse()
 
@@ -131,7 +131,7 @@ def recentGreenDataAPI(request, days):
             sum_of_day = 0
             for q in queryset:
                 sum_of_day += q.quantity
-            date_str = (today - datetime.timedelta(days=i + 1)).strftime("%m%d")
+            date_str = (today - datetime.timedelta(days=i)).strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
         data.reverse()
 
