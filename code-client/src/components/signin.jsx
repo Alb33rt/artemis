@@ -103,16 +103,16 @@ class SignIn extends React.Component {
         this.setState({
           token: data['token']
         })
-        if (this.state.rememberMe) {
+      /*  if (this.state.rememberMe) {*/
           localStorage.setItem("Authentication", "Token " + data['token']);
           localStorage.setItem('isAuthenticated', true);
           localStorage.setItem('isLoggedIn', true);
-        }
+     /*   }
         else {
           this.setWithExpiry("Authentication", "Token " + data['token']);
           localStorage.setItem('isAuthenticated', true);
           localStorage.setItem('isLoggedIn', true);
-        }
+        }*/
         console.log(data['token'])
         if (data['token']) {
           history.push('/dashboard')

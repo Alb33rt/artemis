@@ -169,11 +169,7 @@ export default function CarbonEntryPage() {
                 }
                 itemList=result
                 setItemListFinal(itemList);
-<<<<<<< HEAD
-                console.log(item);
-=======
                 setItemObjectList(data)
->>>>>>> 9a44929 (fuck aaron)
             })
             .catch(error => {
                 console.log(error);

@@ -74,6 +74,12 @@ class Dashboard extends React.Component {
             weekEmissions: Array(7),
             threeDayEmission: Array(3),
             monthEmission: Array(30),
+            weekGreen: Array(7),
+            threeDayGreen: Array(3),
+            monthGreen: Array(30),
+            weekCombined: Array(7),
+            threeCombined: Array(3),
+            monthCombined: Array(30),
             carbonEntries: [],
         };
     }
@@ -83,6 +89,10 @@ class Dashboard extends React.Component {
         this.get3DayEmission();
         this.getMonthEmission();
         this.getWeekEmission();
+        this.get3DayGreen();
+        this.getMonthGreen();
+        this.getWeekGreen();
+        this.combineData();
     }
 
     redirectToHome() {
@@ -94,7 +104,23 @@ class Dashboard extends React.Component {
         const { history } = this.props;
         history.push('/carbonEntryPage')
     }
-
+    combineData(){
+        const result={};
+        let key;
+        for (key in this.state.weekEmissions) {
+            if(this.state.weekEmissions.hasOwnProperty(key)){
+              result[key] = this.state.weekEmissions[key];
+            }
+          }
+          
+          for (key in this.state.weekGreen) {
+            if(this.state.weekGreen.hasOwnProperty(key)){
+              result[key] = this.state.weekGreen[key];
+            }
+          }
+        console.log("temp dict");
+        console.log(result);
+    }
     getMonthEmission() {
         const requestOptions = {
             method: 'GET',
@@ -179,6 +205,90 @@ class Dashboard extends React.Component {
             });
     }
 
+    getMonthGreen() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "GET",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get month emission data");
+
+        fetch('http://localhost:8000/api-carbon/recent-green-entries/30/', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    monthGreen:data
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    getWeekGreen() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "GET",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get week emission data ");
+
+        fetch('http://localhost:8000/api-carbon/recent-green-entries/7/', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                this.setState(
+                    { weekGreen: data }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    get3DayGreen() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "GET",
+                "Origin": "https://127.0.0.1:3000",
+                "Authorization": localStorage.getItem("Authentication"),
+                'x-csrftoken': csrftoken
+            },
+            mode: "cors",
+            credentials: "include"
+        };
+        console.log("get 3 day emission data");
+
+        fetch('http://localhost:8000/api-carbon/recent-green-entries/3/', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    threeDayGreen: data
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     getCarbonEntry() {
         const requestOptions = {
             method: 'POST',
@@ -232,6 +342,10 @@ class Dashboard extends React.Component {
 
                                 <BarSeries
                                     valueField="emissions"
+                                    argumentField="days"
+                                />
+                                <BarSeries
+                                    valueField="green"
                                     argumentField="days"
                                 />
                                 <Title text="This Week's Overview" />
