@@ -120,6 +120,7 @@ function NavBar() {
     const handleDrawerClose = () => {
       setOpen(false);
     };
+    
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>

@@ -33,46 +33,60 @@ const csrftoken = getCookie('csrftoken');
 
 
 function checkLogin() {
-  const requestOptions = {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          "Access-Control-Request-Method": "POST",
-          "Origin": "https://127.0.0.1:3000",
-          "Authorization": localStorage.getItem("Authentication"),
-          'x-csrftoken': csrftoken
-      },
-      mode: "cors",
-      credentials: "include"
-  };
-  console.log("sending POST request");
-  console.log(localStorage.getItem("Authentication"))
+  if (localStorage.getItem('isLoggedIn')) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Access-Control-Request-Method": "POST",
+            "Origin": "https://127.0.0.1:3000",
+            "Authorization": localStorage.getItem("Authentication"),
+            'x-csrftoken': csrftoken
+        },
+        mode: "cors",
+        credentials: "include"
+    };
+    console.log("sending POST request");
+    console.log(localStorage.getItem("Authentication"))
 
-  fetch('http://localhost:8000/api-login/auth-check', requestOptions)
-      .then(response => response.json())
-      .then(data => {
+    fetch('http://localhost:8000/api-login/auth-check', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          console.log("setting status to true")
           console.log(data);
           localStorage.setItem('isLoggedIn', true)
           localStorage.setItem('isAuthenticated', true)
+          if (data['detail']) {
+            localStorage.setItem('isLoggedIn', false)
+            localStorage.setItem('isAuthenticated', false)
+          }
+          
           const status = localStorage.getItem('isLoggedIn')
           console.log(status)
           if (localStorage.getItem('isLoggedIn')) {
             toast.info("Your Artemis app has your login saved and will automatically signin when you open the app.")
-          } else {
-          }
-      })
-      .catch(error => {
-          console.log(error);
-          localStorage.setItem('isLoggedIn', false)
-          localStorage.setItem('isAuthenticated', false)
-      });
+            return true;
+          } 
+        })
+        .catch(error => {
+            console.log(error);
+            localStorage.setItem('isLoggedIn', false)
+            localStorage.setItem('isAuthenticated', false)
+            console.log('failed')
+            return false;
+        });
+      }
 }
 
 function App() {
+  const [ loggedIn, setLoggedIn ] = useState(false);
+
   useEffect(() => {
-    checkLogin();
+    const status = checkLogin();
+    console.log(status);
 }, []); 
+
   return (
     <div className="App">
       <ToastContainer draggable={false} transition={Zoom}/>
@@ -82,9 +96,13 @@ function App() {
           <Route path="/" exact component={()=> <Home/>}/>
           <Route path="/signin" exact component={() => <SignIn />} />
           <Route path="/signup" exact component={() => <SignUp />} />
-          <Route path="/dashboard" exact component={() => <Dashboard/>} />
+          <Route path="/dashboard">
+            { loggedIn ? <Dashboard /> : <Redirect to="/signin" />}
+          </Route>
           <Route path="/logout" exact component={() => <Logout/>} />
-          <Route path="/carbonEntryPage" exact component={() => <CarbonEntryPage/>} />
+          <Route path="/carbonEntryPage">
+            { loggedIn ? <CarbonEntryPage /> : <Redirect to="/signin" />}
+          </Route>
           <Route path="/greenEntryPage" exact component={() => <GreenEntryPage/>} />
           <Route path="/donation" exact component={() => <Donation/>} />
           <Route path="/contactus" exact component={() => <Contactus/>} />
