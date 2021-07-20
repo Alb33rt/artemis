@@ -128,8 +128,6 @@ class Dashboard extends React.Component {
                 result[key] = this.state.weekGreen[key];
             }
         }
-        console.log("temp dict");
-        console.log(JSON.stringify(result));
     }
     getMonthEmission() {
         const requestOptions = {
@@ -145,7 +143,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get month emission data");
 
         fetch('http://localhost:8000/api-carbon/recent-carbon-entries/30/', requestOptions)
             .then(response => response.json())
@@ -173,7 +170,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get week emission data ");
 
         fetch('http://localhost:8000/api-carbon/recent-carbon-entries/7/', requestOptions)
             .then(response => response.json())
@@ -208,7 +204,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get 3 day emission data");
 
         try {
         fetch('http://localhost:8000/api-carbon/recent-carbon-entries/3/', requestOptions)
@@ -240,7 +235,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get month emission data");
 
         fetch('http://localhost:8000/api-carbon/recent-green-entries/30/', requestOptions)
             .then(response => response.json())
@@ -268,7 +262,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get week emission data ");
 
         fetch('http://localhost:8000/api-carbon/recent-green-entries/7/', requestOptions)
             .then(response => response.json())
@@ -296,7 +289,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get 3 day emission data");
 
         fetch('http://localhost:8000/api-carbon/recent-green-entries/3/', requestOptions)
             .then(response => response.json())
@@ -324,7 +316,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get carbon entries");
 
         fetch('http://localhost:8000/api-carbon/carbon-logs', requestOptions)
             .then(response => response.json())
@@ -332,8 +323,6 @@ class Dashboard extends React.Component {
                 this.setState({
                     carbonEntries: data
                 })
-                console.log("Recieved Recent Carbon Entries.")
-                console.log(this.state.carbonEntries)
             })
             .catch(error => {
                 console.log(error);
@@ -355,7 +344,6 @@ class Dashboard extends React.Component {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get carbon entries");
 
         fetch('http://localhost:8000/api-carbon/recent-combine-entries/3', requestOptions)
             .then(response => response.json())
@@ -363,8 +351,6 @@ class Dashboard extends React.Component {
                 this.setState({
                     threeCombined: data,
                 })
-                console.log("Recieved Recent Combined Entries.")
-                console.log(this.state.threeCombined)
             })
             .catch(error => {
                 console.log(error);

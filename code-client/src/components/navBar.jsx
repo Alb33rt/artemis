@@ -82,9 +82,7 @@ function LoginInterface(props) {
 
 function LogoutInterface(props) {
     const { setLoginState } = props;
-    useEffect(() => {
-        console.log(setLoginState)
-    }, [])
+
     const logoutRequest = (e) => {
         e.preventDefault();
         const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -92,7 +90,6 @@ function LogoutInterface(props) {
             const { history } = props;
             let logoutConfirm = window.confirm("Are you sure you want to log out?");
             if (!logoutConfirm) {
-                history.push('/dashboard')
                 return false;
             }
             const requestOptions = {
@@ -106,7 +103,7 @@ function LogoutInterface(props) {
             body: JSON.stringify({
             })
             };
-            console.log("Sending GET Request to Server....");
+            console.log("Logging User Out through API");
 
             fetch('http://localhost:8000/api-login/logout', requestOptions)
             .then(res => res.json())
@@ -139,7 +136,7 @@ function LogoutInterface(props) {
                 color="inherit"
                 style={{ left: '80%' }}
                 component={Link}
-                to="/d  ashboard"
+                to="/dashboard"
                 >
                 <AccountCircle />
                 </IconButton>
@@ -150,10 +147,6 @@ function LogoutInterface(props) {
 function NavInterface(props) {
     const { setLoginState } = props;
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-
-    useEffect(() => {
-        console.log(setLoginState)
-    }, [])
 
     if (isLoggedIn === "true") {
         return <LogoutInterface setLoginState={setLoginState}/>
@@ -174,10 +167,6 @@ function NavBar(props) {
     const handleDrawerClose = () => {
       setOpen(false);
     };
-
-    useEffect(() => {
-        console.log(setLoginState)
-    },[])
 
     return (
         <ThemeProvider theme={theme}>

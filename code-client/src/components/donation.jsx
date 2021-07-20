@@ -22,6 +22,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Frog from '../images/frog.jpg'
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Redirect } from 'react-router';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -102,6 +103,7 @@ const csrftoken = getCookie('csrftoken');
 const SubmitDonation = (props) => {
     const properties = props
     const [open, setOpen] = React.useState(false);
+    const [donated, setDonation] = React.useState(false);
   
     const handleClickOpen = () => {
       setOpen(true);
@@ -112,8 +114,9 @@ const SubmitDonation = (props) => {
     };
 
     function handleAgree(props) {
+        const history = props.history;
         setOpen(false);
-        console.log(properties.firstname)
+        console.log(properties)
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -134,17 +137,24 @@ const SubmitDonation = (props) => {
                 "quantity": properties.quantity,
             })
         };
-        console.log("sending POST request");
+        console.log("Sending Credentials to API");
 
         fetch('http://localhost:8000/api-donation/donate', requestOptions)
           .then(response=>response.json())
           .then(data => {
               console.log(data)
+              console.log("Donation Completed.")
+              window.alert("Thank you for your donation!")
+              setDonation(true);
           })
           .catch(error => {
             console.log(error);
         });
     };
+
+    if (donated) {
+        return <Redirect to="/dashboard" />
+    }
     
     return (
       <div>

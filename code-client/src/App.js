@@ -46,12 +46,10 @@ function checkLogin() {
     };
     console.log("Requesting Authentication from API");
     console.log(`Current User Login Status: ${localStorage.getItem('isLoggedIn')}`)
-    console.log(localStorage.getItem("Authentication"))
 
     fetch('http://localhost:8000/api-login/auth-check', requestOptions)
         .then(response => response.json())
         .then(data => {
-          console.log(data['auth']);
 
           localStorage.setItem('isLoggedIn', true)
           localStorage.setItem('isAuthenticated', true)
@@ -72,7 +70,7 @@ function checkLogin() {
             console.log(error);
             localStorage.setItem('isLoggedIn', false)
             localStorage.setItem('isAuthenticated', false)
-            console.log('failed')
+            console.log('Authentication Error')
             return false
         });
 }
@@ -98,17 +96,13 @@ class App extends React.Component {
   // // //   return false
   // }
   componentDidUpdate() {
-    console.log("Token is: " + localStorage.getItem('Authentication'))
-    console.log("Loading App...")
-    console.log(`Login Status: ${this.state.isLoggedIn}`)
+    console.log("Loading App... (Updating)")
   }
 
   componentDidMount() {
     checkLogin();
     this.setLoginState();
-    console.log("Token is: " + localStorage.getItem('Authentication'))
-    console.log("Loading App...")
-    console.log(`Login Status: ${this.state.isLoggedIn}`)
+    console.log("Loading App... (Mounting)")
   }
 
   render() {
@@ -116,7 +110,7 @@ class App extends React.Component {
     if (localStorage.getItem('isLoggedIn') === "true") {
       isLoggedIn = true;
     }
-    console.log(`Updating 3 Login State: ${isLoggedIn}`);
+    console.log(`Updating Login State: ${isLoggedIn}`);
 
     return (
     <div className="App">
