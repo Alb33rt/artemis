@@ -1,15 +1,13 @@
-import React , { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { makeStyles, ThemeProvider, styled } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container'
 import Hidden from '@material-ui/core/Hidden'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -19,8 +17,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { Theme } from '../colorTheme.js';
+import { toast } from "react-toastify";
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import NaturePeopleIcon from '@material-ui/icons/NaturePeople';
@@ -83,9 +81,57 @@ function LoginInterface(props) {
 }
 
 function LogoutInterface(props) {
+    const { setLoginState } = props;
+    useEffect(() => {
+        console.log(setLoginState)
+    }, [])
+    const logoutRequest = (e) => {
+        e.preventDefault();
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn) {
+            const { history } = props;
+            let logoutConfirm = window.confirm("Are you sure you want to log out?");
+            if (!logoutConfirm) {
+                history.push('/dashboard')
+                return false;
+            }
+            const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                "Access-Control-Request-Method": "POST",
+                "Authorization": localStorage.getItem("Authentication")
+            },
+            body: JSON.stringify({
+            })
+            };
+            console.log("Sending GET Request to Server....");
+
+            fetch('http://localhost:8000/api-login/logout', requestOptions)
+            .then(res => res.json())
+            .then( (result) => {
+                console.log(result);
+                localStorage.removeItem("Authentication");
+                localStorage.setItem('isAuthenticated', false);
+                localStorage.setItem('isLoggedIn', false);  
+                toast("You have signed out of Artemis.")
+
+                // handleClick();
+                setLoginState();
+                history.push("/");
+            })
+            .catch(error => {
+                console.log(error)
+                // this.handleClick();
+                setLoginState();
+        });
+        }
+    }
+
     return (
             <Hidden smDown>
-                <Button variant="contained" color="primary" component={Link} to="/logout" style={{ left: '78%' }}>Log Out</Button>
+                <Button variant="contained" color="primary" onClick={logoutRequest} style={{ left: '78%' }}>Log Out</Button>
                 <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -93,7 +139,7 @@ function LogoutInterface(props) {
                 color="inherit"
                 style={{ left: '80%' }}
                 component={Link}
-                to="/dashboard"
+                to="/d  ashboard"
                 >
                 <AccountCircle />
                 </IconButton>
@@ -102,17 +148,25 @@ function LogoutInterface(props) {
 }
 
 function NavInterface(props) {
+    const { setLoginState } = props;
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn == "true") {
-        return <LogoutInterface />
+
+    useEffect(() => {
+        console.log(setLoginState)
+    }, [])
+
+    if (isLoggedIn === "true") {
+        return <LogoutInterface setLoginState={setLoginState}/>
     }
     return <LoginInterface />
 }
 
-function NavBar() {
+function NavBar(props) {
+    const { setLoginState } = props;
     const theme = Theme;
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
     const [open, setOpen] = React.useState(false);
-  
+
     const handleDrawerOpen = () => {
       setOpen(true);
     };
@@ -120,21 +174,26 @@ function NavBar() {
     const handleDrawerClose = () => {
       setOpen(false);
     };
-    
+
+    useEffect(() => {
+        console.log(setLoginState)
+    },[])
+
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
                         <Container maxWidth="lg">
+                            { isLoggedIn && 
                                 <IconButton edge="start" className={classes.menuButton}  onClick={handleDrawerOpen} color="inherit" aria-label="menu">
                                     <MenuIcon />
-                                </IconButton>
+                                </IconButton> }
                             <Button color="secondary" className={classes.title} to="/" component={Link}>
                                 Artemis 
                             </Button>
                             
-                            <NavInterface />
+                            <NavInterface setLoginState={setLoginState}/>
                         </Container>
                     </Toolbar>
                 </AppBar>

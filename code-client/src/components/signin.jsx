@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -39,6 +39,7 @@ class SignIn extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleClick.bind(this)
     this.state = {
       emailAddress: "",
       username: "",
@@ -73,6 +74,10 @@ class SignIn extends React.Component {
     })
     console.log(this.state.rememberMe)
   }
+  handleClick = () => { 
+    this.props.setLoginState();
+  }
+
   setWithExpiry(key, value) {
     const now = new Date()
     const item = {
@@ -82,6 +87,7 @@ class SignIn extends React.Component {
     localStorage.setItem(key, JSON.stringify(item))
   }
   postRequest(e) {
+    e.preventDefault();
     const { history } = this.props;
     const requestOptions = {
       method: 'POST',
@@ -104,23 +110,23 @@ class SignIn extends React.Component {
         this.setState({
           token: data['token']
         })
-          localStorage.setItem("Authentication", "Token " + data['token']);
-          localStorage.setItem('isAuthenticated', true);
-          localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem("Authentication", "Token " + data['token']);
+        localStorage.setItem('isAuthenticated', true);
+        localStorage.setItem('isLoggedIn', true);
+
         console.log(data['token'])
         if (data['token']) {
           toast.success("You are logged in!");
+          this.handleClick();
           history.push('/dashboard')
         } else {
           console.log("Login Failed, please double check your Username or Password.") 
-          this.setState(
-            {
-            }
-          )
+          localStorage.setItem('isLoggedIn', false)
         }
       })
       .catch(error => {
         console.log(error);
+        this.handleClick();
         toast.warn("Error. Please Try Again. Or check your Username & Password as they may be incorrect")
       });
   }

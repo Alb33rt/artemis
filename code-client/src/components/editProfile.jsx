@@ -1,16 +1,12 @@
 import React from "react";
 import { withRouter } from "react-router";
-import { Container, FormHelperText, FormLabel, Typography } from "@material-ui/core";
+import { Container, FormHelperText, Typography } from "@material-ui/core";
 import { Box } from "@material-ui/core";
-import { ThemeConsumer } from "styled-components";
 import TextField from '@material-ui/core/TextField';
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { FormControl } from "@material-ui/core";
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import { Button } from "@material-ui/core";
-import { Dialog } from "@material-ui/core";
-import { DialogTitle, DialogContent, DialogContentText, DialogActions } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {

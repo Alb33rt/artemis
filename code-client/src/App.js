@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Home, NavBar, SignIn, SignUp, Dashboard, Logout, Donation, CarbonEntryPage, Contactus, GreenEntryPage, EditProfilePage
  } from "./components";
-import { withRouter } from "react-router";
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function getCookie(name) {
@@ -33,7 +31,6 @@ const csrftoken = getCookie('csrftoken');
 
 
 function checkLogin() {
-  if (localStorage.getItem('isLoggedIn')) {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -47,26 +44,28 @@ function checkLogin() {
         mode: "cors",
         credentials: "include"
     };
-    console.log("sending POST request");
+    console.log("Requesting Authentication from API");
+    console.log(`Current User Login Status: ${localStorage.getItem('isLoggedIn')}`)
     console.log(localStorage.getItem("Authentication"))
 
     fetch('http://localhost:8000/api-login/auth-check', requestOptions)
         .then(response => response.json())
         .then(data => {
-          console.log("setting status to true")
-          console.log(data);
+          console.log(data['auth']);
+
           localStorage.setItem('isLoggedIn', true)
           localStorage.setItem('isAuthenticated', true)
-          if (data['detail']) {
+
+          if (!localStorage.getItem("Authentication")) {
+            console.log("System detected that user is not logged in. Authentication Failed.")
             localStorage.setItem('isLoggedIn', false)
             localStorage.setItem('isAuthenticated', false)
-          }
-          
-          const status = localStorage.getItem('isLoggedIn')
-          console.log(status)
-          if (localStorage.getItem('isLoggedIn')) {
+            toast.info("Please login to use the app.")
+            return false
+          } else {
+            console.log("System has authenticated user, you are free to redirect to any page.")
             toast.info("Your Artemis app has your login saved and will automatically signin when you open the app.")
-            return true;
+            return true
           } 
         })
         .catch(error => {
@@ -74,43 +73,84 @@ function checkLogin() {
             localStorage.setItem('isLoggedIn', false)
             localStorage.setItem('isAuthenticated', false)
             console.log('failed')
-            return false;
+            return false
         });
-      }
 }
 
-function App() {
-  const [ loggedIn, setLoggedIn ] = useState(false);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setLoginState.bind(this);
+    this.state = {
+      isLoggedIn: localStorage.getItem('isLoggedIn'),
+    }
+  }
 
-  useEffect(() => {
-    const status = checkLogin();
-    console.log(status);
-}, []); 
+  setLoginState() {
+    this.setState({isLoggedIn:localStorage.getItem('isLoggedIn')})
+  }
 
-  return (
+  // shouldComponentUpdate() {
+  //   checkLogin()
+  //   console.log(this.state.isLoggedIn)
+  //   this.render();
+  // //   console.log(`Updating 1 Login State: ${this.state.isLoggedIn}`);
+  // // //   return false
+  // }
+  componentDidUpdate() {
+    console.log("Token is: " + localStorage.getItem('Authentication'))
+    console.log("Loading App...")
+    console.log(`Login Status: ${this.state.isLoggedIn}`)
+  }
+
+  componentDidMount() {
+    checkLogin();
+    this.setLoginState();
+    console.log("Token is: " + localStorage.getItem('Authentication'))
+    console.log("Loading App...")
+    console.log(`Login Status: ${this.state.isLoggedIn}`)
+  }
+
+  render() {
+    let isLoggedIn = false
+    if (localStorage.getItem('isLoggedIn') === "true") {
+      isLoggedIn = true;
+    }
+    console.log(`Updating 3 Login State: ${isLoggedIn}`);
+
+    return (
     <div className="App">
       <ToastContainer draggable={false} transition={Zoom}/>
       <Router>
-        <NavBar/>
+        <NavBar setLoginState={this.setLoginState.bind(this)}/>
         <Switch>
           <Route path="/" exact component={()=> <Home/>}/>
-          <Route path="/signin" exact component={() => <SignIn />} />
-          <Route path="/signup" exact component={() => <SignUp />} />
+          <Route path="/signin" exact component={() => <SignIn setLoginState={this.setLoginState.bind(this)}/>} />
+          <Route path="/signup" exact component={() => <SignUp setLoginState={this.setLoginState.bind(this)}/>} />
           <Route path="/dashboard">
-            { loggedIn ? <Dashboard /> : <Redirect to="/signin" />}
+            { isLoggedIn ? <Dashboard /> : <Redirect to="/signin" /> }
           </Route>
-          <Route path="/logout" exact component={() => <Logout/>} />
+          <Route path="/logout" exact component={() => 
+          <Logout setLoginState={this.setLoginState.bind(this)}/>  }
+           />
           <Route path="/carbonEntryPage">
-            { loggedIn ? <CarbonEntryPage /> : <Redirect to="/signin" />}
+            { isLoggedIn ? <CarbonEntryPage /> : <Redirect to="/signin" />}
           </Route>
-          <Route path="/greenEntryPage" exact component={() => <GreenEntryPage/>} />
-          <Route path="/donation" exact component={() => <Donation/>} />
+          <Route path="/greenEntryPage">
+            { isLoggedIn ? <GreenEntryPage /> : <Redirect to="/signin" />}
+          </Route>
+          <Route path="/donation">
+            { isLoggedIn ? <Donation /> : <Redirect to="/signin" />}
+          </Route>
           <Route path="/contactus" exact component={() => <Contactus/>} />
-          <Route path="/profile" exact component={()=> <EditProfilePage/>} />
+          <Route path="/profile">
+            { isLoggedIn ? <EditProfilePage /> : <Redirect to="/signin" />}
+          </Route>
         </Switch>
       </Router>
     </div>
-  );
+    )
+  };
 }
 
 export default App;

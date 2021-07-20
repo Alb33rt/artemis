@@ -44,7 +44,7 @@ class AuthCheckAPI(APIView):
     permission_classes = [ IsAuthenticated ]
     def post(self, request, format=None):
         data = {}
-        data['response'] = "Authentication Success"
+        data['auth'] = True
         return Response(data, status=status.HTTP_202_ACCEPTED)
 
 class EditProfileAPI(APIView):

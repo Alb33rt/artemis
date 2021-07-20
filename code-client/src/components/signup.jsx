@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +10,6 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Theme } from '../colorTheme';
 import { withRouter } from 'react-router-dom';
-import { Redirect } from "react-router";
 import { toast } from "react-toastify";
 
 
@@ -41,6 +40,7 @@ class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleClick.bind(this);
     this.state = {
       userName: "",
       emailAddress: "",
@@ -82,7 +82,11 @@ class SignUp extends React.Component {
     }
     localStorage.setItem(key, JSON.stringify(item))
   }
+  handleClick = () => {
+    return this.props.setLoginState();
+  }
   postRequest(e) {
+    e.preventDefault()
     const { history } = this.props;
     const requestOptions = {
       method: 'POST',
@@ -103,6 +107,7 @@ class SignUp extends React.Component {
     fetch('http://localhost:8000/api-login/register', requestOptions)
       .then(response => response.json())
       .then(data => {
+        this.handleClick();
         this.setState({
           token: data['token']
         })
@@ -113,6 +118,7 @@ class SignUp extends React.Component {
         history.push("/dashboard");
       })
       .catch(error => {
+        this.handleClick();
         console.log(error);
         toast.warn("Registration failure. Please try again.")
       });

@@ -1,25 +1,20 @@
 import React from "react";
 import Container from '@material-ui/core/Container';
-import styled, { css } from 'styled-components/macro'
 import forestImage from '../images/forest.png';
 import { withRouter } from "react-router";
-import PropTypes from 'prop-types';
 import { makeStyles, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import { Theme } from "../colorTheme";
 import intro from '../images/Introduction.jpg'
 import deforestation from '../images/deforestation.jpg'
-import goals from '../images/15.b.png'
 import method from '../images/Method.jpg'
 import { Box } from "@material-ui/core";
 import Icon from '@material-ui/core/Icon';
 import SDG_imageA from '../images/icons/GOAL_15_TARGET_15.6.svg';
 import SDG_imageB from '../images/icons/GOAL_15_TARGET_15.B.svg';
 import SDG_imageC from '../images/icons/GOAL_15_TARGET_15.C.svg';
-import zIndex from "@material-ui/core/styles/zIndex";
 
 
 /*
@@ -97,22 +92,13 @@ const WhiteTypography = withStyles({
     }
 })(Typography);
 
-
 const classes = useStyles;
-
 class Home extends React.Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
             isAuthenticated: localStorage.getItem("isAuthenticated")
         }
-    }
-
-    componentDidMount() {
-        const { history } = this.props;
-        const loggedIn = localStorage.getItem('isLoggedIn');
     }
 
     render() {

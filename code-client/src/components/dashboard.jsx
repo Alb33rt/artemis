@@ -7,7 +7,6 @@ import {
     Title,
     ArgumentAxis,
     ValueAxis,
-    PieSeries,
 } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 import Fab from '@material-ui/core/Fab';
@@ -19,7 +18,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Link, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { withRouter } from "react-router";
 import { Grid } from "@material-ui/core";
 import { Box } from "@material-ui/core";
@@ -67,7 +66,6 @@ const csrftoken = getCookie('csrftoken');
 const classes = useStyles;
 class Dashboard extends React.Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -86,7 +84,10 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        this.checkLogin();
+        const { history } = this.props;
+        if (!localStorage.getItem('isLoggedIn')) {
+            history.push("/signin");
+        }
         this.getCarbonEntry();
         this.get3DayEmission();
         this.getMonthEmission();
@@ -95,6 +96,13 @@ class Dashboard extends React.Component {
         this.getMonthGreen();
         this.getWeekGreen();
         this.get3DayCombined();
+    }
+
+    checkLogin() {
+        const { history } = this.props;
+        if (!localStorage.getItem('isAuthenticated')) {
+            history.push("/signin");
+        }
     }
 
     redirectToHome() {
@@ -186,6 +194,7 @@ class Dashboard extends React.Component {
     }
 
     get3DayEmission() {
+        const { history } = this.props
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -201,6 +210,7 @@ class Dashboard extends React.Component {
         };
         console.log("get 3 day emission data");
 
+        try {
         fetch('http://localhost:8000/api-carbon/recent-carbon-entries/3/', requestOptions)
             .then(response => response.json())
             .then(data => {
@@ -211,6 +221,9 @@ class Dashboard extends React.Component {
             .catch(error => {
                 console.log(error);
             });
+        } catch {
+            history.push('/')
+        }
     }
 
     getMonthGreen() {
@@ -357,13 +370,6 @@ class Dashboard extends React.Component {
                 console.log(error);
             });
 
-    }
-
-    checkLogin() {
-        const { history } = this.props;
-        if (!localStorage.getItem('isLoggedIn') || !localStorage.getItem('isAuthenticated')) {
-            history.push("/signin");
-        }
     }
 
     render() {

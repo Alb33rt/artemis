@@ -1,17 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import Container from '@material-ui/core/Container';
-import styled, { css } from 'styled-components/macro'
-import backgroundImage from '../images/545792.jpg';
-import { withRouter } from "react-router";
-import PropTypes from 'prop-types';
-import { makeStyles, ThemeProvider, withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import { Theme } from "../colorTheme";
-import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -72,6 +65,9 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 export default function GreenEntryPage() {
+    let item = []
+    let itemList = []
+    let unitList = []
     const [itemListFinal, setItemListFinal] = useState(itemList);
     const [unitListFinal, setUnitListFinal] = useState(unitList);
     const [itemObjectList, setItemObjectList] = useState(item);
@@ -90,10 +86,6 @@ export default function GreenEntryPage() {
         setOpen(false);
     };
 
-    var item = []
-    var nameList = []
-    var itemList = []
-    var unitList = []
     function postEntry() {
         const requestOptions = {
             method: 'POST',
@@ -159,7 +151,6 @@ export default function GreenEntryPage() {
                     unitList.push(item[i]['unit']);
                 }
                 setUnitListFinal(unitList);
-                nameList = names
                 let result = []
                 for (let i = 0; i < item.length; i++) {
                     var dict = {}
@@ -170,6 +161,7 @@ export default function GreenEntryPage() {
                 itemList = result
                 setItemListFinal(itemList);
                 setItemObjectList(data)
+                return true
             })
             .catch(error => {
                 console.log(error);
