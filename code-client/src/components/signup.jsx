@@ -102,7 +102,7 @@ class SignUp extends React.Component {
         "password2": this.state.password2
       })
     };
-    console.log("sending POST request");
+    console.log("Registering User by Creating a Profile in the API");
 
     fetch('http://localhost:8000/api-login/register', requestOptions)
       .then(response => response.json())
@@ -111,10 +111,14 @@ class SignUp extends React.Component {
         this.setState({
           token: data['token']
         })
+        if (!data['token']) {
+          toast.warn("Registration failure. Please try again.")
+          return false
+        }
         this.setWithExpiry("Authentication", "Token " + data['token']);
-        localStorage.localStorage('isAuthenticated', true);
-        localStorage.localStorage('isLoggedIn', true);
-        toast.success("You have successfully registered! You are now redirected to the Dashboard.")
+        localStorage.setItem('isAuthenticated', true);
+        localStorage.setItem('isLoggedIn', true);
+        toast.success("You have successfully registered! You are now redirected to the Login.")
         history.push("/dashboard");
       })
       .catch(error => {

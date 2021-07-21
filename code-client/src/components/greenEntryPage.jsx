@@ -105,7 +105,7 @@ export default function GreenEntryPage() {
                 "item_involved": chosedItem['name'],
             })
         };
-        console.log("Sending POST request to create-carbon");
+        console.log("Creating Item through the API...");
 
         fetch('http://localhost:8000/api-carbon/create-green', requestOptions)
             .then(response => response.json())
@@ -134,14 +134,12 @@ export default function GreenEntryPage() {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get items");
         console.log(itemObjectList)
 
         fetch('http://localhost:8000/api-carbon/all-green-item', requestOptions)
             .then(response => response.json())
             .then(data => {
                 item = data
-                console.log("bla")
                 console.log(item)
                 let names = [];
                 let id = [];

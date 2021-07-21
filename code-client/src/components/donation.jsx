@@ -23,6 +23,7 @@ import Frog from '../images/frog.jpg'
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Redirect } from 'react-router';
+import { toast } from 'react-toastify';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -114,6 +115,11 @@ const SubmitDonation = (props) => {
     };
 
     function handleAgree(props) {
+        if (!properties.firstname || !properties.lastname || !properties.creditNum || !properties.expiration_year || !properties.expiration_month || !properties.confirm_code || !properties.quantity) {
+            toast.warn("The credentials entered caused an error. Please double check if you entered the correct values.")
+            setOpen(false);
+            return false
+        }
         const history = props.history;
         setOpen(false);
         console.log(properties)
@@ -143,7 +149,7 @@ const SubmitDonation = (props) => {
           .then(response=>response.json())
           .then(data => {
               console.log(data)
-              console.log("Donation Completed.")
+              console.log("Donation Completed. We are processing your purchase, it will take 2 work days for it to complete.")
               window.alert("Thank you for your donation!")
               setDonation(true);
           })
@@ -151,11 +157,9 @@ const SubmitDonation = (props) => {
             console.log(error);
         });
     };
-
     if (donated) {
         return <Redirect to="/dashboard" />
     }
-    
     return (
       <div>
         <Box m={10}></Box>

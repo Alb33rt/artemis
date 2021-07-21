@@ -83,9 +83,9 @@ class AddGreenEntriesAPI(APIView):
 @permission_classes([IsAuthenticated])
 def recentCarbonDataAPI(request, days):
     try:
-        today = datetime.date.today() + datetime.timedelta(1)
+        today = datetime.date.today() + datetime.timedelta(days=1)
         data = []
-        for i in range(1, days + 1):
+        for i in range(0, days):
             timedelta_front = datetime.timedelta(days=i)
             timedelta_rear = datetime.timedelta(days=(i + 1))
             queryset = CarbonEntry.objects.filter(
@@ -100,12 +100,15 @@ def recentCarbonDataAPI(request, days):
                 sum_of_day += amount_of_item * int(emission)
             date_str = (today - datetime.timedelta(i + 1)).strftime("%m%d")
             data.append({"days": date_str, "emissions": sum_of_day})
-        data.reverse()
+        data.reverse()  
 
     except CarbonEntry.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == "GET":
         print("Authenticated")
+        print(days)
+        print(data)
+        print(today)
         return Response(data, status=status.HTTP_202_ACCEPTED)
 
 

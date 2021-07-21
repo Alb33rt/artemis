@@ -394,7 +394,7 @@ class Dashboard extends React.Component {
                     <Grid item md={6} sm={12} xs={12}>
                         <Paper>
                             <Chart
-                                data={this.state.threeCombined}
+                                data={this.state.threeDayEmission}
                             >
                                 <ArgumentAxis />
                                 <ValueAxis />

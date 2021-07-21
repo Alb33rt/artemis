@@ -105,7 +105,7 @@ export default function CarbonEntryPage() {
                 "item_involved": chosedItem['name'],
             })
         };
-        console.log("Sending POST request to create-carbon");
+        console.log("Creating Carbon Entry through the API");
 
         fetch('http://localhost:8000/api-carbon/create-carbon', requestOptions)
             .then(response => response.json())
@@ -134,14 +134,13 @@ export default function CarbonEntryPage() {
             mode: "cors",
             credentials: "include"
         };
-        console.log("get items");
+        console.log("Retrieving Carbon Items through the API");
         console.log(itemObjectList)
 
         fetch('http://localhost:8000/api-carbon/all-carbon-item', requestOptions)
             .then(response => response.json())
             .then(data => {
                 item = data
-                console.log("bla")
                 console.log(item)
                 let names = [];
                 let id = [];
@@ -170,7 +169,7 @@ export default function CarbonEntryPage() {
     useEffect(() => {
         getItems();
     }, []);
-    
+
     return (
         <ThemeProvider theme={Theme}>
             <Box mt={7}>

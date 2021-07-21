@@ -72,7 +72,6 @@ class SignIn extends React.Component {
     this.setState({
       rememberMe: input.target.checked
     })
-    console.log(this.state.rememberMe)
   }
   handleClick = () => { 
     this.props.setLoginState();
@@ -102,7 +101,7 @@ class SignIn extends React.Component {
         "password": this.state.password,
       })
     };
-    console.log("sending POST request");
+    console.log("Signing in User through the API");
 
     fetch('http://localhost:8000/api-login/login', requestOptions)
       .then(response => response.json())
@@ -114,7 +113,6 @@ class SignIn extends React.Component {
         localStorage.setItem('isAuthenticated', true);
         localStorage.setItem('isLoggedIn', true);
 
-        console.log(data['token'])
         if (data['token']) {
           toast.success("You are logged in!");
           this.handleClick();
